@@ -5,11 +5,12 @@ import React, { useRef, useState } from "react";
 import Polaroid from "../../ui/Polaroid";
 
 const About: React.FC = () => {
-  const buttonRef = useRef<{ animate: () => void }>(null);
-  const [showButton, setShowButton] = useState(true);
-
   return (
-    <SectionWrapper withGrain grainOpacity={12} className="bg-beige-one w-screen flex items-center justify-center border-b-2 border-brown-two">
+    <SectionWrapper
+      withGrain
+      grainOpacity={12}
+      className="bg-beige-one w-screen flex items-center justify-center border-b-2 border-brown-two"
+    >
       <div className="w-full bg-blue rounded-2xl md:rounded-3xl px-4 py-8 md:p-8 lg:p-16 relative shadow-2xl border border-black overflow-hidden">
         {/* Grain overlay */}
         {/* <div
@@ -29,7 +30,7 @@ const About: React.FC = () => {
                 className="font-travel-november font-normal m-0 text-brown-one text-center sm:text-left"
                 style={{ fontSize: fontSizes.approachTitle }}
               >
-                Hi I'm Victoria
+                Hi I&apos;m Victoria
               </h1>
               {/* Camera SVG - fixed positioning */}
               <div className="absolute -right-4 -top-6 lg:-top-2 scale-[0.7] md:hidden lg:scale-[1] lg:flex lg:items-center">
@@ -48,8 +49,8 @@ const About: React.FC = () => {
                 className="font-inconsolata font-medium text-black m-0 mb-4"
                 style={{ fontSize: fontSizes.bodyMedium }}
               >
-                I'm not just your photographer - I'm your hype girl, your calm in
-                the chaos, and your biggest fan behind the lens. I'm here to
+                I&apos;m not just your photographer - I&apos;m your hype girl, your calm
+                in the chaos, and your biggest fan behind the lens. I&apos;m here to
                 capture your magic, the wild love, the quiet glances, the
                 full-body laughs - all the moments that make your story uniquely
                 you.
@@ -61,8 +62,8 @@ const About: React.FC = () => {
                 className="font-inconsolata font-medium text-black m-0"
                 style={{ fontSize: fontSizes.bodyMedium }}
               >
-                Whether we're dancing barefoot on Long Island or chasing sunsets
-                across the globe, I'll be right there - grounding you, guiding
+                Whether we&apos;re dancing barefoot on Long Island or chasing sunsets
+                across the globe, I&apos;ll be right there - grounding you, guiding
                 you, and soaking in every ounce of light + love right alongside
                 you ♡
               </p>
@@ -137,4 +138,3 @@ const About: React.FC = () => {
 };
 
 export default About;
-

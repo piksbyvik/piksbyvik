@@ -121,7 +121,7 @@ const BookingForm: React.FC = () => {
                 className="block font-inconsolata text-brown-one mb-3"
                 style={{ fontSize: fontSizes.bodySmall }}
               >
-                Event Date (if it's set in stone)
+                Event Date (if it&apos;s set in stone)
               </label>
               <div className="relative">
                 <input
@@ -173,7 +173,7 @@ const BookingForm: React.FC = () => {
                 className="font-inconsolata text-brown-one mb-6"
                 style={{ fontSize: fontSizes.bodyMedium }}
               >
-                I'm Interested In
+                I&apos;m Interested In
               </h3>
 
               <div className="space-y-4">

@@ -3,9 +3,11 @@ import React, { useRef, useImperativeHandle, forwardRef } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 
-interface InquireButtonProps {}
+interface InquireButtonProps {
+  onClick?: () => void;
+}
 
-export const InquireButton = forwardRef<{ animate: () => void }, InquireButtonProps>((props, ref) => {
+export const InquireButton = forwardRef<{ animate: () => void }, InquireButtonProps>(({ onClick }, ref) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const { contextSafe } = useGSAP();
 

@@ -147,7 +147,7 @@ export default function Approach() {
                     className="font-la-belle-aurore text-black"
                     style={{ fontSize: fontSizes.approachQuote }}
                   >
-                    "Because these days are worth remembering. ♡"
+                    &quot;Because these days are worth remembering. ♡&quot;
                   </p>
 
                   {/* Dots positioned below the quote */}
@@ -168,7 +168,7 @@ export default function Approach() {
                     className="font-la-belle-aurore text-black"
                     style={{ fontSize: fontSizes.bodyLarge }}
                   >
-                    "Because these days are worth remembering. ♡"
+                    &quot;Because these days are worth remembering. ♡&quot;
                   </p>
                 </div>
 
@@ -332,8 +332,8 @@ export default function Approach() {
                         className="font-inconsolata font-medium leading-relaxed text-center lg:text-left"
                         style={{ fontSize: fontSizes.approachBodyText }}
                       >
-                        I don't just take photos - I tune into the energy of the
-                        moment, capturing the feelings that can't be posed or
+                        I don&apos;t just take photos - I tune into the energy of the
+                        moment, capturing the feelings that can&apos;t be posed or
                         repeated. Inspired by golden light, real connection, and
                         the way people just are when they feel truly seen, my
                         approach is raw, intentional, and heart-first.
@@ -385,8 +385,8 @@ export default function Approach() {
                     className="text-white font-la-belle-aurore italic max-w-3xl leading-relaxed transform -rotate-1 lg:-rotate-4 mt-0 lg:mt-10"
                     style={{ fontSize: fontSizes.approachQuote }}
                   >
-                    "Every photo is a piece of your story, told with light and
-                    love."
+                    &quot;Every photo is a piece of your story, told with light and
+                    love.&quot;
                   </p>
                 </div>
               </div>
