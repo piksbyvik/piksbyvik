@@ -1,7 +1,6 @@
 "use client";
-import React from "react";
 import Image from "next/image";
-import { fontSizes } from "@/styles/typography";
+import React from "react";
 
 const Footer: React.FC = () => {
   return (
