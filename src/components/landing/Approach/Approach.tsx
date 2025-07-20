@@ -343,7 +343,7 @@ export default function Approach() {
                         className="font-inconsolata font-medium leading-relaxed text-center lg:text-left"
                         style={{ fontSize: fontSizes.approachBodyText }}
                       >
-                        Whether it's a quiet elopement by the sea or a chaotic,
+                        Whether it&apos;s a quiet elopement by the sea or a chaotic,
                         love-filled wedding dance floor - I chase the moments
                         that feel like you. Based in Long Island but always
                         ready to roam, I bring storytelling, spontaneity, and
