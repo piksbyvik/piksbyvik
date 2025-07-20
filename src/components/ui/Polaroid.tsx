@@ -1,0 +1,65 @@
+import React from 'react';
+import Image from 'next/image';
+
+interface PolaroidProps {
+  imageSrc: string;
+  caption: string;
+  alt?: string;
+  rotation?: number;
+  className?: string;
+  imgclassName?: string;
+  style?: React.CSSProperties;
+  imgStyle?: React.CSSProperties;
+}
+
+const Polaroid: React.FC<PolaroidProps> = ({
+  imageSrc,
+  caption,
+  alt = 'Polaroid photo',
+  rotation = 0,
+  className = '',
+  imgclassName = 'h-[300px]',
+  style,
+  imgStyle
+}) => {
+  return (
+    <div
+      className={`relative bg-white shadow-md px-3 pt-3 border border-black ${className}`}
+      style={{ 
+        transform: `rotate(${rotation}deg)`,
+        ...style
+      }}
+    >
+      {/* Image section */}
+      <div 
+        className={`w-full overflow-hidden border border-black ${imgclassName}`}
+        style={imgStyle}
+      >
+        {
+          imageSrc ? (
+            <Image
+              src={imageSrc}
+              alt={alt}
+              width={380}
+              height={400}
+              className="w-full h-full object-cover"
+            /> 
+          ): (
+            <div className='bg-black w-full h-full'>
+
+            </div>
+          )
+        }
+      </div>
+
+      {/* Caption area with polaroid spacing */}
+      <div className="p-3 pb-6 text-center">
+        <p className="font-la-belle-aurore text-[16px] md:text-[20px] text-gray-800 leading-snug">
+          {caption} <span className="md:text-[20px] text-[18px]">♡</span>
+        </p>
+      </div>
+    </div>
+  );
+};
+export default Polaroid;
+

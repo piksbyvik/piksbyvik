@@ -1,22 +1,43 @@
 @import "tailwindcss";
 
+
+* {
+  box-sizing: border-box;
+}
+html,body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  min-height: 100%;
+}
+
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #F3EADB;
+  --foreground: #1e1e1e;
+}
+
+
+@theme {
+  --color-beige-one: #F3EADB;
+  --color-beige-two: #F5EEE2;
+  --color-brown-one: #403528;
+  --color-brown-two: #63594C;
+  --color-dark-beige: #8B7D6B;
+  --color-black: #1e1e1e;
+  --color-blue: #D0DDEA;
+  --breakpoint-ipad: 64rem;
+  --breakpoint-lg: 65rem;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-inconsolata: var(--font-inconsolata);
+  --font-instrument-serif: var(--font-instrument-serif);
+  --font-la-belle-aurore: var(--font-la-belle-aurore);
+  --font-domaine-display: var(--font-domaine-display);
+  --font-travel-november: var(--font-travel-november);
 }
 
 body {
@@ -24,3 +45,91 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.word-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -16px;
+  left: 0;
+  width: 164px;
+  height: 37px;
+  background-image: url('/underline-2.svg');
+  background-size: contain;
+  background-position: left center;
+  background-repeat: no-repeat;
+  transform: scale(0.6);
+  transform-origin: left center;
+}
+
+.gallery-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -16px;
+  left: 0;
+  width: 357px;
+  height: 37px;
+  background-image: url('/gallery-underline.svg');
+  background-size: contain;
+  background-position: left center;
+  background-repeat: no-repeat;
+  transform: scale(0.6);
+  transform-origin: left center;
+}
+
+.blue-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  width: 180px;
+  height: 40px;
+  background-image: url('/underline-blue.svg');
+  background-size: contain;
+  background-position: left center;
+  background-repeat: no-repeat;
+  transform: scale(0.6);
+  transform-origin: left center;
+  rotate: -4deg;
+}
+@media (min-width: 1024px) {
+  .word-underline::after {
+    transform: scale(1);
+    bottom: -16px;
+  }
+  .gallery-underline::after {
+    transform: scale(1);
+    bottom: -16px;
+  }
+  .blue-underline::after {
+    transform: scale(1);
+    bottom: -16px;
+  }
+  .responsive-border-radius {
+    border-radius: 65px/25px !important;
+  }
+  .responsive-border-radius-gallery {
+    border-radius: 75px/25px !important;
+  }
+}
+
+/* iPad specific adjustments */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .testimonial-section {
+    min-height: auto !important;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  
+  .testimonial-content {
+    justify-content: flex-start !important;
+    align-items: flex-start !important;
+  }
+}
+
+.responsive-border-radius {
+  border-radius: 80px/30px;
+}
+.responsive-border-radius-gallery {
+  border-radius: 80px/30px;
+}
+

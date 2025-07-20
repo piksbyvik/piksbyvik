@@ -1,0 +1,316 @@
+"use client";
+import React, { useState, useRef } from "react";
+import Image from "next/image";
+import { fontSizes } from "@/styles/typography";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+
+interface Testimonial {
+  id: number;
+  text: string;
+  author: string;
+  image: string;
+}
+
+const testimonials: Testimonial[] = [
+  {
+    id: 1,
+    text: "From the very first meeting, Victoria made us feel completely at ease. On our wedding day, they blended in so effortlessly - capturing the big moments, the quiet glances, and everything in between. Looking through our photos felt like reliving the day all over again. Every image holds so much emotion and beauty. We couldn't have asked for a more perfect way to remember one of the most important days of our lives.",
+    author: "Alexis & Nion",
+    image: "/testimonial-1.jpg",
+  },
+  {
+    id: 2,
+    text: "From the very first meeting, Victoria made us feel completely at ease. On our wedding day, they blended in so effortlessly - capturing the big moments, the quiet glances, and everything in between. Looking through our photos felt like reliving the day all over again. Every image holds so much emotion and beauty. We couldn't have asked for a more perfect way to remember one of the most important days of our lives.",
+    author: "Sarah & Michael",
+    image: "/what-i-capture-weddings.png",
+  },
+];
+
+const Testimonial: React.FC = () => {
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isAnimatingRef = useRef(false);
+
+  // Split text into words for animation
+  const words = testimonials[currentTestimonial].text.split(" ");
+
+  // GSAP animations using useGSAP hook with proper scoping
+  const { contextSafe } = useGSAP({ scope: containerRef });
+
+  const animateIn = contextSafe(() => {
+    if (!isAnimatingRef.current) {
+      // Animate words in with stagger
+      gsap.fromTo(
+        "[data-word]",
+        {
+          opacity: 0,
+          y: 15,
+          scale: 0.9,
+          filter: "blur(8px)",
+        },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          filter: "blur(0px)",
+          duration: 0.3,
+          ease: "power2.out",
+          stagger: 0.02,
+          delay: 0.1,
+        }
+      );
+
+      // Animate author
+      gsap.fromTo(
+        "[data-author]",
+        {
+          opacity: 0,
+          y: 20,
+          x: 15,
+          filter: "blur(12px)",
+        },
+        {
+          opacity: 1,
+          y: 0,
+          x: 0,
+          filter: "blur(0px)",
+          duration: 0.4,
+          ease: "power2.out",
+          delay: 0.4,
+        }
+      );
+
+      // Animate image
+      gsap.fromTo(
+        "[data-image]",
+        {
+          opacity: 0,
+          scale: 0.9,
+          rotation: 2,
+          filter: "blur(8px)",
+        },
+        {
+          opacity: 1,
+          scale: 1,
+          rotation: 0,
+          filter: "blur(0px)",
+          duration: 0.5,
+          ease: "power2.out",
+          delay: 0.1,
+        }
+      );
+    }
+  });
+
+  const animateOut = contextSafe(() => {
+    return new Promise<void>((resolve) => {
+      // Animate out
+      gsap.to(["[data-word]", "[data-author]"], {
+        opacity: 0,
+        y: -15,
+        scale: 0.95,
+        filter: "blur(8px)",
+        duration: 0.3,
+        ease: "power2.in",
+      });
+
+      gsap.to("[data-image]", {
+        opacity: 0,
+        scale: 0.9,
+        rotation: -2,
+        filter: "blur(8px)",
+        duration: 0.3,
+        ease: "power2.in",
+        onComplete: resolve,
+      });
+    });
+  });
+
+  // Animate in when testimonial changes
+  useGSAP(
+    () => {
+      animateIn();
+    },
+    { scope: containerRef, dependencies: [currentTestimonial] }
+  );
+
+  const handlePrevious = contextSafe(async () => {
+    if (isAnimatingRef.current || currentTestimonial === 0) return;
+
+    isAnimatingRef.current = true;
+    await animateOut();
+    setCurrentTestimonial((prev) => prev - 1);
+    isAnimatingRef.current = false;
+  });
+
+  const handleNext = contextSafe(async () => {
+    if (isAnimatingRef.current || currentTestimonial === testimonials.length - 1)
+      return;
+
+    isAnimatingRef.current = true;
+    await animateOut();
+    setCurrentTestimonial((prev) => prev + 1);
+    isAnimatingRef.current = false;
+  });
+
+  return (
+    <section
+      ref={containerRef}
+      className="bg-brown-one relative w-screen overflow-hidden pt-6 lg:pt-10 testimonial-section"
+    >
+      {/* Grain overlay */}
+      <div
+        className="absolute inset-0 z-30 opacity-18 pointer-events-none"
+        style={{
+          backgroundImage: "url('/grain.png')",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+        }}
+      />
+      
+      <div className="w-full lg:min-h-screen lg:flex lg:items-center py-8 lg:py-0 testimonial-content">
+        <div className="w-full flex flex-col items-start">
+          {/* Decorative dots - responsive positioning */}
+          <div
+            className="absolute top-2 -right-4 md:top-4 md:-right-8 w-40 h-28 md:w-80 md:h-56 scale-[0.8] md:scale-[1.3] z-10"
+            style={{
+              backgroundImage: "url('/dots-2.svg')",
+              backgroundSize: "contain",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+            }}
+          />
+          
+          {/* Header */}
+          <div className="w-full md:w-[50%] px-[5vw] lg:px-[3.5vw] mb-4 md:-mb-6">
+            <h2
+              className="font-instrument-serif font-light text-beige-one mb-2 relative blue-underline text-left"
+              style={{ fontSize: fontSizes.testimonialTitle }}
+            >
+              LOVE{" "}
+              <span className="inline-block blue-underline">NOTES</span>
+            </h2>
+            <p
+              className="font-la-belle-aurore text-beige-two text-center md:text-right italic"
+              style={{ fontSize: fontSizes.approachCategoryTitle }}
+            >
+              from my couples ♡
+            </p>
+          </div>
+
+          {/* Main content - responsive layout */}
+          <div className="w-full flex flex-col lg:flex-row lg:items-center lg:justify-between border-t border-b border-beige-one pl-[5vw] lg:pl-[3.5vw] z-20 py-8 lg:py-0">
+            {/* Left decorative dots - only on desktop */}
+            <div
+              className="hidden lg:block absolute top-[20%] -left-35 w-80 h-56 z-10"
+              style={{
+                backgroundImage: "url('/dots-2.svg')",
+                backgroundSize: "contain",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+              }}
+            />
+            
+            {/* Image - mobile first, desktop second */}
+            <div className="order-1 lg:order-2 w-full lg:w-1/2 flex justify-center lg:justify-end z-20 mb-8 lg:mb-0 px-4 lg:px-0">
+              <div className="relative aspect-[4/3] w-full max-w-[400px] lg:max-w-none overflow-hidden bg-beige-one p-3">
+                <div
+                  data-image
+                  className="w-full h-full relative border border-black"
+                  style={{ opacity: 0 }}
+                >
+                  <Image
+                    key={currentTestimonial}
+                    src={testimonials[currentTestimonial].image}
+                    alt="Wedding photography testimonial"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+
+                {/* Decorative dots overlay */}
+                <div className="absolute top-4 right-4 w-16 h-16 lg:w-20 lg:h-20 opacity-30">
+                  <div className="grid grid-cols-4 gap-1 h-full">
+                    {Array.from({ length: 16 }).map((_, i) => (
+                      <div
+                        key={i}
+                        className="w-1 h-1 bg-beige-one rounded-full"
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Text content - mobile second, desktop first */}
+            <div className="text-beige-one order-2 lg:order-1 w-full lg:w-[40%] z-20 px-4 lg:px-0">
+              {/* Testimonial text */}
+              <div className="mb-6 lg:mb-8">
+                <p
+                  className="font-inconsolata leading-relaxed text-beige-one mb-6 lg:mb-8 text-center lg:text-left"
+                  style={{ fontSize: fontSizes.approachBodyText }}
+                >
+                  {words.map((word, index) => (
+                    <span
+                      key={`${currentTestimonial}-${index}`}
+                      data-word
+                      className="inline-block"
+                      style={{ opacity: 0 }}
+                    >
+                      {word}
+                      {index < words.length - 1 ? "\u00A0" : ""}
+                    </span>
+                  ))}
+                </p>
+
+                {/* Author signature */}
+                <p
+                  data-author
+                  className="font-la-belle-aurore text-beige-two italic text-center lg:text-right"
+                  style={{
+                    fontSize: fontSizes.bodyMedium,
+                    opacity: 0,
+                  }}
+                >
+                  - {testimonials[currentTestimonial].author}
+                </p>
+              </div>
+
+              {/* Navigation buttons - responsive layout */}
+              <div className="flex flex-col sm:flex-row gap-4 sm:gap-0 sm:justify-between items-center">
+                <button
+                  className={`w-full sm:w-auto font-inconsolata hover:text-beige-one transition-colors duration-300 uppercase tracking-wider border-b hover:border-beige-one pb-1 text-center ${
+                    currentTestimonial === 0
+                      ? "text-beige-two/50 border-beige-two/50 cursor-not-allowed"
+                      : "text-beige-two border-beige-two"
+                  }`}
+                  style={{ fontSize: fontSizes.buttonText }}
+                  onClick={handlePrevious}
+                  disabled={currentTestimonial === 0}
+                >
+                  PREVIOUS NOTE
+                </button>
+
+                <button
+                  className={`w-full sm:w-auto font-inconsolata hover:text-beige-one transition-colors duration-300 uppercase tracking-wider border-b hover:border-beige-one pb-1 text-center ${
+                    currentTestimonial === testimonials.length - 1
+                      ? "text-beige-two/50 border-beige-two/50 cursor-not-allowed"
+                      : "text-beige-two border-beige-two"
+                  }`}
+                  style={{ fontSize: fontSizes.buttonText }}
+                  onClick={handleNext}
+                  disabled={currentTestimonial === testimonials.length - 1}
+                >
+                  NEXT NOTE
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Testimonial;
