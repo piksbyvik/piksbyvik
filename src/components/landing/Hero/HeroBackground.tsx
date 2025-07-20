@@ -3,35 +3,31 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 
 const backgroundImages = ["/hero-1.jpg", "/hero-2.jpg", "/hero-3.jpg"];
-const grainImageUrl = "/grain.png"; // Local image instead of external URL
+const grainImageUrl = "/grain.png";
 
 export function HeroBackground() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [imagesLoaded, setImagesLoaded] = useState(false);
-  const [grainLoaded, setGrainLoaded] = useState(false);
+  const [allImagesLoaded, setAllImagesLoaded] = useState(false);
 
   useEffect(() => {
     const preloadImages = async () => {
-      // Preload hero images AND grain image together
       const allImages = [...backgroundImages, grainImageUrl];
 
       const imagePromises = allImages.map((src) => {
-        return new Promise((resolve, reject) => {
-          const img = document.createElement("img");
-          img.onload = resolve;
-          img.onerror = reject;
+        return new Promise<void>((resolve, reject) => {
+          const img = new window.Image();
+          img.onload = () => resolve();
+          img.onerror = () => reject(new Error(`Failed to load image: ${src}`));
           img.src = src;
         });
       });
 
       try {
         await Promise.all(imagePromises);
-        setImagesLoaded(true);
-        setGrainLoaded(true);
+        setAllImagesLoaded(true);
       } catch (error) {
         console.error("Error preloading images:", error);
-        setImagesLoaded(true);
-        setGrainLoaded(true);
+        setAllImagesLoaded(true);
       }
     };
 
@@ -39,7 +35,7 @@ export function HeroBackground() {
   }, []);
 
   useEffect(() => {
-    if (!imagesLoaded) return;
+    if (!allImagesLoaded) return;
 
     const interval = setInterval(() => {
       setCurrentImageIndex(
@@ -48,58 +44,26 @@ export function HeroBackground() {
     }, 4000);
 
     return () => clearInterval(interval);
-  }, [imagesLoaded]);
+  }, [allImagesLoaded]);
 
   return (
     <>
-      {/* Background with absolute positioning instead of fixed */}
+      {/* Background with absolute positioning */}
       <div className="absolute inset-0 z-0 w-full h-full">
-        {imagesLoaded ? (
-          <Image
-            src={backgroundImages[currentImageIndex]}
-            alt="Vintage wedding photography"
-            fill
-            priority
-            className="object-cover"
-            style={{ filter: "brightness(0.6) contrast(1.1) saturate(0.9)" }}
-          />
-        ) : (
-          <Image
-            src={backgroundImages[0]}
-            alt="Vintage wedding photography"
-            fill
-            priority
-            className="object-cover"
-            style={{ filter: "brightness(0.6) contrast(1.1) saturate(0.9)" }}
-          />
-        )}
-      </div>
-
-      {/* Hidden preload images */}
-      <div className="hidden">
-        {backgroundImages.map((src, index) => (
-          <Image
-            key={src}
-            src={src}
-            alt=""
-            width={1}
-            height={1}
-            priority={index < 3}
-          />
-        ))}
         <Image
-          src={grainImageUrl}
-          alt=""
-          width={1}
-          height={1}
+          src={backgroundImages[currentImageIndex]}
+          alt="Vintage wedding photography"
+          fill
           priority
+          className="object-cover"
+          style={{ filter: "brightness(0.6) contrast(1.1) saturate(0.9)" }}
         />
       </div>
 
-      {/* Grain overlay - absolute instead of fixed */}
-      {grainLoaded && (
+      {/* Grain overlay */}
+      {allImagesLoaded && (
         <div
-          className="absolute inset-0 z-10 opacity-45 mix-blend-multiply"
+          className="absolute inset-0 z-10 opacity-18 pointer-events-none"
           style={{
             backgroundImage: `url(${grainImageUrl})`,
             backgroundSize: "cover",
@@ -110,4 +74,6 @@ export function HeroBackground() {
     </>
   );
 }
+   
+
 

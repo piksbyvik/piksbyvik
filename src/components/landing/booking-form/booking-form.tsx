@@ -54,7 +54,7 @@ const BookingForm: React.FC = () => {
         {/* Header */}
         <div className="text-center mb-12 lg:mb-16">
           <h2
-            className="font-la-belle-aurore text-brown-one mb-8 transform -rotate-2"
+            className="font-travel-november text-brown-one mb-8 transform -rotate-2"
             style={{ fontSize: fontSizes.galleryTitle }}
           >
             Now Booking 2026!

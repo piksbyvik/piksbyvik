@@ -56,7 +56,7 @@ const galleryImages = [
     decorativeElement: {
       type: "tape",
       src: "/tape-2.svg",
-      position: { top: "-30px", left: "50%", translateX: "-50%" },
+      position: { top: "-30px", left: "40%", translateX: "-50%" },
       rotation: 8,
       size: { width: 132, height: 77 },
     },
@@ -178,7 +178,7 @@ const Gallery: React.FC = () => {
                 {/* Decorative Element - Now properly positioned relative to polaroid */}
                 {image.decorativeElement && (
                   <div
-                    className="absolute z-30"
+                    className="absolute z-30 scale-[0.8] md:scale-[1]"
                     style={{
                       top: image.decorativeElement.position.top,
                       left: image.decorativeElement.position.left,
@@ -244,7 +244,7 @@ const Gallery: React.FC = () => {
 
         {/* Dots decoration - Responsive sizing and positioning */}
         <div
-          className="absolute -top-10 sm:-top-20 right-0 w-[150px] h-[150px] sm:w-[200px] sm:h-[200px] lg:w-[293px] lg:h-[297px] z-10 opacity-30 sm:opacity-100"
+          className="absolute top-0 -right-10 sm:-top-20 md:right-0 w-[200px] h-[200px] sm:w-[200px] sm:h-[200px] lg:w-[293px] lg:h-[297px] z-10 sm:opacity-100"
           style={{
             backgroundImage: "url('/dots-2-dark.svg')",
             backgroundSize: "contain",
@@ -253,7 +253,7 @@ const Gallery: React.FC = () => {
           }}
         />
         <div
-          className="hidden sm:block absolute top-1/2 left-0 w-[200px] h-[200px] lg:w-[293px] lg:h-[297px] z-10"
+          className=" absolute top-1/2 left-0 w-[200px] h-[200px] lg:w-[293px] lg:h-[297px] z-10"
           style={{
             backgroundImage: "url('/dots-2-dark.svg')",
             backgroundSize: "contain",
@@ -262,7 +262,7 @@ const Gallery: React.FC = () => {
           }}
         />
         <div
-          className="hidden lg:block absolute top-1/2 left-1/2 w-[293px] h-[297px] z-10"
+          className=" absolute bottom-[12%] right-0 md:top-1/2 md:left-1/2 w-[293px] h-[297px] z-10"
           style={{
             backgroundImage: "url('/dots.svg')",
             backgroundSize: "contain",

@@ -39,8 +39,7 @@ export default function Hero() {
           <HeadingText />
           
           <div
-            data-parallax="subtitle"
-            className="flex flex-col items-start gap-4 md:gap-0 md:mt-6 order-2 md:order-none md:justify-between"
+            className="flex flex-col items-start gap-4 md:gap-0 order-2 md:order-none md:justify-between"
             style={{ 
               minHeight: 'calc(72px + 64px + 0.5rem)'
             }}
@@ -59,3 +58,4 @@ export default function Hero() {
     </div>
   );
 }
+

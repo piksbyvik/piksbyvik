@@ -12,16 +12,6 @@ const About: React.FC = () => {
       className="bg-beige-one w-screen flex items-center justify-center border-b-2 border-brown-two"
     >
       <div className="w-full bg-blue rounded-2xl md:rounded-3xl px-4 py-8 md:p-8 lg:p-16 relative shadow-2xl border border-black overflow-hidden">
-        {/* Grain overlay */}
-        {/* <div
-          className="absolute inset-0 z-30 opacity-18 pointer-events-none rounded-2xl md:rounded-3xl"
-          style={{
-            backgroundImage: "url('/grain.png')",
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
-          }}
-        /> */}
-
         <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center w-full relative z-20 gap-8 lg:gap-16">
           {/* Text Content */}
           <div className="text-brown-one order-2 lg:order-1 flex-1 lg:max-w-[55%] relative">
@@ -49,11 +39,11 @@ const About: React.FC = () => {
                 className="font-inconsolata font-medium text-black m-0 mb-4"
                 style={{ fontSize: fontSizes.bodyMedium }}
               >
-                I&apos;m not just your photographer - I&apos;m your hype girl, your calm
-                in the chaos, and your biggest fan behind the lens. I&apos;m here to
-                capture your magic, the wild love, the quiet glances, the
-                full-body laughs - all the moments that make your story uniquely
-                you.
+                I&apos;m not just your photographer - I&apos;m your hype girl,
+                your calm in the chaos, and your biggest fan behind the lens.
+                I&apos;m here to capture your magic, the wild love, the quiet
+                glances, the full-body laughs - all the moments that make your
+                story uniquely you.
               </p>
             </div>
 
@@ -62,10 +52,10 @@ const About: React.FC = () => {
                 className="font-inconsolata font-medium text-black m-0"
                 style={{ fontSize: fontSizes.bodyMedium }}
               >
-                Whether we&apos;re dancing barefoot on Long Island or chasing sunsets
-                across the globe, I&apos;ll be right there - grounding you, guiding
-                you, and soaking in every ounce of light + love right alongside
-                you ♡
+                Whether we&apos;re dancing barefoot on Long Island or chasing
+                sunsets across the globe, I&apos;ll be right there - grounding
+                you, guiding you, and soaking in every ounce of light + love
+                right alongside you ♡
               </p>
             </div>
 
@@ -123,7 +113,7 @@ const About: React.FC = () => {
         </div>
 
         {/* Tree decorative image - responsive positioning */}
-        <div className="absolute -bottom-2 md:-bottom-4 left-[55%] sm:left-[50%] md:left-[60%] lg:left-[55%] w-32 sm:w-40 md:w-64 lg:w-52 sm:h-[30%] md:h-[25%] lg:h-[35%] z-10">
+        <div className="absolute -bottom-6 md:-bottom-4 left-[55%] sm:left-[50%] md:left-[60%] lg:left-[55%] w-28 sm:w-40 md:w-64 lg:w-52 sm:h-[30%] md:h-[25%] lg:h-[35%] z-10">
           <Image
             src="/about-trees.jpg"
             alt="decorative trees"

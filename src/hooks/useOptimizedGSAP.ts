@@ -6,52 +6,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 export const useParallaxAnimations = (containerRef: React.RefObject<HTMLDivElement | null>) => {
   const { contextSafe } = useGSAP(() => {
-    // Individual parallax animations for better control
-    gsap.to("[data-parallax='subtitle']", {
-      y: -25,
-      ease: "none",
-      scrollTrigger: {
-        trigger: "[data-parallax='subtitle']",
-        start: "top bottom",
-        end: "bottom top",
-        scrub: true,
-      },
-    });
-
-    gsap.to("[data-parallax='button']", {
-      y: -15,
-      ease: "none",
-      scrollTrigger: {
-        trigger: "[data-parallax='button']",
-        start: "top bottom",
-        end: "bottom top",
-        scrub: true,
-      },
-    });
-
-    gsap.to("[data-parallax='real']", {
-      y: -40,
-      ease: "none",
-      scrollTrigger: {
-        trigger: "[data-parallax='real']",
-        start: "top 80%",
-        end: "bottom top",
-        scrub: true,
-      },
-    });
-
-    // Special parallax for CONNECTIONS
-    gsap.to("[data-parallax='connections']", {
-      y: -40,
-      ease: "none",
-      scrollTrigger: {
-        trigger: "[data-parallax='connections']",
-        start: "top bottom",
-        end: "bottom top",
-        scrub: true,
-      },
-    });
-
     // Portfolio section animations
     gsap.fromTo(
       "[data-fade='portfolio']",
@@ -95,13 +49,18 @@ export const useParallaxAnimations = (containerRef: React.RefObject<HTMLDivEleme
       }
     );
 
-    // Heading words animation - Premium smooth reveal
+    // Heading words animation - Premium smooth reveal with blur
     gsap.fromTo(
       "[data-word]",
-      { clipPath: "inset(0 100% 0 0)", opacity: 0 },
+      {
+        clipPath: "inset(0 100% 0 0)",
+        opacity: 0,
+        filter: "blur(4px)",
+      },
       {
         clipPath: "inset(0 -5% 0 0)",
         opacity: 1,
+        filter: "blur(0px)",
         duration: 1.2, // Slower, more luxurious timing
         ease: "power2.out", // Smoother, more premium easing
         stagger: 0.3, // More deliberate stagger timing
@@ -127,7 +86,6 @@ export const useParallaxAnimations = (containerRef: React.RefObject<HTMLDivEleme
         scrollText.removeEventListener("mouseleave", handleMouseLeave);
       };
     }
-
   }, { scope: containerRef });
 
   return { contextSafe };
@@ -155,3 +113,5 @@ export const useFloatingElements = () => {
     });
   });
 };
+
+

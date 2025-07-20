@@ -277,10 +277,10 @@ const Testimonial: React.FC = () => {
                 </p>
               </div>
 
-              {/* Navigation buttons - responsive layout */}
-              <div className="flex flex-col sm:flex-row gap-4 sm:gap-0 sm:justify-between items-center">
+              {/* Navigation buttons - side by side on all screen sizes */}
+              <div className="flex gap-4 justify-between items-center">
                 <button
-                  className={`w-full sm:w-auto font-inconsolata hover:text-beige-one transition-colors duration-300 uppercase tracking-wider border-b hover:border-beige-one pb-1 text-center ${
+                  className={`flex-1 font-inconsolata hover:text-beige-one transition-colors duration-300 uppercase tracking-wider border-b hover:border-beige-one pb-1 text-center ${
                     currentTestimonial === 0
                       ? "text-beige-two/50 border-beige-two/50 cursor-not-allowed"
                       : "text-beige-two border-beige-two"
@@ -293,7 +293,7 @@ const Testimonial: React.FC = () => {
                 </button>
 
                 <button
-                  className={`w-full sm:w-auto font-inconsolata hover:text-beige-one transition-colors duration-300 uppercase tracking-wider border-b hover:border-beige-one pb-1 text-center ${
+                  className={`flex-1 font-inconsolata hover:text-beige-one transition-colors duration-300 uppercase tracking-wider border-b hover:border-beige-one pb-1 text-center ${
                     currentTestimonial === testimonials.length - 1
                       ? "text-beige-two/50 border-beige-two/50 cursor-not-allowed"
                       : "text-beige-two border-beige-two"

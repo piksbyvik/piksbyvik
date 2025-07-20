@@ -11,9 +11,8 @@ const headingWords = [
 export function HeadingText() {
   return (
     <h1
-      data-parallax="title"
       style={{ wordSpacing: "0.2em", color: "#F3EADB" }}
-      className="text-[28px] md:text-[48px] order-1 md:order-none"
+      className="text-[24px] md:text-[48px] order-1 md:order-none"
     >
       <div>
         {/* First line */}
@@ -24,7 +23,6 @@ export function HeadingText() {
               <span
                 key={index}
                 data-word
-                data-parallax={item.special}
                 className={`
                 ${item.word === "&" ? " italic " : ""}
                 mr-2 md:mr-4 font-instrument-serif
@@ -33,7 +31,8 @@ export function HeadingText() {
                   color: item.word === "&" ? "#B2C3D3" : "#F3EADB",
                   clipPath: "inset(0 100% 0 0)",
                   opacity: 0,
-                  fontSize: fontSizes.heroTitle
+
+                  fontSize: fontSizes.heroTitle,
                 }}
               >
                 {item.word}
@@ -49,7 +48,6 @@ export function HeadingText() {
               <span
                 key={index + 3}
                 data-word
-                data-parallax={item.special}
                 className={`
                 ${
                   item.word === "Real"
@@ -67,7 +65,11 @@ export function HeadingText() {
                   color: item.word === "Real" ? "#B2C3D3" : "#B2C3D3",
                   clipPath: "inset(0 100% 0 0)",
                   opacity: 0,
-                  fontSize: item.word === "Real" ? fontSizes.heroReal : fontSizes.heroConnections
+
+                  fontSize:
+                    item.word === "Real"
+                      ? fontSizes.heroReal
+                      : fontSizes.heroConnections,
                 }}
               >
                 {item.word}

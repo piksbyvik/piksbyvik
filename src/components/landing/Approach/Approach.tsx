@@ -49,8 +49,8 @@ export default function Approach() {
                 spectrum
               </p>
               <span
-                className="font-instrument-serif uppercase font-medium block"
-                style={{ fontSize: fontSizes.approachSidebarLabel }}
+                className="font-instrument-serif uppercase font-medium block text-xl"
+                
               >
                 WHAT I CAPTURE
               </span>
@@ -70,8 +70,7 @@ export default function Approach() {
                 ethos
               </p>
               <span
-                className="font-instrument-serif uppercase font-medium block"
-                style={{ fontSize: fontSizes.approachSidebarLabel }}
+                className="font-instrument-serif uppercase font-medium block text-xl"
               >
                 MY APPROACH
               </span>
@@ -215,17 +214,17 @@ export default function Approach() {
                   >
                     WEDDINGS & COUPLES
                   </h3>
-                  <div className="relative">
-                    <div className="aspect-[3/4] bg-white p-3 lg:p-4 shadow-xl overflow-hidden">
-                      <div className="w-full h-full relative border border-black">
-                        <Image
-                          src="/what-i-capture-weddings.png"
-                          alt="Weddings and couples photography"
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                    </div>
+                  <div
+                    className="h-[440px] md:h-[500px] relative overflow-hidden p-3 lg:p-4 bg-white border border-black"
+                  >
+                   <div className="w-full h-full border border-black" style={{
+                      backgroundImage: "url('/what-i-capture-weddings.png')",
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      backgroundRepeat: "no-repeat",
+                    }}>
+                    
+                   </div>
                   </div>
                 </div>
 
@@ -237,17 +236,17 @@ export default function Approach() {
                   >
                     FAMILY
                   </h3>
-                  <div className="relative">
-                    <div className="aspect-[3/4] bg-white p-3 lg:p-4 shadow-xl overflow-hidden">
-                      <div className="w-full h-full relative border border-black">
-                        <Image
-                          src="/what-i-capture-family.png"
-                          alt="Family photography"
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                    </div>
+                  <div
+                    className="h-[440px] md:h-[500px] relative overflow-hidden p-3 lg:p-4 bg-white border border-black"
+                  >
+                   <div className="w-full h-full border border-black" style={{
+                      backgroundImage: "url('/what-i-capture-family.png')",
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      backgroundRepeat: "no-repeat",
+                    }}>
+                    
+                   </div>
                   </div>
                 </div>
 
@@ -259,17 +258,17 @@ export default function Approach() {
                   >
                     NEWBORN & MATERNITY
                   </h3>
-                  <div className="relative">
-                    <div className="aspect-[3/4] bg-white p-3 lg:p-4 shadow-xl overflow-hidden">
-                      <div className="w-full h-full relative border border-black">
-                        <Image
-                          src="/what-i-capture-newborn.png"
-                          alt="Newborn and maternity photography"
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                    </div>
+                  <div
+                    className="h-[440px] md:h-[500px] relative overflow-hidden p-3 lg:p-4 bg-white border border-black"
+                  >
+                   <div className="w-full h-full border border-black" style={{
+                      backgroundImage: "url('/what-i-capture-newborn.png')",
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      backgroundRepeat: "no-repeat",
+                    }}>
+                    
+                   </div>
                   </div>
                 </div>
               </div>
@@ -397,3 +396,4 @@ export default function Approach() {
     </section>
   );
 }
+
