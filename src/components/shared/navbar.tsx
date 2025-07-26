@@ -1,20 +1,25 @@
 "use client";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
+
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [hasScrolledPastHero, setHasScrolledPastHero] = useState(false);
+  const pathname = usePathname();
+
+  // Define pages with light backgrounds that need dark navbar
+  const lightBackgroundPages = ['/investment', '/about', '/contact'];
+  const isLightPage = lightBackgroundPages.includes(pathname);
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       const heroHeight = window.innerHeight;
       
-      // Check if scrolled past hero
       setHasScrolledPastHero(currentScrollY > heroHeight * 0.3);
       
-      // Only show navbar at the very top, hide when scrolled
       if (currentScrollY < 50) {
         setIsVisible(true);
       } else {
@@ -26,6 +31,35 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Dynamic styles based on page type
+  const getNavbarStyles = () => {
+    if (hasScrolledPastHero) {
+      // When scrolled, use consistent dark overlay style
+      return {
+        textColor: 'text-white',
+        borderColor: 'border-white/10',
+        logoSrc: '/piksbyvik-logo.svg',
+        buttonBorder: 'border-white',
+        hoverBg: '#8B7D6B',
+        hoverBorder: '#8B7D6B',
+        hoverText: '#F3EADB'
+      };
+    }
+    
+    // At the top, adapt to page background
+    return {
+      textColor: isLightPage ? 'text-black' : 'text-white',
+      borderColor: isLightPage ? 'border-black/80' : 'border-white/80',
+      logoSrc: isLightPage ? '/logo-light-navbar.svg' : '/piksbyvik-logo.svg',
+      buttonBorder: isLightPage ? 'border-black' : 'border-white',
+      hoverBg: isLightPage ? '#403528' : '#8B7D6B',
+      hoverBorder: isLightPage ? '#403528' : '#8B7D6B',
+      hoverText: '#F3EADB'
+    };
+  };
+
+  const styles = getNavbarStyles();
+
   return (
     <>
       <nav className={`fixed top-0 left-0 right-0 z-50 px-[5vw] md:px-[3.5vw] py-4 md:py-3 w-screen transition-all duration-300 ease-in-out ${
@@ -33,36 +67,48 @@ export default function Navbar() {
       } ${
         hasScrolledPastHero 
           ? 'backdrop-blur-md bg-brown-one/30 border-b border-white/10' 
-          : 'border-b border-white/80'
+          : `border-b ${styles.borderColor}`
       }`}>
         <div className="flex justify-between items-center w-full">
           {/* Burger Menu */}
           <button 
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="font-inconsolata text-base md:text-lg tracking-wide hover:opacity-70 transition-opacity text-white"
+            className={`font-inconsolata text-base md:text-lg tracking-wide hover:opacity-70 transition-opacity ${styles.textColor}`}
           >
             MENU
           </button>
 
           {/* Brand */}
           <div className="ml-30">
-            
-              <Image src="/piksbyvik-logo.svg" alt="Piks by Vik Logo" width={160} height={50} className="block md:hidden"/>
-              <Image src="/piksbyvik-logo.svg" alt="Piks by Vik Logo" width={266} height={76} className="hidden md:block"/>
-            
+            <Image 
+              src={styles.logoSrc} 
+              alt="Piks by Vik Logo" 
+              width={160} 
+              height={50} 
+              className="block md:hidden"
+            />
+            <Image 
+              src={styles.logoSrc} 
+              alt="Piks by Vik Logo" 
+              width={266} 
+              height={76} 
+              className="hidden md:block"
+            />
           </div>
 
           {/* CTA Button - Hidden on mobile */}
           <button 
-            className="hidden md:block font-inconsolata text-sm px-6 py-2 border border-white text-white transition-colors"
+            className={`hidden md:block font-inconsolata text-sm px-6 py-2 border transition-colors ${styles.textColor} ${styles.buttonBorder}`}
             style={{ borderRadius: '65px/20px' }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = '#8B7D6B';
-              e.currentTarget.style.borderColor = '#8B7D6B';
+              e.currentTarget.style.backgroundColor = styles.hoverBg;
+              e.currentTarget.style.borderColor = styles.hoverBorder;
+              e.currentTarget.style.color = styles.hoverText;
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.backgroundColor = 'transparent';
-              e.currentTarget.style.borderColor = 'white';
+              e.currentTarget.style.borderColor = styles.buttonBorder.includes('black') ? '#000000' : '#ffffff';
+              e.currentTarget.style.color = styles.textColor.includes('black') ? '#000000' : '#ffffff';
             }}
           >
             GET IN TOUCH

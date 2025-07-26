@@ -89,7 +89,7 @@ export default function RootLayout({
       <body
         className={`${inconsolata.variable} ${instrumentSerif.variable} ${laBelleAurore.variable} ${domaineDisplay.variable} ${travelNovember.variable} antialiased`}
       >
-         <Navbar />
+        <Navbar />
         {children}
       </body>
     </html>

@@ -1,5 +1,4 @@
 "use client";
-import Navbar from "@/components/shared/navbar";
 import Hero from "@/components/landing/Hero/Hero";
 import Approach from "@/components/landing/Approach/Approach";
 import About from "@/components/landing/About/about";
@@ -12,7 +11,6 @@ import Footer from "@/components/shared/footer";
 export default function Home() {
   return (
     <div className="w-screen relative">
-      <Navbar />
       <Hero />
       <Approach />
       <About />
@@ -24,3 +22,4 @@ export default function Home() {
     </div>
   );
 }
+  
