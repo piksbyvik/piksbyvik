@@ -73,7 +73,7 @@ export default function InvestmentValueProps() {
   }, { scope: sectionRef });
 
   return (
-    <section ref={sectionRef} className="relative w-screen bg-beige-one py-10 overflow-x-hidden">
+    <section ref={sectionRef} className="relative w-screen bg-beige-one py-10 ">
       <div
         className="absolute inset-0 z-10 opacity-12 pointer-events-none"
         style={{
@@ -95,7 +95,7 @@ export default function InvestmentValueProps() {
       />
       
       {/* Camera icon (top right) */}
-      <div className="decorative absolute top-8 right-8 z-10">
+      <div className="decorative absolute -top-10 right-0 scale-[0.7] md:scale-[1] lg:top-8 md:right-8 z-10">
         <Image src="/camera.svg" alt="camera icon" width={105} height={83} />
       </div>
 
