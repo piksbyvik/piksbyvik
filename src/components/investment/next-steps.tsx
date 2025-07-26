@@ -3,6 +3,7 @@ import { InquireButton } from "../ui/InquireButton";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { fontSizes } from "@/styles/typography";
 
 const steps = [
   {
@@ -25,95 +26,98 @@ const steps = [
 export default function NextSteps() {
   const sectionRef = useRef<HTMLElement>(null);
 
-  useGSAP(() => {
-    gsap.registerPlugin(ScrollTrigger);
+  useGSAP(
+    () => {
+      gsap.registerPlugin(ScrollTrigger);
 
-    // Parallax effect for background - check if element exists
-    if (sectionRef.current) {
-      gsap.fromTo(
-        sectionRef.current,
-        {
-          backgroundPosition: "50% 0%",
-        },
-        {
-          backgroundPosition: "50% 20%",
-          ease: "none",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
+      // Parallax effect for background - check if element exists
+      if (sectionRef.current) {
+        gsap.fromTo(
+          sectionRef.current,
+          {
+            backgroundPosition: "50% 0%",
           },
-        }
-      );
-    }
+          {
+            backgroundPosition: "50% 20%",
+            ease: "none",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          }
+        );
+      }
 
-    // Heading animation - fix TweenTarget error
-    const heading = sectionRef.current?.querySelector("h2");
-    if (heading) {
-      gsap.fromTo(
-        heading,
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 75%",
-            once: true,
-          },
-        }
-      );
-    }
+      // Heading animation - fix TweenTarget error
+      const heading = sectionRef.current?.querySelector("h2");
+      if (heading) {
+        gsap.fromTo(
+          heading,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 75%",
+              once: true,
+            },
+          }
+        );
+      }
 
-    // Step items animation with stagger - fix TweenTarget error
-    const stepItems = sectionRef.current?.querySelectorAll(".step-item");
-    if (stepItems && stepItems.length > 0) {
-      gsap.fromTo(
-        stepItems,
-        { opacity: 0, y: 40 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          stagger: 0.2,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: stepItems[0], // Use first item as trigger
-            start: "top 80%",
-            once: true,
-          },
-        }
-      );
-    }
+      // Step items animation with stagger - fix TweenTarget error
+      const stepItems = sectionRef.current?.querySelectorAll(".step-item");
+      if (stepItems && stepItems.length > 0) {
+        gsap.fromTo(
+          stepItems,
+          { opacity: 0, y: 40 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: stepItems[0], // Use first item as trigger
+              start: "top 80%",
+              once: true,
+            },
+          }
+        );
+      }
 
-    // Button animation - fix TweenTarget error
-    const button = sectionRef.current?.querySelector(".inquire-button");
-    if (button) {
-      gsap.fromTo(
-        button,
-        { opacity: 0, y: 20 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          delay: 0.5,
-          ease: "back.out(1.7)",
-          scrollTrigger: {
-            trigger: button,
-            start: "top 90%",
-            once: true,
-          },
-        }
-      );
-    }
+      // Button animation - fix TweenTarget error
+      const button = sectionRef.current?.querySelector(".inquire-button");
+      if (button) {
+        gsap.fromTo(
+          button,
+          { opacity: 0, y: 20 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            delay: 0.5,
+            ease: "back.out(1.7)",
+            scrollTrigger: {
+              trigger: button,
+              start: "top 90%",
+              once: true,
+            },
+          }
+        );
+      }
 
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, { scope: sectionRef });
+      return () => {
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      };
+    },
+    { scope: sectionRef }
+  );
 
   return (
     <section
@@ -180,7 +184,15 @@ export default function NextSteps() {
       </div>
 
       <div className="inquire-button">
-        <InquireButton />
+        <button
+          
+          className="font-inconsolata px-6 md:px-8 py-2 border hover:bg-beige-two ease-in
+        border-white text-black transition-colors relative cursor-pointer
+        text-sm md:text-base lg:text-xl bg-beige-one inquire-border-radius"
+          
+        >
+          INQUIRE
+        </button>
       </div>
     </section>
   );

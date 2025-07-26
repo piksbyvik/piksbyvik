@@ -105,7 +105,10 @@ body {
     bottom: -16px;
   }
   .responsive-border-radius {
-    border-radius: 65px/25px !important;
+    border-radius: 65px/24px !important;
+  }
+  .inquire-border-radius {
+    border-radius: 65px/22px !important;
   }
   .responsive-border-radius-gallery {
     border-radius: 75px/25px !important;
@@ -126,10 +129,15 @@ body {
   }
 }
 
-.responsive-border-radius {
-  border-radius: 80px/30px;
+@media (max-width: 767px) {
+  .responsive-border-radius {
+  border-radius: 90px/30px;
 }
 .responsive-border-radius-gallery {
   border-radius: 80px/30px;
 }
+.inquire-border-radius {
+    border-radius: 55px/20px !important;
+  }
 
+}

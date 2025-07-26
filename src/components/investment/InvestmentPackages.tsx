@@ -107,6 +107,17 @@ const InvestmentPackages: React.FC = () => {
     isAnimatingRef.current = false;
   });
 
+  // Add helper function to get category-specific text
+  const getExploreButtonText = () => {
+    const categoryTexts = {
+      weddings: "More Wedding Packages",
+      engagements: "More Engagement Options",
+      couples: "More Couples Sessions",
+      lifestyle: "More Lifestyle Options",
+    };
+    return categoryTexts[activeTab];
+  };
+
   const pkg = packages[activeTab];
 
   return (
@@ -114,7 +125,7 @@ const InvestmentPackages: React.FC = () => {
       ref={containerRef}
       className="relative w-screen bg-[#403528] pb-16 md:pb-24 overflow-x-hidden"
     >
-       <div
+      <div
         className=" absolute inset-0 z-90 opacity-12 pointer-events-none"
         style={{
           backgroundImage: "url('/grain.png')",
@@ -144,8 +155,6 @@ const InvestmentPackages: React.FC = () => {
             >
               {tab.label}
             </button>
-
-            
           ))}
         </nav>
       </div>
@@ -160,23 +169,22 @@ const InvestmentPackages: React.FC = () => {
         "
       >
         {/* Image */}
-        <div className="
-          relative w-full lg:w-[36%] h-[240px] md:h-[400px] lg:h-auto border-2 border-beige-one overflow-hidden shadow-lg
+        <div
+          className="
+          relative w-full lg:w-[36%] h-[240px] md:h-[400px] lg:h-auto border-4 border-beige-one overflow-hidden shadow-lg
           mb-8 md:mb-0 flex-shrink-0
-        ">
+        "
+        >
           <Image
-              src={pkg.image}
-              alt={pkg.title}
-              fill
-              className="object-cover"
-              
-            />
+            src={pkg.image}
+            alt={pkg.title}
+            fill
+            className="object-cover"
+          />
         </div>
 
         {/* Package details */}
-        <div className="
-          w-full lg:w-[60%] flex flex-col items-start
-        ">
+        <div className="w-full lg:w-[60%] flex flex-col items-start">
           <h2
             className="font-instrument-serif text-beige-one mb-4 capitalize"
             style={{ fontSize: fontSizes.galleryTitle }}
@@ -203,26 +211,47 @@ const InvestmentPackages: React.FC = () => {
                   textIndent: "-1em",
                   marginBottom: "0.5em",
                   whiteSpace: "pre-line",
-                  
                 }}
               >
                 • {feature}
               </li>
             ))}
           </ul>
-          <div className="flex w-full justify-between mt-4">
+          {/* Improved button section with better UX */}
+          <div className="flex flex-col sm:flex-row w-full justify-between items-start sm:items-end gap-6 sm:gap-4 mt-6">
             <button
-              className="font-travel-november text-beige-one text-xl underline underline-offset-4 hover:cursor-pointer"
-              style={{ fontSize: fontSizes.approachQuote }}
+              className="font-travel-november text-beige-one underline underline-offset-4 hover:cursor-pointer hover:opacity-80 transition-opacity"
+              style={{ 
+                fontSize: "clamp(20px, 4vw, 32px)", // Increased mobile size
+                letterSpacing: "clamp(0.5px, 0.1vw, 0px)" // Slight letter spacing on mobile
+              }}
             >
-              Inquire
+              Inquire About This Package
             </button>
-            <button
-              className="font-la-belle-aurore text-beige-one text-xl flex items-center gap-2 hover:cursor-pointer"
-              style={{ fontSize: fontSizes.bodyLarge }}
-            >
-              &lt; Explore More Offerings &gt;
-            </button>
+
+            {/* Redesigned explore button with clearer intent */}
+            <div className="flex flex-col items-start sm:items-end">
+              <span className="font-inconsolata text-beige-one/70 mb-2" style={{ fontSize: "clamp(14px, 3vw, 16px)" }}>
+                Looking for something different?
+              </span>
+              <button
+                className="font-la-belle-aurore text-beige-one flex justift-start text-start items-center gap-2 hover:cursor-pointer hover:opacity-80 transition-opacity group"
+                style={{ fontSize: "clamp(18px, 4vw, 24px)" }} // Increased mobile size
+              >
+                <span className="">
+                  {getExploreButtonText()}
+                </span>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="currentColor"
+                  className="group-hover:translate-x-1 transition-transform"
+                >
+                  <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z" />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       </div>
