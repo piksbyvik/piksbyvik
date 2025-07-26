@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 import Image from "next/image";
 
 export default function Navbar() {
@@ -134,29 +135,29 @@ export default function Navbar() {
               <nav>
                 <ul className="space-y-4 md:space-y-6">
                   <li>
-                    <a href="#" className="block font-inconsolata text-2xl md:text-4xl text-white hover:text-[#F3EADB] transition-colors tracking-wide">
+                    <Link href="/" className="block font-inconsolata text-2xl md:text-4xl text-white hover:text-[#F3EADB] transition-colors tracking-wide">
                       HOME
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="#" className="block font-inconsolata text-2xl md:text-4xl text-white hover:text-[#F3EADB] transition-colors tracking-wide">
+                    <Link href="/portfolio" className="block font-inconsolata text-2xl md:text-4xl text-white hover:text-[#F3EADB] transition-colors tracking-wide">
                       PORTFOLIO
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="#" className="block font-inconsolata text-2xl md:text-4xl text-white hover:text-[#F3EADB] transition-colors tracking-wide">
+                    <Link href="/about" className="block font-inconsolata text-2xl md:text-4xl text-white hover:text-[#F3EADB] transition-colors tracking-wide">
                       ABOUT
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="#" className="block font-inconsolata text-2xl md:text-4xl text-white hover:text-[#F3EADB] transition-colors tracking-wide">
-                      SERVICES
-                    </a>
+                    <Link href="/investment" className="block font-inconsolata text-2xl md:text-4xl text-white hover:text-[#F3EADB] transition-colors tracking-wide">
+                      INVESTMENT
+                    </Link>
                   </li>
                   <li>
-                    <a href="#" className="block font-inconsolata text-2xl md:text-4xl text-white hover:text-[#F3EADB] transition-colors tracking-wide">
+                    <Link href="/contact" className="block font-inconsolata text-2xl md:text-4xl text-white hover:text-[#F3EADB] transition-colors tracking-wide">
                       CONTACT
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </nav>

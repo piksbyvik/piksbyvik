@@ -58,7 +58,7 @@ const InvestmentHero: React.FC = () => {
                   className="font-inconsolata font-medium text-black text-center lg:text-left leading-relaxed max-w-lg mx-auto lg:mx-0"
                   style={{ fontSize: fontSizes.bodyMedium }}
                 >
-                  Your photos and film will only grow more valuable with time. That's why I share all pricing upfront - because transparency matters.
+                  Your photos and film will only grow more valuable with time. That&apos;s why I share all pricing upfront - because transparency matters.
                 </p>
               </div>
 

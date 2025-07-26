@@ -147,7 +147,7 @@ export default function InvestmentValueProps() {
               GUIDANCE WITHOUT POSING PRESSURE
             </h3>
             <p className="font-inconsolata text-beige-one leading-relaxed" style={{ fontSize: fontSizes.bodyMedium }}>
-              You don't need to be a model to look amazing in photos. I gently guide you with prompts and movements that feel natural – so your portraits look candid, not stiff. The goal? To create a comfortable space where your personalities shine through effortlessly, whether we're in a forest, by the beach, or in your backyard.
+              You don&apos;t need to be a model to look amazing in photos. I gently guide you with prompts and movements that feel natural – so your portraits look candid, not stiff. The goal? To create a comfortable space where your personalities shine through effortlessly, whether we&apos;re in a forest, by the beach, or in your backyard.
             </p>
           </div>
           
@@ -160,7 +160,7 @@ export default function InvestmentValueProps() {
               TRUE-TO-YOU EDITING &amp; A TIMELESS LOOK
             </h3>
             <p className="font-inconsolata text-beige-one leading-relaxed" style={{ fontSize: fontSizes.bodyMedium }}>
-              No trendy filters or overexposed presets. My editing style is crafted to reflect the mood and tone of your day – warm, elegant, and real. Your photos will stand the test of time, so when you look back years from now, they'll feel just as magical as the day they were taken.
+              No trendy filters or overexposed presets. My editing style is crafted to reflect the mood and tone of your day – warm, elegant, and real. Your photos will stand the test of time, so when you look back years from now, they&apos;ll feel just as magical as the day they were taken.
             </p>
           </div>
         </div>

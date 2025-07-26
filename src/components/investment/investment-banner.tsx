@@ -69,7 +69,7 @@ const InvestmentBanner = () => {
           className="font-domaine-display font-medium text-beige-one capitalize text-center drop-shadow-lg"
           style={{ fontSize: fontSizes.heroConnections }}
         >
-          Less "say cheese," more "holy crap this is us!"
+          Less &quot;say cheese,&quot; more &quot;holy crap this is us!&quot;
         </h1>
       </div>
     </div>
