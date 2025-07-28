@@ -87,7 +87,7 @@ const About: React.FC = () => {
           reduceMotion: "(prefers-reduced-motion: reduce)",
         },
         (context) => {
-          let { isMobile, isDesktop, reduceMotion } = context.conditions || {};
+          const { isMobile, isDesktop, reduceMotion } = context.conditions || {};
 
           // Create master timeline - same for all devices
           const masterTl = createContainerAnimation();
