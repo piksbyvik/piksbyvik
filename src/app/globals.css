@@ -141,3 +141,49 @@ body {
   }
 
 }
+
+/* Performance optimizations for animations */
+.letter-reveal,
+.word-reveal,
+.category-letter-reveal,
+.approach-letter-reveal,
+.about-letter-reveal {
+  will-change: opacity, transform, filter;
+}
+
+/* Image reveal animations */
+[data-image-reveal],
+[data-image-scale-reveal],
+[data-approach-image] {
+  will-change: opacity, clip-path;
+}
+
+/* Frame containers that fade in */
+[data-frame-container] {
+  will-change: opacity;
+}
+
+/* Parallax and scroll-triggered elements */
+[data-parallax] {
+  will-change: transform;
+}
+
+/* Elements with scroll triggers */
+[data-fade] {
+  will-change: opacity, transform, filter;
+}
+
+/* Floating elements */
+[data-float] {
+  will-change: transform, opacity;
+}
+
+/* Interactive elements with hover effects */
+.hover-lift {
+  will-change: transform;
+}
+
+/* Remove will-change after animations complete */
+.animation-complete {
+  will-change: auto;
+}

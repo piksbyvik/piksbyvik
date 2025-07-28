@@ -2,6 +2,7 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 import { useScrollAnimations } from "@/hooks/useScrollAnimations";
+import { useImageRevealAnimations } from "@/hooks/useImageRevealAnimations";
 import { fontSizes } from "@/styles/typography";
 
 export default function Approach() {
@@ -11,6 +12,7 @@ export default function Approach() {
   );
 
   useScrollAnimations(sectionRef);
+  useImageRevealAnimations(sectionRef); // Add the image reveal animations
 
   return (
     <section
@@ -48,10 +50,7 @@ export default function Approach() {
               <p className="font-domaine-display text-xs text-beige-two">
                 spectrum
               </p>
-              <span
-                className="font-instrument-serif uppercase font-medium block text-xl"
-                
-              >
+              <span className="font-instrument-serif uppercase font-medium block text-xl">
                 WHAT I CAPTURE
               </span>
             </div>
@@ -69,9 +68,7 @@ export default function Approach() {
               <p className="font-domaine-display text-xs text-brown-one">
                 ethos
               </p>
-              <span
-                className="font-instrument-serif uppercase font-medium block text-xl"
-              >
+              <span className="font-instrument-serif uppercase font-medium block text-xl">
                 MY APPROACH
               </span>
             </div>
@@ -216,15 +213,18 @@ export default function Approach() {
                   </h3>
                   <div
                     className="h-[440px] md:h-[500px] relative overflow-hidden p-3 lg:p-4 bg-white border border-black"
+                    data-frame-container
                   >
-                   <div className="w-full h-full border border-black" style={{
-                      backgroundImage: "url('/what-i-capture-weddings.png')",
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                      backgroundRepeat: "no-repeat",
-                    }}>
-                    
-                   </div>
+                    <div
+                      className="w-full h-full border border-black"
+                      data-image-reveal
+                      style={{
+                        backgroundImage: "url('/what-i-capture-weddings-couples.png')",
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                        backgroundRepeat: "no-repeat",
+                      }}
+                    />
                   </div>
                 </div>
 
@@ -238,15 +238,18 @@ export default function Approach() {
                   </h3>
                   <div
                     className="h-[440px] md:h-[500px] relative overflow-hidden p-3 lg:p-4 bg-white border border-black"
+                    data-frame-container
                   >
-                   <div className="w-full h-full border border-black" style={{
-                      backgroundImage: "url('/what-i-capture-family.png')",
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                      backgroundRepeat: "no-repeat",
-                    }}>
-                    
-                   </div>
+                    <div
+                      className="w-full h-full border border-black"
+                      data-image-reveal
+                      style={{
+                        backgroundImage: "url('/what-i-capture-family.png')",
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                        backgroundRepeat: "no-repeat",
+                      }}
+                    />
                   </div>
                 </div>
 
@@ -260,15 +263,18 @@ export default function Approach() {
                   </h3>
                   <div
                     className="h-[440px] md:h-[500px] relative overflow-hidden p-3 lg:p-4 bg-white border border-black"
+                    data-frame-container
                   >
-                   <div className="w-full h-full border border-black" style={{
-                      backgroundImage: "url('/what-i-capture-newborn.png')",
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                      backgroundRepeat: "no-repeat",
-                    }}>
-                    
-                   </div>
+                    <div
+                      className="w-full h-full border border-black"
+                      data-image-reveal
+                      style={{
+                        backgroundImage: "url('/what-i-capture-newborn-maternity.png')",
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                        backgroundRepeat: "no-repeat",
+                      }}
+                    />
                   </div>
                 </div>
               </div>
@@ -303,10 +309,16 @@ export default function Approach() {
 
                 {/* Main content: Mobile/tablet stacked, desktop side-by-side */}
                 <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 items-stretch w-full">
-                  {/* Image */}
+                  {/* Image with scale reveal animation */}
                   <div className="w-full lg:w-[80%] order-2 lg:order-1">
-                    <div className="aspect-[3/4] bg-brown-one p-3 shadow-xl overflow-hidden">
-                      <div className="w-full h-full relative border border-white/80">
+                    <div
+                      className="aspect-[3/4] bg-brown-one p-3 shadow-xl overflow-hidden"
+                      data-frame-container
+                    >
+                      <div
+                        className="w-full h-full relative border border-white/80"
+                        data-image-reveal
+                      >
                         <Image
                           src="/my-approach-img.jpg"
                           alt="My approach to photography"
@@ -331,22 +343,23 @@ export default function Approach() {
                         className="font-inconsolata font-medium leading-relaxed text-center lg:text-left"
                         style={{ fontSize: fontSizes.approachBodyText }}
                       >
-                        I don&apos;t just take photos - I tune into the energy of the
-                        moment, capturing the feelings that can&apos;t be posed or
-                        repeated. Inspired by golden light, real connection, and
-                        the way people just are when they feel truly seen, my
-                        approach is raw, intentional, and heart-first.
+                        I don&apos;t just take photos - I tune into the energy
+                        of the moment, capturing the feelings that can&apos;t be
+                        posed or repeated. Inspired by golden light, real
+                        connection, and the way people just are when they feel
+                        truly seen, my approach is raw, intentional, and
+                        heart-first.
                       </p>
 
                       <p
                         className="font-inconsolata font-medium leading-relaxed text-center lg:text-left"
                         style={{ fontSize: fontSizes.approachBodyText }}
                       >
-                        Whether it&apos;s a quiet elopement by the sea or a chaotic,
-                        love-filled wedding dance floor - I chase the moments
-                        that feel like you. Based in Long Island but always
-                        ready to roam, I bring storytelling, spontaneity, and
-                        soul into every frame.
+                        Whether it&apos;s a quiet elopement by the sea or a
+                        chaotic, love-filled wedding dance floor - I chase the
+                        moments that feel like you. Based in Long Island but
+                        always ready to roam, I bring storytelling, spontaneity,
+                        and soul into every frame.
                       </p>
                     </div>
 
@@ -384,8 +397,8 @@ export default function Approach() {
                     className="text-white font-la-belle-aurore italic max-w-3xl leading-relaxed transform -rotate-1 lg:-rotate-4 mt-0 lg:mt-10"
                     style={{ fontSize: fontSizes.approachQuote }}
                   >
-                    &quot;Every photo is a piece of your story, told with light and
-                    love.&quot;
+                    &quot;Every photo is a piece of your story, told with light
+                    and love.&quot;
                   </p>
                 </div>
               </div>
@@ -396,4 +409,3 @@ export default function Approach() {
     </section>
   );
 }
-
