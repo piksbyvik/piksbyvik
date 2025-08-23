@@ -1,7 +1,7 @@
 export const fontSizes = {
   // Hero section
-  heroTitle: "clamp(32px, 5vw, 72px)",
-  heroReal: "clamp(28px, 4.5vw, 64px)", 
+  heroTitle: "clamp(30px, 4vw, 48px)",
+  heroReal: "clamp(28px, 4.5vw, 56px)", 
   heroConnections: "clamp(28px, 4vw, 56px)",
   heroTypewriter: "clamp(16px, 2vw, 20px)",
   heroLocation: "clamp(16px, 1.8vw, 20px)",

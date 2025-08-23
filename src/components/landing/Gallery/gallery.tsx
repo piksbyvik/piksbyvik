@@ -3,11 +3,18 @@ import React from "react";
 import Image from "next/image";
 import { fontSizes } from "@/styles/typography";
 import Polaroid from "../../ui/Polaroid";
+import { urlFor } from "@/sanity/lib/image";
+import type { GallerySectionData } from "@/sanity/queries";
+import Heart from "@/components/icons/heart";
+import DotsSecondary from "@/components/icons/dots-secondary";
+import DotsPrimary from "@/components/icons/dots-primary";
+import HeartTwo from "@/components/icons/heart-v-2";
 
-const galleryImages = [
+// Fallback gallery data
+const fallbackGalleryImages = [
   {
     id: 1,
-    src: "/gallery-1.png",
+    src: "/gallery-4.png",
     caption: "Jennifer & Anthony's Wedding",
     rotation: -3,
     shadowRotation: -8,
@@ -35,7 +42,7 @@ const galleryImages = [
   },
   {
     id: 3,
-    src: "/gallery-3.png",
+    src: "/gallery-4.png",
     caption: "Emily & Ryan's Wedding",
     rotation: -1,
     shadowRotation: -7,
@@ -49,7 +56,7 @@ const galleryImages = [
   },
   {
     id: 4,
-    src: "/gallery-5.png",
+    src: "/gallery-4.png",
     caption: "Amaris & Anthony's Wedding",
     rotation: 3,
     shadowRotation: 8,
@@ -63,7 +70,7 @@ const galleryImages = [
   },
   {
     id: 5,
-    src: "/gallery-2.png",
+    src: "/gallery-4.png",
     caption: "The Nguyen Maternity Session",
     rotation: -2,
     shadowRotation: -6,
@@ -77,7 +84,7 @@ const galleryImages = [
   },
   {
     id: 6,
-    src: "/gallery-6.png",
+    src: "/gallery-4.png",
     caption: "Amy's Maternity Session",
     rotation: 1,
     shadowRotation: 5,
@@ -91,12 +98,30 @@ const galleryImages = [
   },
 ];
 
-const Gallery: React.FC = () => {
+interface GalleryProps {
+  data?: GallerySectionData;
+}
+
+const Gallery: React.FC<GalleryProps> = ({ data }) => {
+  // Use Sanity data if available, otherwise fallback
+  const backgroundImage = data?.backgroundImage
+    ? urlFor(data.backgroundImage.asset).url()
+    : '/gallery-bg.jpg';
+
+  const galleryItems = data?.galleryItems?.map((item, index) => ({
+    id: index + 1,
+    src: urlFor(item.image.asset).url(),
+    caption: item.caption,
+    rotation: fallbackGalleryImages[index]?.rotation || (index % 2 === 0 ? -2 : 2),
+    shadowRotation: fallbackGalleryImages[index]?.shadowRotation || (index % 2 === 0 ? -6 : 6),
+    decorativeElement: fallbackGalleryImages[index]?.decorativeElement,
+  })) || fallbackGalleryImages;
+
   return (
     <section
-      className="relative w-screen min-h-screen py-8 md:py-16 lg:py-24 overflow-hidden"
+      className="relative w-screen bg-beige-one min-h-screen py-8 md:py-16 lg:py-24 overflow-hidden"
       style={{
-        backgroundImage: "url('/gallery-bg.jpg')",
+        backgroundImage: `url('${backgroundImage}')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -104,7 +129,7 @@ const Gallery: React.FC = () => {
     >
       {/* Grain overlay */}
       <div
-        className="absolute inset-0 z-30 opacity-12 pointer-events-none"
+        className="absolute inset-0 z-00 opacity-12 pointer-events-none"
         style={{
           backgroundImage: "url('/grain.png')",
           backgroundSize: "cover",
@@ -120,23 +145,17 @@ const Gallery: React.FC = () => {
               className="font-travel-november text-brown-one mb-4 sm:mb-6 relative inline-block gallery-underline"
               style={{ fontSize: fontSizes.galleryTitle }}
             >
-              Featured Galleries
+              {data?.title || "Featured Galleries"}
             </h2>
             <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 opacity-80 mb-4 sm:mb-6">
-              <Image
-                src="/heart.svg"
-                alt="decorative heart"
-                width={64}
-                height={64}
-                className="w-full h-full object-contain"
-              />
+              <Heart className="w-full h-full rotate-15 object-contain text-brown-one scale-90" />
             </div>
           </div>
         </div>
 
         {/* Gallery Grid */}
         <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-24 md:gap-x-16 sm:gap-y-16 lg:gap-y-32 mt-10 mb-12 sm:mb-16 lg:mb-32 z-20">
-          {galleryImages.map((image, index) => (
+          {galleryItems.map((image) => (
             <div
               key={image.id}
               className="relative flex justify-center items-center min-h-[300px] sm:min-h-[350px] lg:min-h-[420px]"
@@ -212,64 +231,64 @@ const Gallery: React.FC = () => {
 
         {/* Action Buttons - Mobile responsive */}
         <div className="flex flex-col gap-4 sm:flex-row sm:gap-6 justify-center sm:justify-start items-center">
-          <button
-            className=" bg-brown-two text-beige-two border-none px-6 md:px-8 py-3 rounded-full font-inconsolata font-medium cursor-pointer transition-all duration-300 hover:bg-brown-one min-w-[140px] responsive-border-radius-gallery"
-            style={{
-              fontSize: fontSizes.buttonText,
-            }}
-          >
-            SEE MY WORK
-          </button>
-
-          <button
-            className=" bg-transparent text-black border-black border px-6 md:px-8 py-3 rounded-full font-inconsolata font-medium cursor-pointer transition-all duration-300 hover:bg-brown-two hover:text-beige-one min-w-[140px] responsive-border-radius-gallery"
-            style={{
-              fontSize: fontSizes.buttonText,
-            }}
-          >
-            GET IN TOUCH
-          </button>
+          {data?.ctaButtons?.map((button, index) => (
+            <button
+              key={index}
+              className={`${
+                button.style === 'primary'
+                  ? 'bg-brown-two text-beige-two border-none hover:bg-brown-one'
+                  : 'bg-transparent text-black border-black border hover:bg-brown-two hover:text-beige-one'
+              } px-6 md:px-8 py-3 rounded-full font-inconsolata font-medium cursor-pointer transition-all duration-300 min-w-[140px] responsive-border-radius-gallery`}
+              style={{
+                fontSize: fontSizes.buttonText,
+              }}
+            >
+              {button.text}
+            </button>
+          )) || (
+            // Fallback buttons
+            <>
+              <button
+                className="bg-brown-two text-beige-two border-none px-6 md:px-8 py-3 rounded-full font-inconsolata font-medium cursor-pointer transition-all duration-300 hover:bg-brown-one min-w-[140px] responsive-border-radius-gallery"
+                style={{
+                  fontSize: fontSizes.buttonText,
+                }}
+              >
+                SEE MY WORK
+              </button>
+              <button
+                className="bg-transparent text-black border-black border px-6 md:px-8 py-3 rounded-full font-inconsolata font-medium cursor-pointer transition-all duration-300 hover:bg-brown-two hover:text-beige-one min-w-[140px] responsive-border-radius-gallery"
+                style={{
+                  fontSize: fontSizes.buttonText,
+                }}
+              >
+                GET IN TOUCH
+              </button>
+            </>
+          )}
         </div>
 
         {/* Decorative Elements - Mobile responsive positioning */}
         <div className="hidden sm:block absolute bottom-20 left-[30%] w-16 h-16 sm:w-20 sm:h-20 opacity-100 z-10 rotate-4">
-          <Image
-            src="/heart.svg"
-            alt="decorative heart"
-            width={80}
-            height={80}
-            className="w-full h-full object-contain"
-          />
+          <HeartTwo className="w-full h-full object-contain text-brown-two scale-80" />
         </div>
 
         {/* Dots decoration - Responsive sizing and positioning */}
         <div
           className="absolute top-0 -right-10 sm:-top-20 md:right-0 w-[200px] h-[200px] sm:w-[200px] sm:h-[200px] lg:w-[293px] lg:h-[297px] z-10 sm:opacity-100"
-          style={{
-            backgroundImage: "url('/dots-2-dark.svg')",
-            backgroundSize: "contain",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-          }}
-        />
+        >
+          <DotsPrimary className="w-full h-full" />
+        </div>
         <div
-          className=" absolute top-1/2 left-0 w-[200px] h-[200px] lg:w-[293px] lg:h-[297px] z-10"
-          style={{
-            backgroundImage: "url('/dots-2-dark.svg')",
-            backgroundSize: "contain",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-          }}
-        />
+          className="absolute top-1/2 left-0 w-[200px] h-[200px] lg:w-[293px] lg:h-[297px] z-10"
+        >
+          <DotsPrimary className="w-full h-full" />
+        </div>
         <div
-          className=" absolute bottom-[12%] right-0 md:top-1/2 md:left-1/2 w-[293px] h-[297px] z-10"
-          style={{
-            backgroundImage: "url('/dots.svg')",
-            backgroundSize: "contain",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-          }}
-        />
+          className="absolute bottom-[12%] right-0 md:top-1/2 md:left-1/2 w-[293px] h-[297px] z-10"
+        >
+          <DotsPrimary className="w-full h-full" />
+        </div>
       </div>
     </section>
   );

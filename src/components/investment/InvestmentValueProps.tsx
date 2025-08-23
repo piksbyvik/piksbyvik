@@ -1,12 +1,45 @@
+"use client"
 import React, { useRef } from "react";
 import Image from "next/image";
 import { fontSizes } from "@/styles/typography";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { InvestmentValuePropsData } from "@/sanity/queries";
 
-export default function InvestmentValueProps() {
+interface InvestmentValuePropsProps {
+  data?: InvestmentValuePropsData;
+}
+
+export default function InvestmentValueProps({ data }: InvestmentValuePropsProps) {
   const sectionRef = useRef<HTMLElement>(null);
+
+  // Fallback data
+  const fallbackData = {
+    heading: {
+      preText: "More Than Just",
+      highlightedText: "Pretty Photos"
+    },
+    valueCards: [
+      {
+        title: "INTENTIONAL, EMOTIONAL STORYTELLING",
+        description: "Rather than just snapping pretty pictures, I focus on telling your story – the genuine, unscripted moments that reflect who you truly are. From the subtle hand squeeze before you walk down the aisle to the laughter that echoes during speeches, every frame is curated to capture the feeling of your day, not just how it looked.",
+        backgroundColor: "blue"
+      },
+      {
+        title: "GUIDANCE WITHOUT POSING PRESSURE",
+        description: "You don't need to be a model to look amazing in photos. I gently guide you with prompts and movements that feel natural – so your portraits look candid, not stiff. The goal? To create a comfortable space where your personalities shine through effortlessly, whether we're in a forest, by the beach, or in your backyard.",
+        backgroundColor: "#8B7D6B"
+      },
+      {
+        title: "TRUE-TO-YOU EDITING & A TIMELESS LOOK",
+        description: "No trendy filters or overexposed presets. My editing style is crafted to reflect the mood and tone of your day – warm, elegant, and real. Your photos will stand the test of time, so when you look back years from now, they'll feel just as magical as the day they were taken.",
+        backgroundColor: "brown-one"
+      }
+    ]
+  };
+
+  const content = data || fallbackData;
 
   useGSAP(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -75,7 +108,7 @@ export default function InvestmentValueProps() {
   return (
     <section ref={sectionRef} className="relative w-screen bg-beige-one py-10 ">
       <div
-        className="absolute inset-0 z-10 opacity-12 pointer-events-none"
+        className="absolute inset-0 z-0 opacity-12 pointer-events-none"
         style={{
           backgroundImage: "url('/grain.png')",
           backgroundSize: "cover",
@@ -106,11 +139,11 @@ export default function InvestmentValueProps() {
             className="heading-animation font-la-belle-aurore text-black text-center text-[2.2rem] md:text-[2.8rem] lg:text-[3.2rem] font-normal"
             style={{ letterSpacing: "0.02em" }}
           >
-            More Than Just
+            {content.heading.preText}
           </h2>
           <div className="heading-animation relative flex items-center">
             <span className="font-la-belle-aurore text-black text-[2.2rem] md:text-[2.8rem] lg:text-[3.2rem] font-normal px-6">
-              Pretty Photos
+              {content.heading.highlightedText}
             </span>
             {/* Oval/circle icon SVG */}
             <Image
@@ -125,44 +158,34 @@ export default function InvestmentValueProps() {
 
         {/* Value Props Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-6 lg:gap-10">
-          {/* Card 1 */}
-          <div className="value-card bg-blue border border-black p-6 md:p-8 rounded-none shadow-none">
-            <h3
-              className="font-domaine-display font-normal text-black mb-4"
-              style={{ fontSize: fontSizes.approachQuote }}
+          {content.valueCards.map((card, index) => (
+            <div 
+              key={index}
+              className={`value-card border border-black p-6 md:p-8 rounded-none shadow-none`}
+              style={{ 
+                backgroundColor: card.backgroundColor === 'blue' ? 'var(--color-blue)' :
+                               card.backgroundColor === 'brown-one' ? 'var(--color-brown-one)' :
+                               card.backgroundColor
+              }}
             >
-              INTENTIONAL, EMOTIONAL STORYTELLING
-            </h3>
-            <p className="font-inconsolata text-black leading-relaxed" style={{ fontSize: fontSizes.bodyMedium }}>
-              Rather than just snapping pretty pictures, I focus on telling your story – the genuine, unscripted moments that reflect who you truly are. From the subtle hand squeeze before you walk down the aisle to the laughter that echoes during speeches, every frame is curated to capture the feeling of your day, not just how it looked.
-            </p>
-          </div>
-          
-          {/* Card 2 */}
-          <div className="value-card bg-[#8B7D6B] border border-black p-6 md:p-8 rounded-none shadow-none">
-            <h3
-              className="font-domaine-display font-normal text-beige-one mb-4"
-              style={{ fontSize: fontSizes.approachQuote }}
-            >
-              GUIDANCE WITHOUT POSING PRESSURE
-            </h3>
-            <p className="font-inconsolata text-beige-one leading-relaxed" style={{ fontSize: fontSizes.bodyMedium }}>
-              You don&apos;t need to be a model to look amazing in photos. I gently guide you with prompts and movements that feel natural – so your portraits look candid, not stiff. The goal? To create a comfortable space where your personalities shine through effortlessly, whether we&apos;re in a forest, by the beach, or in your backyard.
-            </p>
-          </div>
-          
-          {/* Card 3 */}
-          <div className="value-card bg-brown-one border border-black p-6 md:p-8 rounded-none shadow-none">
-            <h3
-              className="font-domaine-display font-normal text-beige-one mb-4"
-              style={{ fontSize: fontSizes.approachQuote }}
-            >
-              TRUE-TO-YOU EDITING &amp; A TIMELESS LOOK
-            </h3>
-            <p className="font-inconsolata text-beige-one leading-relaxed" style={{ fontSize: fontSizes.bodyMedium }}>
-              No trendy filters or overexposed presets. My editing style is crafted to reflect the mood and tone of your day – warm, elegant, and real. Your photos will stand the test of time, so when you look back years from now, they&apos;ll feel just as magical as the day they were taken.
-            </p>
-          </div>
+              <h3
+                className={`font-domaine-display font-normal mb-4 ${
+                  card.backgroundColor === 'blue' ? 'text-black' : 'text-beige-one'
+                }`}
+                style={{ fontSize: fontSizes.approachQuote }}
+              >
+                {card.title}
+              </h3>
+              <p 
+                className={`font-inconsolata leading-relaxed tracking-tight ${
+                  card.backgroundColor === 'blue' ? 'text-black' : 'text-beige-one'
+                }`} 
+                style={{ fontSize: fontSizes.bodyMedium }}
+              >
+                {card.description}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

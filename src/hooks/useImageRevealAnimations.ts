@@ -36,9 +36,9 @@ export const useImageRevealAnimations = (containerRef: React.RefObject<HTMLDivEl
         tl.to(imageElement, {
           opacity: 1,
           clipPath: "inset(0%)",
-          duration: 1.2,
-          ease: "power2.out",
-          delay: index * 0.1,
+          duration: 1.4,
+          ease: "power3.out",
+          delay: index * 0.2,
           onComplete: () => {
             // Remove will-change after animation completes
             (imageElement as HTMLElement).style.willChange = 'auto';

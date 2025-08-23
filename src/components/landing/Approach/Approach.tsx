@@ -1,30 +1,46 @@
 "use client";
-import { useRef, useState } from "react";
-import Image from "next/image";
-import { useScrollAnimations } from "@/hooks/useScrollAnimations";
+import DotsSecondary from "@/components/icons/dots-secondary";
+import Heart from "@/components/icons/heart";
 import { useImageRevealAnimations } from "@/hooks/useImageRevealAnimations";
+import { useScrollAnimations } from "@/hooks/useScrollAnimations";
+import { urlFor } from "@/sanity/lib/image";
+import type { ApproachSectionData } from "@/sanity/queries";
 import { fontSizes } from "@/styles/typography";
+import Image from "next/image";
+import { useRef, useState } from "react";
+import ImageWithFallback from "@/components/ui/ImageWithFallback";
 
-export default function Approach() {
+interface ApproachProps {
+  data?: ApproachSectionData;
+}
+
+export default function Approach({ data }: ApproachProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [activeSection, setActiveSection] = useState<"capture" | "approach">(
     "capture"
   );
 
   useScrollAnimations(sectionRef);
-  useImageRevealAnimations(sectionRef); // Add the image reveal animations
+  useImageRevealAnimations(sectionRef);
 
   return (
     <section
       ref={sectionRef}
       className="relative w-screen min-h-screen overflow-hidden"
-      style={{
-        backgroundImage: "url('/my-approach-background.jpg')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-      }}
     >
+      {/* Background using ImageWithFallback */}
+      <div className="absolute inset-0">
+        <ImageWithFallback
+          src={data?.backgroundImage}
+          alt="Approach section background"
+          fill
+          className="object-cover"
+          fallback={
+            <div className="w-full h-full bg-gradient-to-br from-beige-one to-brown-one"></div>
+          }
+        />
+      </div>
+
       {/* Grain overlay */}
       <div
         className="absolute inset-0 z-30 opacity-18 pointer-events-none"
@@ -143,19 +159,14 @@ export default function Approach() {
                     className="font-la-belle-aurore text-black"
                     style={{ fontSize: fontSizes.approachQuote }}
                   >
-                    &quot;Because these days are worth remembering. ♡&quot;
+                    {data?.whatICaptureTab?.quote ||
+                      '"Because these days are worth remembering. ♡"'}
                   </p>
 
                   {/* Dots positioned below the quote */}
-                  <div
-                    className="absolute top-4 right-10 w-72 h-48"
-                    style={{
-                      backgroundImage: "url('/dots.svg')",
-                      backgroundSize: "contain",
-                      backgroundPosition: "center",
-                      backgroundRepeat: "no-repeat",
-                    }}
-                  />
+                  <div className="absolute top-4 right-5">
+                    <DotsSecondary className="w-72 h-48" />
+                  </div>
                 </div>
 
                 {/* Mobile/Tablet Quote - Centered */}
@@ -164,21 +175,18 @@ export default function Approach() {
                     className="font-la-belle-aurore text-black"
                     style={{ fontSize: fontSizes.bodyLarge }}
                   >
-                    &quot;Because these days are worth remembering. ♡&quot;
+                    {data?.whatICaptureTab?.quote ||
+                      '"Because these days are worth remembering. ♡"'}
                   </p>
                 </div>
 
                 {/* Main title and button */}
                 <div className="flex flex-col items-start gap-4 lg:gap-8">
                   <h2
-                    className="font-domaine-display font-semibold text-brown-one relative inline-block text-center lg:text-left w-full lg:w-auto"
+                    className="font-domaine-display font-semibold text-brown-one relative inline-block text-center lg:text-left w-full lg:w-auto word-underline"
                     style={{ fontSize: fontSizes.approachTitle }}
                   >
-                    WHERE MY{" "}
-                    <span className="inline-block relative word-underline">
-                      LENS
-                    </span>{" "}
-                    LEADS
+                    {data?.whatICaptureTab?.title || "WHERE MY LENS LEADS"}
                   </h2>
 
                   {/* View Packages Button */}
@@ -186,7 +194,8 @@ export default function Approach() {
                     className="w-full lg:w-auto inline-flex items-center justify-center gap-3 px-6 lg:px-10 py-3 lg:py-4 border-2 border-brown-one rounded-full text-brown-one hover:bg-brown-one hover:text-beige-one transition-all duration-300 font-inconsolata font-medium uppercase tracking-wide mt-4 lg:mt-8"
                     style={{ fontSize: fontSizes.approachButtonText }}
                   >
-                    EXPLORE MY PACKAGES
+                    {data?.whatICaptureTab?.ctaButtonText ||
+                      "EXPLORE MY PACKAGES"}
                     <svg
                       className="w-4 h-4 rotate-310"
                       viewBox="0 0 16 16"
@@ -198,85 +207,40 @@ export default function Approach() {
                 </div>
               </div>
 
-              {/* Three category sections - Single column on mobile/tablet */}
+              {/* Three category sections */}
               <div
-                className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-12 bg-[#4C453B] w-full pb-6 lg:pb-10 pt-8 lg:pt-14 px-[5vw] lg:px-[3.5vw]"
+                className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-12 bg-[#4C453B] w-full pb-6 lg:pb-10 pt-8 lg:pt-14 px-[5vw] lg:px-[3.5vw] z-20"
                 data-fade="categories"
               >
-                {/* WEDDINGS & COUPLES */}
-                <div className="text-center lg:text-left">
-                  <h3
-                    className="font-instrument-serif font-medium text-beige-two pb-4 lg:pb-6 uppercase"
-                    style={{ fontSize: fontSizes.approachCategoryTitle }}
-                  >
-                    WEDDINGS & COUPLES
-                  </h3>
-                  <div
-                    className="h-[440px] md:h-[500px] relative overflow-hidden p-3 lg:p-4 bg-white border border-black"
-                    data-frame-container
-                  >
+                {data?.whatICaptureTab?.categories?.map((category, index) => (
+                  <div key={index} className="text-center lg:text-left z-40">
+                    <h3
+                      className="font-instrument-serif font-medium text-beige-two pb-4 lg:pb-6 uppercase"
+                      style={{ fontSize: fontSizes.approachCategoryTitle }}
+                    >
+                      {category.title}
+                    </h3>
                     <div
-                      className="w-full h-full border border-black"
-                      data-image-reveal
-                      style={{
-                        backgroundImage: "url('/what-i-capture-weddings-couples.png')",
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                        backgroundRepeat: "no-repeat",
-                      }}
-                    />
+                      className="h-[440px] md:h-[500px] relative overflow-hidden p-3 lg:p-4 bg-white border border-black z-40"
+                      data-frame-container
+                    >
+                      <div className="w-full h-full border border-black z-40">
+                        <div
+                          className="w-full h-full z-40"
+                          data-image-reveal
+                          style={{
+                            backgroundImage: category.image 
+                              ? `url('${urlFor(category.image.asset).url()}')` 
+                              : 'linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%)',
+                            backgroundSize: "cover",
+                            backgroundPosition: "center",
+                            backgroundRepeat: "no-repeat",
+                          }}
+                        />
+                      </div>
+                    </div>
                   </div>
-                </div>
-
-                {/* FAMILY */}
-                <div className="text-center lg:text-left">
-                  <h3
-                    className="font-instrument-serif font-medium text-beige-two pb-4 lg:pb-6 uppercase"
-                    style={{ fontSize: fontSizes.approachCategoryTitle }}
-                  >
-                    FAMILY
-                  </h3>
-                  <div
-                    className="h-[440px] md:h-[500px] relative overflow-hidden p-3 lg:p-4 bg-white border border-black"
-                    data-frame-container
-                  >
-                    <div
-                      className="w-full h-full border border-black"
-                      data-image-reveal
-                      style={{
-                        backgroundImage: "url('/what-i-capture-family.png')",
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                        backgroundRepeat: "no-repeat",
-                      }}
-                    />
-                  </div>
-                </div>
-
-                {/* NEWBORN & MATERNITY */}
-                <div className="text-center lg:text-left">
-                  <h3
-                    className="font-instrument-serif font-medium text-beige-two pb-4 lg:pb-6 uppercase"
-                    style={{ fontSize: fontSizes.approachCategoryTitle }}
-                  >
-                    NEWBORN & MATERNITY
-                  </h3>
-                  <div
-                    className="h-[440px] md:h-[500px] relative overflow-hidden p-3 lg:p-4 bg-white border border-black"
-                    data-frame-container
-                  >
-                    <div
-                      className="w-full h-full border border-black"
-                      data-image-reveal
-                      style={{
-                        backgroundImage: "url('/what-i-capture-newborn-maternity.png')",
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                        backgroundRepeat: "no-repeat",
-                      }}
-                    />
-                  </div>
-                </div>
+                ))}
               </div>
             </>
           )}
@@ -288,26 +252,15 @@ export default function Approach() {
                 className="relative w-full min-h-screen flex flex-col justify-between px-[5vw] lg:px-[3.5vw] pt-4 lg:pt-7"
                 data-fade="approach-content"
               >
-                {/* Decorative hearts - Only on desktop */}
+                {/* Decorative hearts */}
                 <div className="hidden lg:block absolute top-4 right-20">
-                  <Image
-                    src="/heart.svg"
-                    alt="heart icons"
-                    width={31}
-                    height={34}
-                  />
+                  <Heart className="w-[28px] h-[31px] rotate-12 text-brown-one/90"/>
                 </div>
                 <div className="hidden lg:block absolute top-0 right-10">
-                  <Image
-                    src="/heart.svg"
-                    alt="heart icons"
-                    width={40}
-                    height={40}
-                    className="opacity-70"
-                  />
+                  <Heart className="w-10 h-10 rotate-18 text-dark-beige"/>
                 </div>
 
-                {/* Main content: Mobile/tablet stacked, desktop side-by-side */}
+                {/* Main content */}
                 <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 items-stretch w-full">
                   {/* Image with scale reveal animation */}
                   <div className="w-full lg:w-[80%] order-2 lg:order-1">
@@ -319,8 +272,8 @@ export default function Approach() {
                         className="w-full h-full relative border border-white/80"
                         data-image-reveal
                       >
-                        <Image
-                          src="/my-approach-img.jpg"
+                        <ImageWithFallback
+                          src={data?.myApproachTab?.image}
                           alt="My approach to photography"
                           fill
                           className="object-cover"
@@ -335,39 +288,67 @@ export default function Approach() {
                       className="font-domaine-display font-medium text-brown-one text-center lg:text-left w-full"
                       style={{ fontSize: fontSizes.approachWayIWork }}
                     >
-                      THE WAY I WORK
+                      {data?.myApproachTab?.title || "THE WAY I WORK"}
                     </h2>
 
                     <div className="space-y-4 lg:space-y-6 text-brown-one">
-                      <p
-                        className="font-inconsolata font-medium leading-relaxed text-center lg:text-left"
-                        style={{ fontSize: fontSizes.approachBodyText }}
-                      >
-                        I don&apos;t just take photos - I tune into the energy
-                        of the moment, capturing the feelings that can&apos;t be
-                        posed or repeated. Inspired by golden light, real
-                        connection, and the way people just are when they feel
-                        truly seen, my approach is raw, intentional, and
-                        heart-first.
-                      </p>
-
-                      <p
-                        className="font-inconsolata font-medium leading-relaxed text-center lg:text-left"
-                        style={{ fontSize: fontSizes.approachBodyText }}
-                      >
-                        Whether it&apos;s a quiet elopement by the sea or a
-                        chaotic, love-filled wedding dance floor - I chase the
-                        moments that feel like you. Based in Long Island but
-                        always ready to roam, I bring storytelling, spontaneity,
-                        and soul into every frame.
-                      </p>
+                      {data?.myApproachTab?.description?.map(
+                        (paragraph, index) => {
+                          const splitParagraphs = paragraph.split('\n\n').filter(p => p.trim());
+                          if (splitParagraphs.length > 1) {
+                            return splitParagraphs.map((splitPara, splitIndex) => (
+                              <p
+                                key={`${index}-${splitIndex}`}
+                                className="font-inconsolata font-medium leading-relaxed text-center lg:text-left"
+                                style={{ fontSize: fontSizes.approachBodyText }}
+                              >
+                                {splitPara.trim()}
+                              </p>
+                            ));
+                          }
+                          return (
+                            <p
+                              key={index}
+                              className="font-inconsolata font-medium leading-relaxed text-center lg:text-left"
+                              style={{ fontSize: fontSizes.approachBodyText }}
+                            >
+                              {paragraph}
+                            </p>
+                          );
+                        }
+                      ) || (
+                        <>
+                          <p
+                            className="font-inconsolata font-medium leading-relaxed text-center lg:text-left"
+                            style={{ fontSize: fontSizes.approachBodyText }}
+                          >
+                            I don&apos;t just take photos - I tune into the
+                            energy of the moment, capturing the feelings that
+                            can&apos;t be posed or repeated. Inspired by golden
+                            light, real connection, and the way people just are
+                            when they feel truly seen, my approach is raw,
+                            intentional, and heart-first.
+                          </p>
+                          <p
+                            className="font-inconsolata font-medium leading-relaxed text-center lg:text-left"
+                            style={{ fontSize: fontSizes.approachBodyText }}
+                          >
+                            Whether it&apos;s a quiet elopement by the sea or a
+                            chaotic, love-filled wedding dance floor - I chase
+                            the moments that feel like you. Based in Long Island
+                            but always ready to roam, I bring storytelling,
+                            spontaneity, and soul into every frame.
+                          </p>
+                        </>
+                      )}
                     </div>
 
                     <button
                       className="w-full lg:w-auto inline-flex items-center justify-center lg:justify-start font-instrument-serif text-brown-one hover:bg-brown-one hover:text-beige-one transition-all duration-300 font-medium uppercase tracking-wide underline underline-offset-8"
                       style={{ fontSize: fontSizes.approachButtonText }}
                     >
-                      EXPLORE MY PACKAGES
+                      {data?.myApproachTab?.ctaButtonText ||
+                        "EXPLORE MY PACKAGES"}
                     </button>
                   </div>
                 </div>
@@ -375,11 +356,14 @@ export default function Approach() {
 
               {/* Bottom quote section */}
               <div className="relative w-full h-[200px] lg:h-[300px] mt-8 lg:mt-16 overflow-hidden">
-                <Image
-                  src="/my-approach-bg.jpg"
+                <ImageWithFallback
+                  src={data?.myApproachTab?.bottomQuoteBackground}
                   alt="Approach background"
                   fill
                   className="object-cover"
+                  fallback={
+                    <div className="w-full h-full bg-gradient-to-br from-brown-one to-beige-one"></div>
+                  }
                 />
                 <div className="absolute inset-0 bg-brown-one/50" />
 
@@ -397,8 +381,8 @@ export default function Approach() {
                     className="text-white font-la-belle-aurore italic max-w-3xl leading-relaxed transform -rotate-1 lg:-rotate-4 mt-0 lg:mt-10"
                     style={{ fontSize: fontSizes.approachQuote }}
                   >
-                    &quot;Every photo is a piece of your story, told with light
-                    and love.&quot;
+                    {data?.myApproachTab?.bottomQuote ||
+                      '"Every photo is a piece of your story, told with light and love."'}
                   </p>
                 </div>
               </div>

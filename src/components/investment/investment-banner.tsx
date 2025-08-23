@@ -1,11 +1,26 @@
+"use client"
+
 import React, { useRef } from "react";
 import { fontSizes } from "@/styles/typography";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { InvestmentBannerData } from "@/sanity/queries";
 
-const InvestmentBanner = () => {
+interface InvestmentBannerProps {
+  data?: InvestmentBannerData;
+}
+
+const InvestmentBanner: React.FC<InvestmentBannerProps> = ({ data }) => {
   const bannerRef = useRef<HTMLDivElement>(null);
+
+  // Fallback data without image
+  const fallbackData = {
+    text: 'Less "say cheese," more "holy crap this is us!"',
+    backgroundImage: { asset: { url: "" } }
+  };
+
+  const content = data || fallbackData;
 
   useGSAP(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -41,17 +56,24 @@ const InvestmentBanner = () => {
       ref={bannerRef}
       className="relative w-screen h-[240px] md:h-[400px] lg:h-[528px] flex items-center justify-center overflow-hidden"
     >
-      {/* Fixed background container with parallax effect */}
-      <div
-        className="absolute inset-0 w-full h-full"
-        style={{
-          backgroundImage: "url('/investment-banner.webp')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundAttachment: "fixed", // This creates the true parallax effect
-          zIndex: 0,
-        }}
-      >
+      {/* Background container with conditional rendering */}
+      <div className="absolute inset-0 w-full h-full" style={{ zIndex: 0 }}>
+        {content.backgroundImage?.asset?.url ? (
+          <div
+            className="w-full h-full"
+            style={{
+              backgroundImage: `url('${content.backgroundImage.asset.url}')`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundAttachment: "fixed",
+            }}
+          />
+        ) : (
+          <div className="w-full h-full bg-gradient-to-br from-brown-one to-beige-one animate-pulse">
+            <div className="w-full h-full bg-gray-200 bg-opacity-30 backdrop-blur-sm"></div>
+          </div>
+        )}
+        
         {/* Grain overlay */}
         <div
           className="absolute inset-0 opacity-12 pointer-events-none"
@@ -69,7 +91,7 @@ const InvestmentBanner = () => {
           className="font-domaine-display font-medium text-beige-one capitalize text-center drop-shadow-lg"
           style={{ fontSize: fontSizes.heroConnections }}
         >
-          Less &quot;say cheese,&quot; more &quot;holy crap this is us!&quot;
+          {content.text}
         </h1>
       </div>
     </div>

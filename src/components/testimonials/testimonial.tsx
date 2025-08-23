@@ -1,18 +1,31 @@
 "use client";
-import React, { useState, useRef } from "react";
-import Image from "next/image";
+import { urlFor } from "@/sanity/lib/image";
+import type { TestimonialSectionData } from "@/sanity/queries";
 import { fontSizes } from "@/styles/typography";
-import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
+import { gsap } from "gsap";
+import Image from "next/image";
+import React, { useRef, useState } from "react";
+import DotsPrimary from "../icons/dots-primary";
 
-interface Testimonial {
-  id: number;
-  text: string;
-  author: string;
-  image: string;
-}
+// Fallback testimonials
+const fallbackTestimonials = [
+  {
+    id: 1,
+    text: "From the very first meeting, Victoria made us feel completely at ease. On our wedding day, they blended in so effortlessly - capturing the big moments, the quiet glances, and everything in between. Looking through our photos felt like reliving the day all over again. Every image holds so much emotion and beauty. We couldn't have asked for a more perfect way to remember one of the most important days of our lives.",
+    author: "Alexis & Nion",
+    image: "/testimonial-1.jpg",
+  },
+  {
+    id: 2,
+    text: "From the very first meeting, Victoria made us feel completely at ease. On our wedding day, they blended in so effortlessly - capturing the big moments, the quiet glances, and everything in between. Looking through our photos felt like reliving the day all over again. Every image holds so much emotion and beauty. We couldn't have asked for a more perfect way to remember one of the most important days of our lives.",
+    author: "Sarah & Michael",
+    image: "/what-i-capture-weddings-couples.png", // Fixed image path
+  },
+];
 
 interface TestimonialProps {
+  data?: TestimonialSectionData;
   bgColor?: string;
   textColor?: string;
   accentColor?: string;
@@ -24,32 +37,26 @@ interface TestimonialProps {
   imgBorder?: string;
 }
 
-const testimonials: Testimonial[] = [
-  {
-    id: 1,
-    text: "From the very first meeting, Victoria made us feel completely at ease. On our wedding day, they blended in so effortlessly - capturing the big moments, the quiet glances, and everything in between. Looking through our photos felt like reliving the day all over again. Every image holds so much emotion and beauty. We couldn't have asked for a more perfect way to remember one of the most important days of our lives.",
-    author: "Alexis & Nion",
-    image: "/testimonial-1.jpg",
-  },
-  {
-    id: 2,
-    text: "From the very first meeting, Victoria made us feel completely at ease. On our wedding day, they blended in so effortlessly - capturing the big moments, the quiet glances, and everything in between. Looking through our photos felt like reliving the day all over again. Every image holds so much emotion and beauty. We couldn't have asked for a more perfect way to remember one of the most important days of our lives.",
-    author: "Sarah & Michael",
-    image: "/what-i-capture-weddings.png",
-  },
-];
-
 const Testimonial: React.FC<TestimonialProps> = ({
+  data,
   bgColor = "#403528",
   textColor = "#F3EADB",
   accentColor = "#F5EEE2",
   borderColor = "#F3EADB",
   headerColor = "#F3EADB",
-  underlineColor = "#fff",
   buttonColor = "#F3EADB",
   imgBg = "#F3EADB",
   imgBorder = "#1e1e1e",
 }) => {
+  // Use Sanity testimonials if available, otherwise fallback
+  const testimonials =
+    data?.testimonials?.map((testimonial, index) => ({
+      id: index + 1,
+      text: testimonial.text,
+      author: testimonial.author,
+      image: urlFor(testimonial.image.asset).url(),
+    })) || fallbackTestimonials;
+
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const isAnimatingRef = useRef(false);
@@ -167,7 +174,10 @@ const Testimonial: React.FC<TestimonialProps> = ({
   });
 
   const handleNext = contextSafe(async () => {
-    if (isAnimatingRef.current || currentTestimonial === testimonials.length - 1)
+    if (
+      isAnimatingRef.current ||
+      currentTestimonial === testimonials.length - 1
+    )
       return;
 
     isAnimatingRef.current = true;
@@ -184,7 +194,7 @@ const Testimonial: React.FC<TestimonialProps> = ({
     >
       {/* Grain overlay */}
       <div
-        className="absolute inset-0 z-30 opacity-18 pointer-events-none"
+        className="absolute inset-0 z-10 opacity-18 pointer-events-none"
         style={{
           backgroundImage: "url('/grain.png')",
           backgroundSize: "cover",
@@ -193,17 +203,12 @@ const Testimonial: React.FC<TestimonialProps> = ({
       />
 
       <div className="w-full lg:min-h-screen lg:flex lg:items-center py-8 lg:py-0 testimonial-content">
-        <div className="w-full flex flex-col items-start">
+        <div className="w-full flex flex-col items-start relative">
           {/* Decorative dots - responsive positioning */}
-          <div
-            className="absolute top-2 -right-4 md:top-4 md:-right-8 w-40 h-28 md:w-80 md:h-56 scale-[0.8] md:scale-[1.3] z-10"
-            style={{
-              backgroundImage: "url('/dots-2.svg')",
-              backgroundSize: "contain",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-            }}
-          />
+          
+          <div className="absolute top-2 -right-4 md:-top-10 md:-right-10 w-40 h-28 md:w-80 md:h-56 scale-[0.8] md:scale-100 z-10">
+           <DotsPrimary/>
+          </div>
 
           {/* Header */}
           <div className="w-full md:w-[50%] px-[5vw] lg:px-[3.5vw] mb-4 md:-mb-6 z-20">
@@ -214,12 +219,12 @@ const Testimonial: React.FC<TestimonialProps> = ({
                 color: headerColor,
               }}
             >
-              LOVE{" "}
+              {data?.title?.split(" ")[0] || "LOVE"}{" "}
               <span
                 className="inline-block blue-underline"
                 style={{ color: headerColor }}
               >
-                NOTES
+                {data?.title?.split(" ").slice(1).join(" ") || "NOTES"}
               </span>
             </h2>
             <p
@@ -229,7 +234,7 @@ const Testimonial: React.FC<TestimonialProps> = ({
                 color: accentColor,
               }}
             >
-              from my couples ♡
+              {data?.subtitle || "from my couples ♡"}
             </p>
           </div>
 
@@ -242,23 +247,27 @@ const Testimonial: React.FC<TestimonialProps> = ({
             }}
           >
             {/* Left decorative dots - only on desktop */}
-            <div
-              className="hidden lg:block absolute top-[20%] -left-35 w-80 h-56 z-10"
-              style={{
-                backgroundImage: "url('/dots-2.svg')",
-                backgroundSize: "contain",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
-              }}
-            />
+            
+            <div className="hidden lg:block absolute top-[10%] -left-30 w-80 h-56 z-0 opacity-60 scale-90">
+              <DotsPrimary/>
+
+            </div>
 
             {/* Image - mobile first, desktop second */}
             <div className="order-1 lg:order-2 w-full lg:w-1/2 flex justify-center lg:justify-end z-20 mb-8 lg:mb-0 px-0">
-              <div className="relative aspect-[4/3] w-full max-w-[400px] lg:max-w-none overflow-hidden p-3" style={{backgroundColor: imgBg}}>
+              <div
+                className="relative aspect-[4/3] w-full max-w-[400px] lg:max-w-none overflow-hidden p-3"
+                style={{ backgroundColor: imgBg }}
+              >
                 <div
                   data-image
                   className="w-full h-full relative"
-                  style={{ opacity: 0, borderColor: imgBorder, borderWidth: 1, borderStyle: "solid" }}
+                  style={{
+                    opacity: 0,
+                    borderColor: imgBorder,
+                    borderWidth: 1,
+                    borderStyle: "solid",
+                  }}
                 >
                   <Image
                     key={currentTestimonial}
@@ -269,21 +278,7 @@ const Testimonial: React.FC<TestimonialProps> = ({
                   />
                 </div>
 
-                {/* Decorative dots overlay */}
-                <div className="absolute top-4 right-4 w-16 h-16 lg:w-20 lg:h-20 opacity-30">
-                  <div className="grid grid-cols-4 gap-1 h-full">
-                    {Array.from({ length: 16 }).map((_, i) => (
-                      <div
-                        key={i}
-                        className="w-1 h-1"
-                        style={{
-                          background: bgColor,
-                          borderRadius: "9999px",
-                        }}
-                      />
-                    ))}
-                  </div>
-                </div>
+                
               </div>
             </div>
 
@@ -324,7 +319,7 @@ const Testimonial: React.FC<TestimonialProps> = ({
                     opacity: 0,
                   }}
                 >
-                  - {testimonials[currentTestimonial].author}
+                  {testimonials[currentTestimonial].author}
                 </p>
               </div>
 

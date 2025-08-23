@@ -23,7 +23,7 @@ export const useScrollAnimations = (containerRef: React.RefObject<HTMLDivElement
         const wordEnd = wordStart + 4;
         if (index >= wordStart && index < wordEnd) {
           if (index === wordStart) {
-            return `<span class="inline-block relative word-underline"><span class="letter-reveal" data-letter="${index}">${char}</span>`;
+            return `<span class="inline-block relative"><span class="letter-reveal" data-letter="${index}">${char}</span>`;
           } else if (index === wordEnd - 1) {
             return `<span class="letter-reveal" data-letter="${index}">${char}</span></span>`;
           } else {

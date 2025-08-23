@@ -53,7 +53,7 @@ const Polaroid: React.FC<PolaroidProps> = ({
       </div>
 
       {/* Caption area with polaroid spacing */}
-      <div className="p-3 pb-6 text-center">
+      <div className="px-3 py-4 text-center">
         <p className="font-la-belle-aurore text-[16px] md:text-[20px] text-gray-800 leading-snug">
           {caption} <span className="md:text-[20px] text-[18px]">♡</span>
         </p>

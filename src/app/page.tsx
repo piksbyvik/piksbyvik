@@ -1,4 +1,3 @@
-"use client";
 import About from "@/components/landing/About/about";
 import Approach from "@/components/landing/Approach/Approach";
 import BookingForm from "@/components/landing/booking-form/booking-form";
@@ -6,24 +5,44 @@ import Gallery from "@/components/landing/Gallery/gallery";
 import Hero from "@/components/landing/Hero/Hero";
 import Footer from "@/components/shared/footer";
 import Testimonial from "@/components/testimonials/testimonial";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { client } from "@/sanity/lib/client";
+import { LANDING_PAGE_QUERY, type LandingPageData } from "@/sanity/queries";
 
-gsap.registerPlugin(ScrollTrigger);
+const options = { 
+  next: { 
+    revalidate: process.env.NODE_ENV === 'production' ? 1800 : 30 // 30 min in production, 30 sec in dev
+  } 
+};
 
-export default function Home() {
-  return (
-    <div className="w-screen relative">
-      <Hero />
-      <Approach />
-
-      <About />
-
-      <Gallery />
-
-      <Testimonial />
-      <BookingForm />
-      <Footer />
-    </div>
-  );
+export default async function Home() {
+  try {
+    const data = await client.fetch<LandingPageData>(LANDING_PAGE_QUERY, {}, options);
+    
+    return (
+      <div className="w-screen relative">
+        <Hero data={data?.heroSection} />
+        <Approach data={data?.approachSection} />
+        <About data={data?.aboutSection} />
+        <Gallery data={data?.gallerySection} />
+        <Testimonial data={data?.testimonialSection} />
+        <BookingForm data={data?.bookingSection} />
+        <Footer />
+      </div>
+    );
+  } catch (error) {
+    console.error('Error fetching Sanity data:', error);
+    
+    // Fallback to components without Sanity data
+    return (
+      <div className="w-screen relative">
+        <Hero />
+        <Approach />
+        <About />
+        <Gallery />
+        <Testimonial />
+        <BookingForm />
+        <Footer />
+      </div>
+    );
+  }
 }

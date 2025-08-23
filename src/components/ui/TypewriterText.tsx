@@ -3,16 +3,16 @@ import { useState, useEffect, useRef } from "react";
 import { fontSizes } from "@/styles/typography";
 
 interface TypewriterTextProps {
-  text: string;
-  locationText: string;
+  text?: string;
+  locationText?: string;
   speed?: number;
   delay?: number;
   onComplete?: () => void;
 }
 
 export function TypewriterText({ 
-  text, 
-  locationText,
+  text = "WEDDING | LIFESTYLE PHOTOGRAPHER", 
+  locationText = "BASED IN NYC",
   speed = 50, 
   delay = 1000, // Reduced from 2000ms to 1000ms
   onComplete 
@@ -52,7 +52,9 @@ export function TypewriterText({
         clearInterval(intervalRef.current);
       }
     };
-  }, []); // Remove dependencies to prevent re-runs
+  }, [text, speed, delay, onComplete]); // Remove dependencies to prevent re-runs
+
+ 
 
   return (
     <div className="space-y-2">

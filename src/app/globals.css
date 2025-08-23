@@ -50,10 +50,10 @@ body {
   content: '';
   position: absolute;
   bottom: -16px;
-  left: 0;
+  left: 50%;
   width: 164px;
   height: 37px;
-  background-image: url('/underline-2.svg');
+  background-image: url('/underline-approach.svg');
   background-size: contain;
   background-position: left center;
   background-repeat: no-repeat;
@@ -138,6 +138,9 @@ body {
 }
 .inquire-border-radius {
     border-radius: 55px/20px !important;
+  }
+  .word-underline::after {
+    display: none;
   }
 
 }

@@ -1,16 +1,23 @@
 "use client";
+import Heart from "@/components/icons/heart";
 import { SectionWrapper } from "@/components/shared/SectionWrapper";
+import { urlFor } from "@/sanity/lib/image";
+import type { AboutSectionData } from "@/sanity/queries";
 import { fontSizes } from "@/styles/typography";
-import Image from "next/image";
-import React, { useRef } from "react";
-import Polaroid from "../../ui/Polaroid";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Image from "next/image";
+import React, { useRef } from "react";
+import Polaroid from "../../ui/Polaroid";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const About: React.FC = () => {
+interface AboutProps {
+  data?: AboutSectionData;
+}
+
+const About: React.FC<AboutProps> = ({ data }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
@@ -61,7 +68,7 @@ const About: React.FC = () => {
           });
       };
 
-      const createFloatingAnimation = (delay = 2.2) => {
+      const createFloatingAnimation = (delay: number = 2.2) => {
         return () => {
           elements.decorativeIcons.forEach((icon, index) => {
             gsap.to(icon, {
@@ -87,7 +94,8 @@ const About: React.FC = () => {
           reduceMotion: "(prefers-reduced-motion: reduce)",
         },
         (context) => {
-          const { isMobile, isDesktop, reduceMotion } = context.conditions || {};
+          const { isMobile, isDesktop, reduceMotion } =
+            context.conditions || {};
 
           // Create master timeline - same for all devices
           const masterTl = createContainerAnimation();
@@ -458,7 +466,7 @@ const About: React.FC = () => {
                   }}
                   data-about-heading
                 >
-                  Hi I&apos;m Victoria
+                  {data?.heading || "Hi I'm Victoria"}
                 </h1>
                 {/* Camera SVG */}
                 <div
@@ -476,30 +484,61 @@ const About: React.FC = () => {
               </div>
 
               <div className="mb-4 md:mb-6 leading-relaxed text-left">
-                <p
-                  className="font-inconsolata font-medium text-black m-0 mb-4"
-                  style={{ fontSize: fontSizes.bodyMedium }}
-                  data-about-text
-                >
-                  I&apos;m not just your photographer - I&apos;m your hype girl,
-                  your calm in the chaos, and your biggest fan behind the lens.
-                  I&apos;m here to capture your magic, the wild love, the quiet
-                  glances, the full-body laughs - all the moments that make your
-                  story uniquely you.
-                </p>
-              </div>
-
-              <div className="mb-6 md:mb-10 leading-relaxed text-left">
-                <p
-                  className="font-inconsolata font-medium text-black m-0"
-                  style={{ fontSize: fontSizes.bodyMedium }}
-                  data-about-text
-                >
-                  Whether we&apos;re dancing barefoot on Long Island or chasing
-                  sunsets across the globe, I&apos;ll be right there - grounding
-                  you, guiding you, and soaking in every ounce of light + love
-                  right alongside you ♡
-                </p>
+                {data?.description?.map((paragraph, index) => {
+                  // Split paragraph by double line breaks if it contains them
+                  const splitParagraphs = paragraph.split('\n\n').filter(p => p.trim());
+                  
+                  // If we have multiple paragraphs from splitting, render them separately
+                  if (splitParagraphs.length > 1) {
+                    return splitParagraphs.map((splitPara, splitIndex) => (
+                      <p
+                        key={`${index}-${splitIndex}`}
+                        className="font-inconsolata font-medium text-black mb-8 "
+                        style={{ fontSize: fontSizes.bodyMedium }}
+                        data-about-text
+                      >
+                        {splitPara.trim()}
+                      </p>
+                    ));
+                  }
+                  
+                  // Otherwise render as single paragraph
+                  return (
+                    <p
+                      key={index}
+                      className="font-inconsolata font-medium text-black m-0 mb-8 last:mb-0"
+                      style={{ fontSize: fontSizes.bodyMedium }}
+                      data-about-text
+                    >
+                      {paragraph}
+                    </p>
+                  );
+                }) || (
+                  // Fallback content
+                  <>
+                    <p
+                      className="font-inconsolata font-medium text-black m-0 mb-6"
+                      style={{ fontSize: fontSizes.bodyMedium }}
+                      data-about-text
+                    >
+                      I&apos;m not just your photographer - I&apos;m your hype
+                      girl, your calm in the chaos, and your biggest fan behind
+                      the lens. I&apos;m here to capture your magic, the wild
+                      love, the quiet glances, the full-body laughs - all the
+                      moments that make your story uniquely you.
+                    </p>
+                    <p
+                      className="font-inconsolata font-medium text-black m-0"
+                      style={{ fontSize: fontSizes.bodyMedium }}
+                      data-about-text
+                    >
+                      Whether we&apos;re dancing barefoot on Long Island or
+                      chasing sunsets across the globe, I&apos;ll be right there
+                      - grounding you, guiding you, and soaking in every ounce
+                      of light + love right alongside you ♡
+                    </p>
+                  </>
+                )}
               </div>
 
               {/* Button */}
@@ -510,7 +549,7 @@ const About: React.FC = () => {
                     fontSize: fontSizes.buttonText,
                   }}
                 >
-                  MY STORY
+                  {data?.ctaButtonText || "MY STORY"}
                 </button>
               </div>
             </div>
@@ -519,8 +558,15 @@ const About: React.FC = () => {
             <div className="relative flex justify-center items-center order-1 lg:order-2 z-20 flex-shrink-0">
               <div data-about-image>
                 <Polaroid
-                  imageSrc="/victoria.jpg"
-                  caption="Long Island, NY photographer for the wildly in love and endlessly inspired ♡"
+                  imageSrc={
+                    data?.profileImage
+                      ? urlFor(data.profileImage.asset).url()
+                      : "/victoria.jpg"
+                  }
+                  caption={
+                    data?.polaroidCaption ||
+                    "Long Island, NY photographer for the wildly in love and endlessly inspired ♡"
+                  }
                   alt="Victoria with her camera in a field"
                   rotation={0} // Will be animated to 3
                   className="w-[280px] sm:w-[320px] md:w-[380px] lg:w-[400px]"
@@ -544,38 +590,13 @@ const About: React.FC = () => {
             className="absolute top-2 right-0 md:top-8 md:right-16 w-12 h-9 md:w-16 md:h-12 scale-[0.8] z-10 md:z-30"
             data-about-icon
           >
-            <Image
-              src="/heart.svg"
-              alt="hearts decoration"
-              width={64}
-              height={48}
-              className="w-full h-full object-contain opacity-70"
-            />
+            <Heart className="w-full h-full object-contain text-dark-beige scale-75 rotate-12" />
           </div>
           <div
             className="absolute top-6 right-2 md:top-6 md:right-6 w-12 h-9 md:w-16 md:h-12 z-10 md:z-30"
             data-about-icon
           >
-            <Image
-              src="/heart.svg"
-              alt="hearts decoration"
-              width={64}
-              height={48}
-              className="w-full h-full object-contain"
-            />
-          </div>
-
-          <div
-            className="absolute -bottom-6 md:-bottom-4 left-[55%] sm:left-[50%] md:left-[60%] lg:left-[55%] w-28 sm:w-40 md:w-64 lg:w-52 sm:h-[30%] md:h-[25%] lg:h-[35%] z-10"
-            data-about-trees
-          >
-            <Image
-              src="/about-trees.jpg"
-              alt="decorative trees"
-              width={180}
-              height={140}
-              className="w-full h-full object-cover"
-            />
+            <Heart className="w-16 h-12 rotate-18 object-contain text-brown-one/80" />
           </div>
         </div>
       </div>

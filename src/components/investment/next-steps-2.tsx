@@ -1,36 +1,19 @@
+"use client"
 import React, { useRef } from "react";
 import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { InvestmentNextStepsData } from "@/sanity/queries";
 
-const leftSteps = [
-  {
-    number: 2,
-    title: "Meeting",
-    text: "Let's schedule a virtual meeting to walk through the details. We'll go over the investment options that best suit your needs for the big day.",
-  },
-  {
-    number: 4,
-    title: "Session Day",
-    text: "The magic happens! We'll capture every beautiful moment, laugh together, and create memories that will last a lifetime.",
-  },
-];
+interface NextSteps2Props {
+  data?: InvestmentNextStepsData;
+}
 
-const rightSteps = [
-  {
-    number: 1,
-    title: "Inquiry", 
-    text: "Tell me all about you, the little details, the big dreams, and everything in between. Every inquiry feels like the beginning of something beautiful.",
-  },
-  {
-    number: 3,
-    title: "Booking",
-    text: "Once you're ready, I'll send over the contract and a custom planning portal. From timelines to must-capture moments, everything will be in one cozy digital home.",
-  },
-];
 
-export default function NextSteps2() {
+
+
+export default function NextSteps2({ data }: NextSteps2Props) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const lineRef = useRef<HTMLDivElement>(null);
@@ -45,6 +28,40 @@ export default function NextSteps2() {
       decorativeRefs.current.push(el);
     }
   };
+
+  // Fallback data
+  const fallbackData = {
+    title: "YOUR JOURNEY WITH ME",
+    subtitle: "from hello to forever",
+    steps: [
+      {
+        number: 1,
+        title: "Inquiry",
+        description: "Tell me all about you, the little details, the big dreams, and everything in between. Every inquiry feels like the beginning of something beautiful."
+      },
+      {
+        number: 2,
+        title: "Meeting",
+        description: "Let's schedule a virtual meeting to walk through the details. We'll go over the investment options that best suit your needs for the big day."
+      },
+      {
+        number: 3,
+        title: "Booking",
+        description: "Once you're ready, I'll send over the contract and a custom planning portal. From timelines to must-capture moments, everything will be in one cozy digital home."
+      },
+      {
+        number: 4,
+        title: "Session Day",
+        description: "The magic happens! We'll capture every beautiful moment, laugh together, and create memories that will last a lifetime."
+      }
+    ]
+  };
+
+  const content = data || fallbackData;
+
+  // Organize steps for layout
+  const leftSteps = content.steps.filter(step => step.number % 2 === 0);
+  const rightSteps = content.steps.filter(step => step.number % 2 === 1);
 
   // Replace useEffect with useGSAP
   useGSAP(() => {
@@ -318,7 +335,7 @@ export default function NextSteps2() {
               letterSpacing: "1px",
             }}
           >
-            YOUR JOURNEY WITH ME
+            {content.title}
           </h2>
           <span
             className="block font-script mt-2"
@@ -329,33 +346,21 @@ export default function NextSteps2() {
               letterSpacing: "1px",
             }}
           >
-            from hello to forever
+            {content.subtitle}
           </span>
         </div>
         
         {/* Mobile Layout - Single Column */}
         <div ref={mobileColRef} className="block md:hidden">
           <div className="flex flex-col space-y-8">
-            <MobileStepItem 
-              number={rightSteps[0].number} 
-              title={rightSteps[0].title}
-              text={rightSteps[0].text} 
-            />
-            <MobileStepItem 
-              number={leftSteps[0].number} 
-              title={leftSteps[0].title}
-              text={leftSteps[0].text}  
-            />
-            <MobileStepItem 
-              number={rightSteps[1].number} 
-              title={rightSteps[1].title}
-              text={rightSteps[1].text}  
-            />
-            <MobileStepItem 
-              number={leftSteps[1].number} 
-              title={leftSteps[1].title}
-              text={leftSteps[1].text}  
-            />
+            {content.steps.map((step) => (
+              <MobileStepItem 
+                key={step.number}
+                number={step.number} 
+                title={step.title}
+                text={step.description} 
+              />
+            ))}
           </div>
         </div>
 
@@ -363,22 +368,16 @@ export default function NextSteps2() {
         <div className="relative hidden md:flex w-full" style={{ minHeight: "600px" }}>
           {/* Left column with staggered positioning */}
           <div ref={leftColRef} className="flex flex-col flex-1 pr-4 lg:pr-8 relative">
-            <div style={{ marginTop: "80px" }}>
-              <StepItem 
-                number={leftSteps[0].number} 
-                title={leftSteps[0].title}
-                text={leftSteps[0].text} 
-                align="left" 
-              />
-            </div>
-            <div style={{ marginTop: "120px" }}>
-              <StepItem 
-                number={leftSteps[1].number} 
-                title={leftSteps[1].title}
-                text={leftSteps[1].text} 
-                align="left" 
-              />
-            </div>
+            {leftSteps.map((step, index) => (
+              <div key={step.number} style={{ marginTop: index === 0 ? "80px" : "120px" }}>
+                <StepItem 
+                  number={step.number} 
+                  title={step.title}
+                  text={step.description} 
+                  align="left" 
+                />
+              </div>
+            ))}
           </div>
           {/* Center vertical line */}
           <div
@@ -394,22 +393,16 @@ export default function NextSteps2() {
           />
           {/* Right column with staggered positioning */}
           <div ref={rightColRef} className="flex flex-col flex-1 pl-4 lg:pl-8 relative">
-            <div style={{ marginTop: "0px" }}>
-              <StepItem 
-                number={rightSteps[0].number} 
-                title={rightSteps[0].title}
-                text={rightSteps[0].text} 
-                align="right" 
-              />
-            </div>
-            <div style={{ marginTop: "60px" }}>
-              <StepItem 
-                number={rightSteps[1].number} 
-                title={rightSteps[1].title}
-                text={rightSteps[1].text} 
-                align="right" 
-              />
-            </div>
+            {rightSteps.map((step, index) => (
+              <div key={step.number} style={{ marginTop: index === 0 ? "0px" : "60px" }}>
+                <StepItem 
+                  number={step.number} 
+                  title={step.title}
+                  text={step.description} 
+                  align="right" 
+                />
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -610,7 +603,7 @@ function StepItem({
             {title}
           </h3>
           <span
-            className="font-inconsolata"
+            className="font-inconsolata tracking-tight"
             style={{
               fontSize: "clamp(16px, 1.6vw, 20px)",
               color: "var(--color-brown-one)",
