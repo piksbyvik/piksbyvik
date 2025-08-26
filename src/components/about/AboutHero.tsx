@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import { fontSizes } from "@/styles/typography";
 import Image from "next/image";
@@ -73,11 +72,11 @@ const AboutHero: React.FC<AboutHeroProps> = ({ data }) => {
 
   {/* Grain overlay */}
   <div
-    className="absolute inset-0 z-5 opacity-15 pointer-events-none"
+    className="absolute inset-0 z-5 opacity-25 pointer-events-none"
     style={{
-      backgroundImage: "url('/grain.png')",
-      backgroundSize: "cover",
-      backgroundRepeat: "no-repeat",
+      backgroundImage: "url('/grain.webp')",
+      
+      backgroundRepeat: "repeat",
     }}
   />
 </section>

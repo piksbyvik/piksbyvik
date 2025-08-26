@@ -1,18 +1,10 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import { urlFor } from "@/sanity/lib/image";
-
-interface SanityImageAsset {
-  asset: {
-    url: string;
-    _id?: string;
-  };
-}
 
 interface ImageWithFallbackProps {
-  // Sanity image object or external URL string - NOT for public folder assets
-  src?: SanityImageAsset | string | null;
+  // Pre-resolved URL string only - NO Sanity objects
+  src?: string | null;
   alt: string;
   width?: number;
   height?: number;
@@ -50,17 +42,16 @@ const DefaultLoading: React.FC<{ className?: string }> = ({ className }) => (
 );
 
 /**
- * ImageWithFallback - For Sanity CMS images and external URLs only
+ * ImageWithFallback - For pre-resolved URLs only
  * 
- * DO NOT USE for public folder assets like:
- * - Icons (/camera.svg, /pin.svg, etc.)
- * - Static images (/grain.png, /reel.webp, etc.)
- * - Decorative elements
+ * DO NOT USE for:
+ * - Sanity image objects (resolve URLs in server components first)
+ * - Public folder assets (use Next.js Image directly)
  * 
  * USE ONLY for:
- * - Sanity image objects from CMS
+ * - Pre-resolved Sanity URLs from server components
  * - External URLs that might fail
- * - Dynamic content images
+ * - Dynamic content URLs
  */
 export const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({
   src,
@@ -81,27 +72,8 @@ export const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({
   const [imageError, setImageError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Get the actual image URL
-  const getImageUrl = (): string | null => {
-    if (!src) return null;
-    
-    // Handle Sanity image objects
-    if (typeof src === "object" && "asset" in src && src.asset?.url) {
-      return urlFor(src.asset).url();
-    }
-    
-    // Handle direct URL strings (external URLs, not public folder paths)
-    if (typeof src === "string" && src.trim()) {
-      return src;
-    }
-    
-    return null;
-  };
-
-  const imageUrl = getImageUrl();
-
   // If no valid image URL or error occurred, show fallback
-  if (!imageUrl || imageError) {
+  if (!src || (typeof src === 'string' && !src.trim()) || imageError) {
     return (
       fallback || (
         <DefaultFallback 
@@ -117,7 +89,7 @@ export const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({
   }
 
   const imageProps = {
-    src: imageUrl,
+    src,
     alt,
     className: `${className} ${objectFit === 'cover' ? 'object-cover' : objectFit === 'contain' ? 'object-contain' : `object-${objectFit}`}`,
     onError: () => setImageError(true),

@@ -1,13 +1,15 @@
-
+import InvestmentBanner from "@/components/investment/investment-banner";
 import InvestmentHero from "@/components/investment/InvestmentHero";
 import InvestmentPackages from "@/components/investment/InvestmentPackages";
 import InvestmentValueProps from "@/components/investment/InvestmentValueProps";
-import InvestmentBanner from "@/components/investment/investment-banner";
 import NextSteps2 from "@/components/investment/next-steps-2";
 import Footer from "@/components/shared/footer";
 import Testimonial from "@/components/testimonials/testimonial";
 import { client } from "@/sanity/lib/client";
 import { INVESTMENT_PAGE_QUERY, type InvestmentPageData } from "@/sanity/queries";
+
+
+
 
 // This automatically detects the environment
 const options = { 

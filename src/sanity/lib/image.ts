@@ -2,8 +2,7 @@
 import imageUrlBuilder from "@sanity/image-url";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
-import { client } from "./client"; // see example client config
-
+import { client } from "./client"; 
 // Create an image URL builder using the client
 const builder = imageUrlBuilder(client);
 

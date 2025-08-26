@@ -1,57 +1,39 @@
 "use client";
 import Image from "next/image";
-import { useState, useEffect } from "react";
-import { urlFor } from "@/sanity/lib/image";
+import { useState, useEffect, useMemo } from "react";
 
 interface HeroBackgroundProps {
-  backgroundImages?: Array<{
-    asset: {
-      _id: string;
-      url: string;
-    };
-    alt: string;
-  }>;
+  backgroundImageUrls?: string[];
+  backgroundImageAlts?: string[];
 }
 
-const fallbackImages = ["/hero-1.jpg", "/hero-2.jpg", "/hero-3.jpg"];
-const grainImageUrl = "/grain.png";
+const fallbackImages = ["/hero-1.webp"];
+const grainImageUrl = "/grain.webp";
 
-export function HeroBackground({ backgroundImages }: HeroBackgroundProps) {
+export function HeroBackground({ backgroundImageUrls, backgroundImageAlts }: HeroBackgroundProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [allImagesLoaded, setAllImagesLoaded] = useState(false);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
 
-  // Use Sanity images if available, otherwise fallback to static images
-  const imagesToUse = backgroundImages?.length
-    ? backgroundImages.map((img) => urlFor(img.asset).url())
-    : fallbackImages;
+  // Memoize images to prevent recalculation
+  const imagesToUse = useMemo(() => 
+    backgroundImageUrls?.length ? backgroundImageUrls : fallbackImages,
+    [backgroundImageUrls]
+  );
 
   useEffect(() => {
-    const preloadImages = async () => {
-      const allImages = [...imagesToUse, grainImageUrl];
-
-      const imagePromises = allImages.map((src) => {
-        return new Promise<void>((resolve, reject) => {
-          const img = new window.Image();
-          img.onload = () => resolve();
-          img.onerror = () => reject(new Error(`Failed to load image: ${src}`));
-          img.src = src;
-        });
-      });
-
-      try {
-        await Promise.all(imagePromises);
-        setAllImagesLoaded(true);
-      } catch (error) {
-        console.error("Error preloading images:", error);
-        setAllImagesLoaded(true);
-      }
+    // Only preload first image for faster initial render
+    const preloadFirstImage = () => {
+      const img = new window.Image();
+      img.onload = () => setImagesLoaded(true);
+      img.onerror = () => setImagesLoaded(true);
+      img.src = imagesToUse[0];
     };
 
-    preloadImages();
+    preloadFirstImage();
   }, [imagesToUse]);
 
   useEffect(() => {
-    if (!allImagesLoaded) return;
+    if (!imagesLoaded) return;
 
     const interval = setInterval(() => {
       setCurrentImageIndex(
@@ -60,7 +42,16 @@ export function HeroBackground({ backgroundImages }: HeroBackgroundProps) {
     }, 4000);
 
     return () => clearInterval(interval);
-  }, [allImagesLoaded, imagesToUse.length]);
+  }, [imagesLoaded, imagesToUse.length]);
+
+  // Preload next image
+  useEffect(() => {
+    if (imagesLoaded && imagesToUse.length > 1) {
+      const nextIndex = (currentImageIndex + 1) % imagesToUse.length;
+      const img = new window.Image();
+      img.src = imagesToUse[nextIndex];
+    }
+  }, [currentImageIndex, imagesToUse, imagesLoaded]);
 
   return (
     <>
@@ -68,22 +59,22 @@ export function HeroBackground({ backgroundImages }: HeroBackgroundProps) {
       <div className="absolute inset-0 z-0 w-full h-full">
         <Image
           src={imagesToUse[currentImageIndex]}
-          alt={backgroundImages?.[currentImageIndex]?.alt || "Vintage wedding photography"}
+          alt={backgroundImageAlts?.[currentImageIndex] || "Vintage wedding photography"}
           fill
           priority
           className="object-cover"
+          sizes="100vw"
           style={{ filter: "brightness(0.6) contrast(1.1) saturate(0.9)" }}
         />
       </div>
 
-      {/* Grain overlay */}
-      {allImagesLoaded && (
+      {/* Grain overlay - only render when images are loaded */}
+      {imagesLoaded && (
         <div
-          className="absolute inset-0 z-10 opacity-18 pointer-events-none"
+          className="absolute inset-0 z-10 opacity-20 pointer-events-none"
           style={{
             backgroundImage: `url(${grainImageUrl})`,
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
+            backgroundRepeat: "repeat",
           }}
         />
       )}

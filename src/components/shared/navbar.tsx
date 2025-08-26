@@ -1,9 +1,9 @@
 "use client";
-import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
-import Image from "next/image";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -14,6 +14,11 @@ export default function Navbar() {
   // Define pages with light backgrounds that need dark navbar
   const lightBackgroundPages = ["/investment", "/portfolio"];
   const isLightPage = lightBackgroundPages.includes(pathname);
+
+  // Close menu when pathname changes
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [pathname]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,8 +37,6 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
- 
 
   // Dynamic styles based on page type
   const getNavbarStyles = () => {
@@ -91,7 +94,7 @@ export default function Navbar() {
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className={cn(
-              "font-inconsolata text-base md:text-lg tracking-wide hover:opacity-70 transition-opacity order-2 md:order-none",
+              "font-inconsolata text-base md:text-lg tracking-wide hover:opacity-70 hover:cursor-pointer transition-opacity order-2 md:order-none",
               styles.textColor
             )}
           >
@@ -113,7 +116,7 @@ export default function Navbar() {
           {/* CTA Button - Hidden on mobile */}
           <button
             className={cn(
-              "hidden md:block font-inconsolata text-sm px-6 py-2 border transition-colors",
+              "hidden md:block font-inconsolata text-sm px-6 py-2 border transition-colors hover:cursor-pointer",
               styles.textColor,
               styles.buttonBorder
             )}
@@ -140,53 +143,116 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Full-screen Menu Overlay for mobile, Half-screen for desktop */}
+      {/* Full-screen Menu Overlay */}
       {isMenuOpen && (
         <div className="fixed inset-0 z-90 flex">
+          {/* Grain overlay */}
+          <div
+            className="absolute inset-0 z-5 opacity-30 pointer-events-none"
+            style={{
+              backgroundImage: "url('/grain.webp')",
+
+              backgroundRepeat: "repeat",
+            }}
+          />
           {/* Menu Content */}
-          <div className="w-full md:w-1/2 h-full bg-[#8B7D6B] flex flex-col justify-between p-8 md:p-12">
-          
+          <div className="relative w-full md:w-1/2 h-full bg-brown-one flex flex-col px-8 py-12 md:px-12 md:py-12">
+            {/* Header */}
+            <div className="flex justify-center md:justify-start mb-16 md:mb-8">
+              <h2 className="hidden md:block font-travel-november text-beige-one text-3xl md:text-4xl">
+                Navigate
+              </h2>
+              <Image
+                src={styles.logoSrc}
+                alt="Piks by Vik Logo"
+                width={160}
+                height={50}
+                priority={true}
+                className="md:hidden"
+              />
+            </div>
+
+            {/* Circular Image - Desktop only */}
+            <div className="hidden lg:block z-40 absolute w-64 h-80 rounded-[50%] top-20 right-10 border border-beige-one overflow-hidden">
+              <Image
+                src="/gallery-4.png"
+                alt="couple Image for navbar"
+                fill
+                className="object-cover rounded-[50%]"
+              />
+            </div>
 
             {/* Navigation Links */}
-            <div className="flex flex-col space-y-8 mt-16">
-              <nav>
-                <ul className="space-y-4 md:space-y-6">
-                  <li>
+            <div className="flex flex-col justify-center flex-1">
+              <nav className="mx-auto md:mx-0 mb-16 md:mb-8">
+                <ul className="flex flex-col mx-auto md:mx-0 space-y-16 md:space-y-8 md:px-[2.5vw]">
+                  <li className="relative ml-6 md:ml-0 md:mx-0 flex-0">
+                    <span
+                      className="absolute -top-4 -left-8 md:-left-10 text-beige-two font-inconsolata text-xs md:text-sm"
+                      style={{ fontSize: "12px" }}
+                    >
+                      01
+                    </span>
                     <Link
                       href="/"
-                      className="block font-inconsolata text-2xl md:text-4xl text-white hover:text-[#F3EADB] transition-colors tracking-wide"
+                      className=" relative text-beige-one block font-instrument-serif text-4xl hover:text-beige-two hover:cursor-pointer transition-colors tracking-wide"
                     >
                       HOME
                     </Link>
                   </li>
-                  <li>
+                  <li className="relative mx-auto ml-40 md:ml-10">
+                    <span
+                      className="absolute -top-4 -left-8 md:-left-10 text-beige-two font-inconsolata text-xs md:text-sm"
+                      style={{ fontSize: "12px" }}
+                    >
+                      02
+                    </span>
                     <Link
                       href="/portfolio"
-                      className="block font-inconsolata text-2xl md:text-4xl text-white hover:text-[#F3EADB] transition-colors tracking-wide"
+                      className="text-beige-one block font-instrument-serif text-4xl hover:text-beige-two hover:cursor-pointer transition-colors tracking-wide"
                     >
                       PORTFOLIO
                     </Link>
                   </li>
-                  <li>
+                  <li className="relative mx-auto ml-5 md:ml-0">
+                    <span
+                      className="absolute -top-4 -left-8 md:-left-10 text-beige-two font-inconsolata text-xs md:text-sm"
+                      style={{ fontSize: "12px" }}
+                    >
+                      03
+                    </span>
                     <Link
                       href="/about"
-                      className="block font-inconsolata text-2xl md:text-4xl text-white hover:text-[#F3EADB] transition-colors tracking-wide"
+                      className="text-beige-one block font-instrument-serif text-4xl hover:text-beige-two hover:cursor-pointer transition-colors tracking-wide"
                     >
                       ABOUT
                     </Link>
                   </li>
-                  <li>
+                  <li className="relative mx-auto ml-24 md:ml-10">
+                    <span
+                      className="absolute -top-4 -left-8 md:-left-10 text-beige-two font-inconsolata text-xs md:text-sm"
+                      style={{ fontSize: "12px" }}
+                    >
+                      04
+                    </span>
                     <Link
                       href="/investment"
-                      className="block font-inconsolata text-2xl md:text-4xl text-white hover:text-[#F3EADB] transition-colors tracking-wide"
+                      className="text-beige-one block font-instrument-serif text-4xl hover:text-beige-two hover:cursor-pointer transition-colors tracking-wide"
                     >
                       INVESTMENT
                     </Link>
                   </li>
-                  <li>
+                  <li className="relative mx-auto ml-6 md:ml-0">
+                    <span
+                      className="absolute -top-4 -left-8 md:-left-10 text-beige-two font-inconsolata text-xs md:text-sm"
+                      style={{ fontSize: "12px" }}
+                    >
+                      05
+                    </span>
+
                     <Link
                       href="/contact"
-                      className="block font-inconsolata text-2xl md:text-4xl text-white hover:text-[#F3EADB] transition-colors tracking-wide"
+                      className="text-beige-one block font-instrument-serif text-4xl hover:text-beige-two hover:cursor-pointer transition-colors tracking-wide"
                     >
                       CONTACT
                     </Link>
@@ -194,22 +260,22 @@ export default function Navbar() {
                 </ul>
               </nav>
 
-              {/* Decorative Quote */}
-              <div className="mt-12 md:mt-16">
-                <p className="font-la-belle-aurore text-xl md:text-2xl text-[#F3EADB] italic">
+              {/* Decorative Quote - Desktop only */}
+              <div className="hidden md:block mb-16 md:mb-0 mx-auto md:mx-0 md:mt-2">
+                <p className="font-la-belle-aurore text-xl md:text-2xl text-beige-two italic">
                   &quot;Every moment tells a story&quot;
                 </p>
               </div>
             </div>
 
             {/* Bottom Section */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 md:gap-0">
-              {/* Contact Info */}
-              <div>
-                <p className="font-inconsolata text-sm text-white/80 mb-2">
-                  BASED IN NYC
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 md:gap-4">
+              {/* Contact Info - Desktop only */}
+              <div className="hidden md:block space-y-2">
+                <p className="font-inconsolata text-sm text-beige-two/80">
+                  BASED IN LONG ISLAND, NEW YORK
                 </p>
-                <p className="font-inconsolata text-sm text-white/80">
+                <p className="font-inconsolata text-sm text-beige-two/80">
                   piksbyvik@gmail.com
                 </p>
               </div>
@@ -217,32 +283,11 @@ export default function Navbar() {
               {/* Close Button */}
               <button
                 onClick={() => setIsMenuOpen(false)}
-                className="font-inconsolata text-base md:text-lg px-6 md:px-8 py-2 border border-white text-white hover:bg-white hover:text-[#8B7D6B] transition-colors tracking-wide"
+                className="font-inconsolata text-base md:text-lg px-6 py-2 md:px-8 md:py-2 border border-beige-one text-beige-one hover:bg-beige-one hover:text-brown-two hover:cursor-pointer transition-colors tracking-wide ml-auto md:ml-0"
                 style={{ borderRadius: "60px/25px" }}
               >
                 CLOSE
               </button>
-            </div>
-
-            {/* Decorative SVG - Bottom */}
-            <div className="absolute bottom-6 md:bottom-8 left-6 md:left-8">
-              <svg
-                width="60"
-                height="30"
-                viewBox="0 0 80 40"
-                fill="none"
-                className="text-white/15 md:w-[80px] md:h-[40px]"
-              >
-                <path
-                  d="M10 20C10 20 20 10 40 20C60 30 70 20 70 20"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  fill="none"
-                />
-                <circle cx="40" cy="20" r="3" fill="currentColor" />
-                <circle cx="15" cy="18" r="2" fill="currentColor" />
-                <circle cx="65" cy="22" r="2" fill="currentColor" />
-              </svg>
             </div>
           </div>
 

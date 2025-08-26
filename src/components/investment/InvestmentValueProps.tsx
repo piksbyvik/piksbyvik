@@ -2,9 +2,7 @@
 import React, { useRef } from "react";
 import Image from "next/image";
 import { fontSizes } from "@/styles/typography";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
+import { easeInOut, motion, useInView } from "motion/react";
 import { InvestmentValuePropsData } from "@/sanity/queries";
 
 interface InvestmentValuePropsProps {
@@ -13,6 +11,7 @@ interface InvestmentValuePropsProps {
 
 export default function InvestmentValueProps({ data }: InvestmentValuePropsProps) {
   const sectionRef = useRef<HTMLElement>(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-30%" });
 
   // Fallback data
   const fallbackData = {
@@ -41,107 +40,94 @@ export default function InvestmentValueProps({ data }: InvestmentValuePropsProps
 
   const content = data || fallbackData;
 
-  useGSAP(() => {
-    gsap.registerPlugin(ScrollTrigger);
-    
-    // Animate heading elements - fix TweenTarget error
-    const headingElements = sectionRef.current?.querySelectorAll('.heading-animation');
-    if (headingElements && headingElements.length > 0) {
-      gsap.fromTo(headingElements, 
-        { opacity: 0, y: 30 },
-        { 
-          opacity: 1, 
-          y: 0, 
-          duration: 0.8, 
-          stagger: 0.2,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 70%",
-            once: true
-          }
-        }
-      );
-    }
+  // Animation variants
+  const headingVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0 }
+  };
 
-    // Animate cards with staggered appearance - fix TweenTarget error
-    const cards = sectionRef.current?.querySelectorAll('.value-card');
-    if (cards && cards.length > 0) {
-      gsap.fromTo(cards, 
-        { opacity: 0, y: 50 },
-        { 
-          opacity: 1, 
-          y: 0, 
-          duration: 0.7, 
-          stagger: 0.2, 
-          ease: "back.out(1.2)",
-          scrollTrigger: {
-            trigger: cards[0], // Use first card as trigger
-            start: "top 85%",
-            once: true
-          }
-        }
-      );
-    }
+  const cardVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0 }
+  };
 
-    // Add subtle hover effect to decorative elements
-    const decorativeElements = sectionRef.current?.querySelectorAll('.decorative');
-    if (decorativeElements && decorativeElements.length > 0) {
-      decorativeElements.forEach((element, index) => {
-        gsap.to(element, {
-          y: "10px",
-          rotation: index % 2 === 0 ? "2deg" : "-2deg",
-          duration: 3 + index,
-          yoyo: true,
-          repeat: -1,
-          ease: "sine.inOut",
-          delay: index * 0.3
-        });
-      });
+  const floatingAnimation = {
+    y: [0, 10, 0],
+    rotate: [0, 2, 0],
+    transition: {
+      duration: 3,
+      repeat: Infinity,
+      ease: easeInOut
     }
-    
-    return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    };
-  }, { scope: sectionRef });
+  };
 
   return (
     <section ref={sectionRef} className="relative w-screen bg-beige-one py-10 ">
       <div
-        className="absolute inset-0 z-0 opacity-12 pointer-events-none"
-        style={{
-          backgroundImage: "url('/grain.png')",
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-        }}
-      />
+    className="absolute inset-0 z-5 opacity-12 pointer-events-none"
+    style={{
+      backgroundImage: "url('/grain.webp')",
+      
+      backgroundRepeat: "repeat",
+    }}
+  />
       
       {/* Dots background (left) */}
       <div
-        className="decorative absolute top-10 left-0 w-40 h-40 md:w-[312px] md:h-[292px] z-0"
+        className="absolute -top-25 -left-10 w-40 h-40 md:w-[390px] md:h-[340px] z-0"
         style={{
-          backgroundImage: "url('/dots-2-dark.svg')",
+          backgroundImage: "url('/dots-dark.svg')",
           backgroundSize: "contain",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "top left",
         }}
+        
       />
       
       {/* Camera icon (top right) */}
-      <div className="decorative absolute -top-10 right-0 scale-[0.7] md:scale-[1] lg:top-8 md:right-8 z-10">
+      <motion.div 
+        className="absolute -top-10 right-0 scale-[0.7] md:scale-[1] lg:top-8 md:right-8 z-10"
+        animate={{
+          y: [0, -10, 0],
+          rotate: [0, -2, 0],
+          transition: {
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 0.3
+          }
+        }}
+      >
         <Image src="/camera.svg" alt="camera icon" width={105} height={83} />
-      </div>
+      </motion.div>
 
       <div className="relative z-20 px-[5vw] lg:px-[3.5vw]">
         {/* Heading */}
         <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-12 md:mb-16">
-          <h2
-            className="heading-animation font-la-belle-aurore text-black text-center text-[2.2rem] md:text-[2.8rem] lg:text-[3.2rem] font-normal"
+          <motion.h2
+            className="font-la-belle-aurore text-black text-center text-[2.2rem] md:text-[2.8rem] lg:text-[3.2rem] font-normal"
             style={{ letterSpacing: "0.02em" }}
+            variants={headingVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+            transition={{
+              duration: 0.8,
+              ease: [0.25, 0.46, 0.45, 0.94]
+            }}
           >
             {content.heading.preText}
-          </h2>
-          <div className="heading-animation relative flex items-center">
+          </motion.h2>
+          <motion.div 
+            className="relative flex items-center"
+            variants={headingVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+            transition={{
+              duration: 0.8,
+              ease: [0.25, 0.46, 0.45, 0.94],
+              delay: 0.2
+            }}
+          >
             <span className="font-la-belle-aurore text-black text-[2.2rem] md:text-[2.8rem] lg:text-[3.2rem] font-normal px-6">
               {content.heading.highlightedText}
             </span>
@@ -153,19 +139,28 @@ export default function InvestmentValueProps({ data }: InvestmentValuePropsProps
               height={140}
               className="absolute left-0 top-1/2 -translate-y-1/2 -z-10 pointer-events-none"
             />
-          </div>
+          </motion.div>
         </div>
 
         {/* Value Props Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-6 lg:gap-10">
           {content.valueCards.map((card, index) => (
-            <div 
+            <motion.div 
               key={index}
-              className={`value-card border border-black p-6 md:p-8 rounded-none shadow-none`}
+              className={`border border-black p-6 md:p-8 rounded-none shadow-none`}
               style={{ 
                 backgroundColor: card.backgroundColor === 'blue' ? 'var(--color-blue)' :
                                card.backgroundColor === 'brown-one' ? 'var(--color-brown-one)' :
                                card.backgroundColor
+              }}
+              variants={cardVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-15%" }}
+              transition={{
+                duration: 0.7,
+                ease: [0.68, -0.55, 0.265, 1.55], // back.out(1.2)
+                delay: index * 0.2
               }}
             >
               <h3
@@ -184,7 +179,7 @@ export default function InvestmentValueProps({ data }: InvestmentValuePropsProps
               >
                 {card.description}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

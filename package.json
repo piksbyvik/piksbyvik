@@ -12,10 +12,9 @@
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
-    "@gsap/react": "^2.1.2",
     "@sanity/image-url": "^1.1.0",
     "clsx": "^2.1.1",
-    "gsap": "^3.13.0",
+    "motion": "^12.23.12",
     "next": "15.4.1",
     "next-sanity": "^10.0.7",
     "react": "19.1.0",
@@ -34,6 +33,7 @@
     "eslint-config-next": "15.4.1",
     "tailwindcss": "^4",
     "typescript": "^5",
-    "webpack-bundle-analyzer": "^4.10.2"
+    "webpack-bundle-analyzer": "^4.10.2",
+    "webpack-stats-plugin": "^1.1.3"
   }
 }

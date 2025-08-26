@@ -1,5 +1,5 @@
 // Landing Page Queries - Optimized for performance
-export const LANDING_PAGE_QUERY = `{
+export const LANDING_PAGE_QUERY = `*[_type == "landingPage"][0]{
   "heroSection": *[_type == "heroSection"][0]{
     typewriterText,
     locationText,
@@ -277,18 +277,18 @@ export const CONTACT_PAGE_QUERY = `{
 }`
 
 // About Page Query
-export const ABOUT_PAGE_QUERY = `{
-  "aboutPage": *[_type == "aboutPage"][0]{
-    heroSection {
+export const ABOUT_PAGE_QUERY = `*[_type == "aboutPage"][0]{
+  "aboutPage": {
+    "heroSection": heroSection{
       title,
       subtitle,
-      backgroundImage {
+      backgroundImage{
         asset->{
           _id,
           url
         }
       },
-      polaroidImage {
+      polaroidImage{
         asset->{
           _id,
           url
@@ -296,24 +296,31 @@ export const ABOUT_PAGE_QUERY = `{
       },
       polaroidCaption
     },
-    introSection {
+    "introSection": introSection{
       name,
       subtitle,
+      typewriterWords,
       description,
       paragraphs,
-      mainImage {
+      backgroundImage{
         asset->{
           _id,
           url
         }
       },
-      smallImageTop {
+      mainImage{
         asset->{
           _id,
           url
         }
       },
-      smallImageBottom {
+      smallImageTop{
+        asset->{
+          _id,
+          url
+        }
+      },
+      smallImageBottom{
         asset->{
           _id,
           url
@@ -713,6 +720,7 @@ export interface AboutPageContent {
   introSection: {
     name: string
     subtitle: string
+    typewriterWords: string[]
     description: string
     paragraphs: string[]
     mainImage: {

@@ -1,6 +1,6 @@
-"use client";
 import React from "react";
 import { fontSizes } from "@/styles/typography";
+import { urlFor } from "@/sanity/lib/image";
 import type { ContactPageHeroData } from "@/sanity/queries";
 import ImageWithFallback from "@/components/ui/ImageWithFallback";
 
@@ -9,6 +9,12 @@ interface ContactHeroProps {
 }
 
 const ContactHero: React.FC<ContactHeroProps> = ({ data }) => {
+  // Helper function to resolve image URLs
+  const getImageUrl = (image: { asset: { _id: string; url: string; } } | undefined): string | null => {
+    if (!image?.asset) return null;
+    return urlFor(image.asset).url();
+  };
+
   const heroText = data?.text || "GET IN TOUCH";
 
   return (
@@ -16,7 +22,7 @@ const ContactHero: React.FC<ContactHeroProps> = ({ data }) => {
       {/* Background Image with fallback */}
       <div className="absolute inset-0 z-0">
         <ImageWithFallback
-          src={data?.backgroundImage}
+          src={getImageUrl(data?.backgroundImage)}
           alt="Contact background"
           fill
           className="object-cover"
@@ -41,13 +47,12 @@ const ContactHero: React.FC<ContactHeroProps> = ({ data }) => {
         </h1>
       </div>
 
-      {/* Grain overlay - keep as background style since it's from public folder */}
+      {/* Grain overlay */}
       <div
-        className="absolute inset-0 z-5 opacity-10 pointer-events-none"
+        className="absolute inset-0 z-15 opacity-25 pointer-events-none"
         style={{
-          backgroundImage: "url('/grain.png')",
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
+          backgroundImage: "url('/grain.webp')",
+          backgroundRepeat: "repeat",
         }}
       />
     </section>

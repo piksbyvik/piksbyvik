@@ -1,11 +1,8 @@
 "use client";
-
-import React, { useRef } from "react";
 import { fontSizes } from "@/styles/typography";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
+import { motion, useInView } from "motion/react";
 import Link from "next/link";
+import React, { useRef } from "react";
 
 interface AboutBannerProps {
   data?: {
@@ -21,6 +18,7 @@ interface AboutBannerProps {
 
 const AboutBanner: React.FC<AboutBannerProps> = ({ data }) => {
   const bannerRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(bannerRef, { once: false, margin: "-30%" });
 
   // Fallback data without image
   const fallbackData = {
@@ -29,38 +27,6 @@ const AboutBanner: React.FC<AboutBannerProps> = ({ data }) => {
   };
 
   const content = data || fallbackData;
-
-  useGSAP(
-    () => {
-      gsap.registerPlugin(ScrollTrigger);
-
-      // Text reveal animation - properly target the text
-      const h1Element = bannerRef.current?.querySelector("h1");
-      if (h1Element) {
-        gsap.fromTo(
-          h1Element,
-          { opacity: 0, scale: 0.95 },
-          {
-            opacity: 1,
-            scale: 1,
-            duration: 1.2,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: bannerRef.current,
-              start: "top 70%",
-              end: "bottom 20%",
-              toggleActions: "play none none reverse",
-            },
-          }
-        );
-      }
-
-      return () => {
-        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-      };
-    },
-    { scope: bannerRef }
-  );
 
   return (
     <div
@@ -87,23 +53,31 @@ const AboutBanner: React.FC<AboutBannerProps> = ({ data }) => {
 
         {/* Grain overlay */}
         <div
-          className="absolute inset-0 opacity-12 pointer-events-none"
+          className="absolute inset-0 z-5 opacity-25 pointer-events-none"
           style={{
-            backgroundImage: "url('/grain.png')",
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
+            backgroundImage: "url('/grain.webp')",
+
+            backgroundRepeat: "repeat",
           }}
         />
       </div>
 
       {/* Text content with proper z-index to ensure visibility */}
       <div className="relative z-10 w-2/3 text-center px-4">
-        <h1
+        <motion.h1
           className="font-instrument-serif font-medium text-beige-one capitalize text-center drop-shadow-md mb-5"
           style={{ fontSize: fontSizes.heroConnections }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={
+            isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }
+          }
+          transition={{
+            duration: 1.2,
+            ease: [0.25, 0.46, 0.45, 0.94],
+          }}
         >
           {content.text}
-        </h1>
+        </motion.h1>
 
         <Link
           href="/contact"

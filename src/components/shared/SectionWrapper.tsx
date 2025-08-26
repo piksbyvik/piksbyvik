@@ -21,9 +21,9 @@ export const SectionWrapper = forwardRef<HTMLDivElement, SectionWrapperProps>(
           <div
             className="absolute inset-0 z-0 pointer-events-none"
             style={{
-              backgroundImage: "url('/grain.png')",
-              backgroundSize: "cover",
-              backgroundRepeat: "no-repeat",
+              backgroundImage: "url('/grain.webp')",
+              
+              backgroundRepeat: "repeat",
               opacity: grainOpacity / 100,
             }}
           />

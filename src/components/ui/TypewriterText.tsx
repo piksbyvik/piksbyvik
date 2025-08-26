@@ -5,56 +5,132 @@ import { fontSizes } from "@/styles/typography";
 interface TypewriterTextProps {
   text?: string;
   locationText?: string;
+  words?: string[];
   speed?: number;
+  deleteSpeed?: number;
+  delayBetweenWords?: number;
   delay?: number;
   onComplete?: () => void;
+  className?: string;
+  style?: React.CSSProperties;
 }
 
 export function TypewriterText({ 
   text = "WEDDING | LIFESTYLE PHOTOGRAPHER", 
   locationText = "BASED IN NYC",
+  words,
   speed = 50, 
-  delay = 1000, // Reduced from 2000ms to 1000ms
-  onComplete 
+  deleteSpeed = 30,
+  delayBetweenWords = 2000,
+  delay = 1000,
+  onComplete,
+  className = "",
+  style = {}
 }: TypewriterTextProps) {
   const [displayText, setDisplayText] = useState("");
   const [isComplete, setIsComplete] = useState(false);
+  const animationRef = useRef<NodeJS.Timeout | null>(null);
   const hasStarted = useRef(false);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // If words array is provided, use cycling typewriter effect
+  const isMultiWord = words && words.length > 0;
 
   useEffect(() => {
-    // Prevent multiple runs
-    if (hasStarted.current) return;
-    hasStarted.current = true;
+    // Clear any existing animation
+    if (animationRef.current) {
+      clearTimeout(animationRef.current);
+    }
+    
+    // Reset state
+    setDisplayText("");
+    setIsComplete(false);
+    hasStarted.current = false;
 
-    timeoutRef.current = setTimeout(() => {
-      let index = 0;
-      intervalRef.current = setInterval(() => {
-        if (index <= text.length) {
-          setDisplayText(text.slice(0, index));
-          index++;
-        } else {
-          if (intervalRef.current) {
-            clearInterval(intervalRef.current);
+    if (isMultiWord && words.length > 0) {
+      console.log("Starting typewriter with words:", words);
+      
+      // Multi-word cycling typewriter
+      let currentWordIndex = 0;
+      let currentCharIndex = 0;
+      let isDeleting = false;
+
+      const animate = () => {
+        const currentWord = words[currentWordIndex];
+        
+        if (!isDeleting) {
+          // Typing phase
+          currentCharIndex++;
+          setDisplayText(currentWord.slice(0, currentCharIndex));
+          
+          if (currentCharIndex === currentWord.length) {
+            // Word complete, wait then start deleting
+            animationRef.current = setTimeout(() => {
+              isDeleting = true;
+              animate();
+            }, delayBetweenWords);
+            return;
           }
+          
+          animationRef.current = setTimeout(animate, speed);
+        } else {
+          // Deleting phase
+          currentCharIndex--;
+          setDisplayText(currentWord.slice(0, currentCharIndex));
+          
+          if (currentCharIndex === 0) {
+            // Word deleted, move to next word
+            isDeleting = false;
+            currentWordIndex = (currentWordIndex + 1) % words.length;
+            animationRef.current = setTimeout(animate, speed);
+            return;
+          }
+          
+          animationRef.current = setTimeout(animate, deleteSpeed);
+        }
+      };
+
+      // Start animation after initial delay
+      animationRef.current = setTimeout(() => {
+        hasStarted.current = true;
+        animate();
+      }, delay);
+      
+    } else if (text) {
+      // Single text typewriter (original behavior)
+      let currentIndex = 0;
+      
+      const typeText = () => {
+        if (currentIndex <= text.length) {
+          setDisplayText(text.slice(0, currentIndex));
+          currentIndex++;
+          animationRef.current = setTimeout(typeText, speed);
+        } else {
           setIsComplete(true);
           onComplete?.();
         }
-      }, speed);
-    }, delay);
+      };
+
+      animationRef.current = setTimeout(() => {
+        hasStarted.current = true;
+        typeText();
+      }, delay);
+    }
 
     return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
+      if (animationRef.current) {
+        clearTimeout(animationRef.current);
       }
     };
-  }, [text, speed, delay, onComplete]); // Remove dependencies to prevent re-runs
+  }, [words, text, speed, deleteSpeed, delayBetweenWords, delay, isMultiWord, onComplete]);
 
- 
+  if (isMultiWord) {
+    return (
+      <span className={className} style={style}>
+        {displayText}
+        <span className="ml-1 animate-pulse text-brown-one">|</span>
+      </span>
+    );
+  }
 
   return (
     <div className="space-y-2">

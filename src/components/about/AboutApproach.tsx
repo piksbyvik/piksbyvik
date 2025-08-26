@@ -1,5 +1,5 @@
-"use client";
 import { fontSizes } from "@/styles/typography";
+import { urlFor } from "@/sanity/lib/image";
 import ImageWithFallback from "@/components/ui/ImageWithFallback";
 import Link from "next/link";
 import React from "react";
@@ -31,12 +31,18 @@ interface AboutApproachProps {
 }
 
 const AboutApproach: React.FC<AboutApproachProps> = ({ data }) => {
+  // Helper function to resolve image URLs
+  const getImageUrl = (image: { asset: { _id: string; url: string; } } | undefined): string | null => {
+    if (!image?.asset) return null;
+    return urlFor(image.asset).url();
+  };
+
   return (
     <section className="relative w-screen py-16 md:py-20 lg:py-24 bg-beige-one border-b-4 border-beige-two">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <ImageWithFallback
-          src={data?.backgroundImage}
+          src={getImageUrl(data?.backgroundImage)}
           alt="About approach background"
           fill
           className="object-cover"
@@ -50,7 +56,7 @@ const AboutApproach: React.FC<AboutApproachProps> = ({ data }) => {
       <div className="absolute right-0 bottom-0 w-[180px] h-[240px] hidden lg:block">
         <div className="relative w-full h-full overflow-hidden">
           <ImageWithFallback
-            src={data?.rightImage}
+            src={getImageUrl(data?.rightImage)}
             alt="Wedding couple"
             fill
             className="object-cover"
@@ -64,7 +70,7 @@ const AboutApproach: React.FC<AboutApproachProps> = ({ data }) => {
       <div className="absolute bottom-0 left-0 w-[180px] h-[240px] hidden lg:block">
         <div className="relative w-full h-full overflow-hidden">
           <ImageWithFallback
-            src={data?.leftImage}
+            src={getImageUrl(data?.leftImage)}
             alt="Wedding detail"
             fill
             className="object-cover"
@@ -79,13 +85,13 @@ const AboutApproach: React.FC<AboutApproachProps> = ({ data }) => {
 
       {/* Grain overlay */}
       <div
-        className="absolute inset-0 z-5 opacity-10 pointer-events-none"
-        style={{
-          backgroundImage: "url('/grain.png')",
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-        }}
-      />
+    className="absolute inset-0 z-5 opacity-25 pointer-events-none"
+    style={{
+      backgroundImage: "url('/grain.webp')",
+      
+      backgroundRepeat: "repeat",
+    }}
+  />
 
       <div className="relative flex flex-col items-center gap-6 z-10 px-[5vw] lg:px-0 lg:max-w-3xl xl:max-w-5xl mx-auto">
 
@@ -126,7 +132,7 @@ const AboutApproach: React.FC<AboutApproachProps> = ({ data }) => {
                 naturally, so my goal is to make you feel comfortable and
                 comfortable for everyone. This comfortable is where I ease your
                 worries about posing for me and just let you in our time together
-                and give my advice on positioning, but I do not "pose" you in ways
+                and give my advice on positioning, but I do not &quot;pose&quot; you in ways
                 that feel stiff because, to me, that isn&apos;t the true nature of
                 your love story.
               </p>

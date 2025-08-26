@@ -8,16 +8,20 @@ import Testimonial from "@/components/testimonials/testimonial";
 import { client } from "@/sanity/lib/client";
 import { LANDING_PAGE_QUERY, type LandingPageData } from "@/sanity/queries";
 
-const options = { 
-  next: { 
-    revalidate: process.env.NODE_ENV === 'production' ? 1800 : 30 // 30 min in production, 30 sec in dev
-  } 
+const options = {
+  next: {
+    revalidate: process.env.NODE_ENV === "production" ? 1800 : 30,
+  },
 };
 
 export default async function Home() {
   try {
-    const data = await client.fetch<LandingPageData>(LANDING_PAGE_QUERY, {}, options);
-    
+    const data = await client.fetch<LandingPageData>(
+      LANDING_PAGE_QUERY,
+      {},
+      options
+    );
+
     return (
       <div className="w-screen relative">
         <Hero data={data?.heroSection} />
@@ -30,9 +34,8 @@ export default async function Home() {
       </div>
     );
   } catch (error) {
-    console.error('Error fetching Sanity data:', error);
-    
-    // Fallback to components without Sanity data
+    console.error("Error fetching Sanity data:", error);
+
     return (
       <div className="w-screen relative">
         <Hero />

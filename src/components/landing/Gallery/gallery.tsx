@@ -1,14 +1,9 @@
-"use client";
-import React from "react";
-import Image from "next/image";
-import { fontSizes } from "@/styles/typography";
-import Polaroid from "../../ui/Polaroid";
 import { urlFor } from "@/sanity/lib/image";
 import type { GallerySectionData } from "@/sanity/queries";
-import Heart from "@/components/icons/heart";
-import DotsSecondary from "@/components/icons/dots-secondary";
-import DotsPrimary from "@/components/icons/dots-primary";
-import HeartTwo from "@/components/icons/heart-v-2";
+import { fontSizes } from "@/styles/typography";
+import Image from "next/image";
+import React from "react";
+import Polaroid from "../../ui/Polaroid";
 
 // Fallback gallery data
 const fallbackGalleryImages = [
@@ -106,56 +101,55 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
   // Use Sanity data if available, otherwise fallback
   const backgroundImage = data?.backgroundImage
     ? urlFor(data.backgroundImage.asset).url()
-    : '/gallery-bg.jpg';
+    : "/gallery-bg.webp";
 
-  const galleryItems = data?.galleryItems?.map((item, index) => ({
-    id: index + 1,
-    src: urlFor(item.image.asset).url(),
-    caption: item.caption,
-    rotation: fallbackGalleryImages[index]?.rotation || (index % 2 === 0 ? -2 : 2),
-    shadowRotation: fallbackGalleryImages[index]?.shadowRotation || (index % 2 === 0 ? -6 : 6),
-    decorativeElement: fallbackGalleryImages[index]?.decorativeElement,
-  })) || fallbackGalleryImages;
+  const galleryItems =
+    data?.galleryItems?.map((item, index) => ({
+      id: index + 1,
+      src: urlFor(item.image.asset).url(),
+      caption: item.caption,
+      rotation:
+        fallbackGalleryImages[index]?.rotation || (index % 2 === 0 ? -2 : 2),
+      shadowRotation:
+        fallbackGalleryImages[index]?.shadowRotation ||
+        (index % 2 === 0 ? -6 : 6),
+      decorativeElement: fallbackGalleryImages[index]?.decorativeElement,
+    })) || fallbackGalleryImages;
 
   return (
     <section
       className="relative w-screen bg-beige-one min-h-screen py-8 md:py-16 lg:py-24 overflow-hidden"
       style={{
         backgroundImage: `url('${backgroundImage}')`,
-        backgroundSize: "cover",
+
         backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
+        backgroundRepeat: "repeat",
       }}
     >
-      {/* Grain overlay */}
-      <div
-        className="absolute inset-0 z-00 opacity-12 pointer-events-none"
-        style={{
-          backgroundImage: "url('/grain.png')",
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-        }}
-      />
-
       <div className="w-full relative z-20 px-[5vw] lg:px-[3.5vw]">
         {/* Section Header */}
         <div className="text-left relative mb-8 md:mb-12 lg:mb-20">
-          <div className="flex items-start sm:items-center gap-2 sm:gap-4">
+          <div className="flex items-start sm:items-center gap-2 sm:gap-6">
             <h2
               className="font-travel-november text-brown-one mb-4 sm:mb-6 relative inline-block gallery-underline"
               style={{ fontSize: fontSizes.galleryTitle }}
             >
               {data?.title || "Featured Galleries"}
             </h2>
-            <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 opacity-80 mb-4 sm:mb-6">
-              <Heart className="w-full h-full rotate-15 object-contain text-brown-one scale-90" />
+            <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 opacity-80 mb-4 sm:mb-6 rotate-12">
+              <Image
+                src="/heart-dark.svg"
+                alt="Decorative heart"
+                width={40}
+                height={40}
+              />
             </div>
           </div>
         </div>
 
         {/* Gallery Grid */}
         <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-24 md:gap-x-16 sm:gap-y-16 lg:gap-y-32 mt-10 mb-12 sm:mb-16 lg:mb-32 z-20">
-          {galleryItems.map((image) => (
+          {galleryItems.map((image, index) => (
             <div
               key={image.id}
               className="relative flex justify-center items-center min-h-[300px] sm:min-h-[350px] lg:min-h-[420px]"
@@ -210,8 +204,8 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
                         image.decorativeElement.type === "pin"
                           ? "clamp(0.7, 1vw, 1)"
                           : image.decorativeElement.type === "clip"
-                          ? "clamp(0.6, 1vw, 1)"
-                          : "clamp(0.5, 1vw, 1)" // tape
+                            ? "clamp(0.6, 1vw, 1)"
+                            : "clamp(0.5, 1vw, 1)" // tape
                       })`,
                     }}
                   >
@@ -235,9 +229,9 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
             <button
               key={index}
               className={`${
-                button.style === 'primary'
-                  ? 'bg-brown-two text-beige-two border-none hover:bg-brown-one'
-                  : 'bg-transparent text-black border-black border hover:bg-brown-two hover:text-beige-one'
+                button.style === "primary"
+                  ? "bg-brown-two text-beige-two border-none hover:bg-brown-one"
+                  : "bg-transparent text-black border-black border hover:bg-brown-two hover:text-beige-one"
               } px-6 md:px-8 py-3 rounded-full font-inconsolata font-medium cursor-pointer transition-all duration-300 min-w-[140px] responsive-border-radius-gallery`}
               style={{
                 fontSize: fontSizes.buttonText,
@@ -269,25 +263,47 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
         </div>
 
         {/* Decorative Elements - Mobile responsive positioning */}
-        <div className="hidden sm:block absolute bottom-20 left-[30%] w-16 h-16 sm:w-20 sm:h-20 opacity-100 z-10 rotate-4">
-          <HeartTwo className="w-full h-full object-contain text-brown-two scale-80" />
+        <div className="hidden sm:block absolute bottom-0 left-[25%] w-16 h-16 sm:w-20 sm:h-20 opacity-100 z-10 rotate-8 scale-80">
+          <Image
+            src="/heart-dark.svg"
+            alt="Decorative heart"
+            width={40}
+            height={40}
+          />
         </div>
 
         {/* Dots decoration - Responsive sizing and positioning */}
-        <div
-          className="absolute top-0 -right-10 sm:-top-20 md:right-0 w-[200px] h-[200px] sm:w-[200px] sm:h-[200px] lg:w-[293px] lg:h-[297px] z-10 sm:opacity-100"
-        >
-          <DotsPrimary className="w-full h-full" />
+        <div className="absolute top-0 -right-20 sm:-top-20 md:-right-15 z-10 opacity-60 md:opacity-80">
+          <Image
+            src="/dots-dark.svg"
+            alt="Decorative dots"
+            width={390}
+            height={340}
+          />
         </div>
-        <div
-          className="absolute top-1/2 left-0 w-[200px] h-[200px] lg:w-[293px] lg:h-[297px] z-10"
-        >
-          <DotsPrimary className="w-full h-full" />
+        <div className="absolute top-[60%] -left-10 z-0 opacity-80">
+          <Image
+            src="/dots-dark.svg"
+            alt="Decorative dots"
+            width={390}
+            height={340}
+          />
         </div>
-        <div
-          className="absolute bottom-[12%] right-0 md:top-1/2 md:left-1/2 w-[293px] h-[297px] z-10"
-        >
-          <DotsPrimary className="w-full h-full" />
+        <div className="absolute -left-10 z-0 opacity-60">
+          <Image
+            src="/dots-dark.svg"
+            alt="Decorative dots"
+            width={300}
+            height={300}
+          />
+        </div>
+        <div className="absolute bottom-[12%] right-0 md:top-[40%] md:left-1/2 z-10 opacity-70">
+          <Image
+            src="/dots-dark.svg"
+            alt="Decorative dots"
+            width={390}
+            height={340}
+          />
         </div>
       </div>
     </section>

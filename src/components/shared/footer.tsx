@@ -1,4 +1,3 @@
-"use client";
 import Image from "next/image";
 import React from "react";
 
@@ -7,11 +6,11 @@ const Footer: React.FC = () => {
     <footer className="relative w-screen bg-beige-one pt-8 lg:pt-12 overflow-hidden border-t-4 border-black">
       {/* Grain overlay */}
       <div
-        className="absolute inset-0 z-10 opacity-12 pointer-events-none"
+        className="absolute inset-0 z-5 opacity-12 pointer-events-none"
         style={{
-          backgroundImage: "url('/grain.png')",
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
+          backgroundImage: "url('/grain.webp')",
+
+          backgroundRepeat: "repeat",
         }}
       />
 
