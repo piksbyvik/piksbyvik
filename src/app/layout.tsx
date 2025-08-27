@@ -13,7 +13,7 @@ const inconsolata = Inconsolata({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
-  preload: true,
+  preload: false,
   fallback: ['monospace']
 });
 
@@ -23,7 +23,7 @@ const instrumentSerif = Instrument_Serif({
   weight: "400",
   style: ["normal", "italic"],
   display: "swap",
-  preload: true,
+  preload: false,
   fallback: ['serif']
 });
 
@@ -56,7 +56,7 @@ const domaineDisplay = localFont({
   ],
   variable: "--font-domaine-display",
   display: "swap",
-  preload: true,
+  preload: false,
   fallback: ['serif']
 });
 

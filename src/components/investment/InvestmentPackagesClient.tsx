@@ -309,7 +309,7 @@ const InvestmentPackagesClient: React.FC<InvestmentPackagesClientProps> = ({ dat
         <span className="font-inconsolata text-black text-lg md:text-xl tracking-wide">
           {content.sectionTitle}
         </span>
-        <nav className="flex flex-wrap md:flex-nowrap gap-4 md:gap-12 mt-4 md:mt-0">
+        <nav className="w-full flex items-center justify-between md:justify-end md:gap-12 mt-4 md:mt-0">
           {packageTabs.map((tab) => (
             <button
               key={tab.key}

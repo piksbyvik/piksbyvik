@@ -51,16 +51,8 @@ export default function InvestmentValueProps({ data }: InvestmentValuePropsProps
     visible: { opacity: 1, y: 0 }
   };
 
-  const floatingAnimation = {
-    y: [0, 10, 0],
-    rotate: [0, 2, 0],
-    transition: {
-      duration: 3,
-      repeat: Infinity,
-      ease: easeInOut
-    }
-  };
-
+  
+  
   return (
     <section ref={sectionRef} className="relative w-screen bg-beige-one py-10 ">
       <div
@@ -167,7 +159,7 @@ export default function InvestmentValueProps({ data }: InvestmentValuePropsProps
                 className={`font-domaine-display font-normal mb-4 ${
                   card.backgroundColor === 'blue' ? 'text-black' : 'text-beige-one'
                 }`}
-                style={{ fontSize: fontSizes.approachQuote }}
+                style={{ fontSize: fontSizes.approachSidebarText }}
               >
                 {card.title}
               </h3>

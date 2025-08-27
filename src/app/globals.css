@@ -139,8 +139,12 @@ body {
 .inquire-border-radius {
     border-radius: 55px/20px !important;
   }
-  .word-underline::after {
-    display: none;
-  }
-
+  
+.word-underline::after {
+  position: absolute;
+  bottom: 28px;
+  left: 65%;
+  transform-origin: left center;
+  transform: scale(0.4);
+}
 }

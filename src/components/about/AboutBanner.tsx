@@ -63,9 +63,9 @@ const AboutBanner: React.FC<AboutBannerProps> = ({ data }) => {
       </div>
 
       {/* Text content with proper z-index to ensure visibility */}
-      <div className="relative z-10 w-2/3 text-center px-4">
+      <div className="relative z-10 w-full lg:max-w-5xl text-center px-4">
         <motion.h1
-          className="font-instrument-serif font-medium text-beige-one capitalize text-center drop-shadow-md mb-5"
+          className="font-instrument-serif font-medium text-beige-one capitalize text-center drop-shadow-md mb-8"
           style={{ fontSize: fontSizes.heroConnections }}
           initial={{ opacity: 0, scale: 0.95 }}
           animate={
@@ -81,7 +81,7 @@ const AboutBanner: React.FC<AboutBannerProps> = ({ data }) => {
 
         <Link
           href="/contact"
-          className="font-travel-november text-beige-two "
+          className="font-travel-november text-beige-two"
           style={{ fontSize: fontSizes.approachQuote }}
         >
           Start Your Story

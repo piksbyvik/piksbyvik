@@ -446,7 +446,7 @@ function MobileStepItem({
           <h3
             className="font-travel-november"
             style={{
-              fontSize: "clamp(20px, 4vw, 24px)",
+              fontSize: "clamp(24px, 4vw, 24px)",
               color: "var(--color-brown-one)",
               fontWeight: 400,
               marginBottom: "6px",

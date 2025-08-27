@@ -20,10 +20,10 @@ export const fontSizes = {
   approachWayIWork: "clamp(32px, 5.5vw, 72px)",
   approachSidebarText: "clamp(24px, 2.2vw, 36px)",
   approachSidebarLabel: "clamp(10px, 1.2vw, 18px)",
-  approachCategoryTitle: "clamp(20px, 2.3vw, 40px)",
+  approachCategoryTitle: "clamp(24px, 2.3vw, 40px)",
   approachBodyText: "clamp(14px, 1.6vw, 18px)",
   approachButtonText: "clamp(14px, 1.8vw, 24px)",
-  approachQuote: "clamp(16px, 2.2vw, 32px)",
+  approachQuote: "clamp(18px, 2.2vw, 32px)",
   
   // Testimonial section
   testimonialTitle: "clamp(48px, 8vw, 120px)",

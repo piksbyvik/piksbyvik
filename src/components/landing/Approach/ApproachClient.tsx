@@ -53,9 +53,9 @@ export function ApproachClient({ data }: ApproachClientProps) {
     setActiveSection(section);
   }, []);
 
-  // Split titles into letters
-  const captureTitle = useMemo(
-    () => (data?.whatICaptureTab?.title || "WHERE MY LENS LEADS").split(""),
+  // Split titles into words, then letters for animation
+  const captureWords = useMemo(
+    () => (data?.whatICaptureTab?.title || "WHERE MY LENS LEADS").split(" "),
     [data?.whatICaptureTab?.title]
   );
 
@@ -204,7 +204,7 @@ export function ApproachClient({ data }: ApproachClientProps) {
                   </p>
                 </div>
 
-                {/* Title Animation */}
+                {/* Title Animation - Fixed Word Breaking */}
                 <div className="flex flex-col items-start gap-4 lg:gap-8">
                   <motion.h2
                     className="font-domaine-display font-semibold text-brown-one relative inline-block text-center lg:text-left w-full lg:w-auto word-underline"
@@ -213,14 +213,26 @@ export function ApproachClient({ data }: ApproachClientProps) {
                     initial="hidden"
                     animate={isInView ? "visible" : "hidden"}
                   >
-                    {captureTitle.map((char, index) => (
-                      <motion.span
-                        key={index}
-                        variants={animationConfig.letterVariants}
-                        className="inline-block"
-                      >
-                        {char === " " ? "\u00A0" : char}
-                      </motion.span>
+                    {captureWords.map((word, wordIndex) => (
+                      <span key={wordIndex} className="inline-block whitespace-nowrap">
+                        {word.split("").map((char, charIndex) => (
+                          <motion.span
+                            key={`${wordIndex}-${charIndex}`}
+                            variants={animationConfig.letterVariants}
+                            className="inline-block"
+                          >
+                            {char}
+                          </motion.span>
+                        ))}
+                        {wordIndex < captureWords.length - 1 && (
+                          <motion.span
+                            variants={animationConfig.letterVariants}
+                            className="inline-block"
+                          >
+                            &nbsp;
+                          </motion.span>
+                        )}
+                      </span>
                     ))}
                   </motion.h2>
 

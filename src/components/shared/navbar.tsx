@@ -156,7 +156,7 @@ export default function Navbar() {
             }}
           />
           {/* Menu Content */}
-          <div className="relative w-full md:w-1/2 h-full bg-brown-one flex flex-col px-8 py-12 md:px-12 md:py-12">
+          <div className="relative w-full md:w-1/2 h-full bg-brown-one flex flex-col justify-between px-8 py-12 md:px-12 md:pt-12 md:pb-4">
             {/* Header */}
             <div className="flex justify-center md:justify-start mb-16 md:mb-8">
               <h2 className="hidden md:block font-travel-november text-beige-one text-3xl md:text-4xl">
@@ -185,7 +185,7 @@ export default function Navbar() {
             {/* Navigation Links */}
             <div className="flex flex-col justify-center flex-1">
               <nav className="mx-auto md:mx-0 mb-16 md:mb-8">
-                <ul className="flex flex-col mx-auto md:mx-0 space-y-16 md:space-y-8 md:px-[2.5vw]">
+                <ul className="flex flex-col mx-auto md:mx-0 space-y-16 md:space-y-10 md:px-[2.5vw]">
                   <li className="relative ml-6 md:ml-0 md:mx-0 flex-0">
                     <span
                       className="absolute -top-4 -left-8 md:-left-10 text-beige-two font-inconsolata text-xs md:text-sm"
