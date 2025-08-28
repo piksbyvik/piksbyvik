@@ -45,6 +45,14 @@ const BookingFormClient: React.FC = () => {
   };
 
   const handleCheckboxChange = (interest: string) => {
+    const currentlySelected = Object.values(formData.interests).filter(Boolean).length;
+    const isCurrentlyChecked = formData.interests[interest as keyof typeof formData.interests];
+    
+    // If trying to check a new box and already have 3 selected, don't allow it
+    if (!isCurrentlyChecked && currentlySelected >= 3) {
+      return;
+    }
+
     setFormData((prev) => ({
       ...prev,
       interests: {
@@ -55,7 +63,6 @@ const BookingFormClient: React.FC = () => {
   };
 
   const validateForm = (): boolean => {
-    // ...existing validation logic...
     setErrorMessage("");
 
     if (!formData.fullName.trim() || formData.fullName.length < 2) {
@@ -68,6 +75,23 @@ const BookingFormClient: React.FC = () => {
       !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)
     ) {
       setErrorMessage("Please enter a valid email address");
+      return false;
+    }
+
+    if (!formData.eventLocation.trim()) {
+      setErrorMessage("Please enter an event location");
+      return false;
+    }
+
+    // Check if at least one interest is selected
+    const selectedInterestsCount = Object.values(formData.interests).filter(Boolean).length;
+    if (selectedInterestsCount === 0) {
+      setErrorMessage("Please select at least one area of interest");
+      return false;
+    }
+
+    if (selectedInterestsCount > 3) {
+      setErrorMessage("Please select no more than 3 areas of interest");
       return false;
     }
 
@@ -317,7 +341,7 @@ const BookingFormClient: React.FC = () => {
               className="block font-inconsolata text-brown-one mb-3"
               style={{ fontSize: fontSizes.bodySmall }}
             >
-              Event Location
+              Event Location *
             </label>
             <input
               type="text"
@@ -326,6 +350,7 @@ const BookingFormClient: React.FC = () => {
               value={formData.eventLocation}
               onChange={handleInputChange}
               placeholder="Location, venue name, city/state"
+              required
               disabled={isSubmitting}
               className="w-full px-4 py-3 bg-beige-one border border-brown-one/30 focus:border-brown-one focus:outline-none transition-colors font-inconsolata disabled:opacity-50"
               style={{ fontSize: fontSizes.bodySmall }}
@@ -337,11 +362,13 @@ const BookingFormClient: React.FC = () => {
         <div className="relative">
           <div>
             <h3
-              className="font-inconsolata text-brown-one mb-6"
+              className="font-inconsolata text-brown-one mb-2"
               style={{ fontSize: fontSizes.bodyMedium }}
             >
-              I&apos;m Interested In
+              I&apos;m Interested In *
             </h3>
+            
+            
 
             <div className="space-y-4">
               {[
@@ -351,41 +378,45 @@ const BookingFormClient: React.FC = () => {
                 { key: "newborn", label: "Newborn" },
                 { key: "maternity", label: "Maternity" },
                 { key: "events", label: "Events" },
-              ].map(({ key, label }) => (
-                <label
-                  key={key}
-                  className="flex items-center cursor-pointer group"
-                >
-                  <div className="relative">
-                    <input
-                      type="checkbox"
-                      checked={
-                        formData.interests[
-                          key as keyof typeof formData.interests
-                        ]
-                      }
-                      onChange={() => handleCheckboxChange(key)}
-                      disabled={isSubmitting}
-                      className="sr-only"
-                    />
-                    <div
-                      className={`w-5 h-5 border-2 border-brown-one transition-colors rounded-sm ${
-                        formData.interests[
-                          key as keyof typeof formData.interests
-                        ]
-                          ? "bg-brown-one"
-                          : "bg-beige-one"
-                      } ${isSubmitting ? "opacity-50" : ""}`}
-                    ></div>
-                  </div>
-                  <span
-                    className={`ml-3 font-inconsolata text-brown-one group-hover:text-brown-two transition-colors ${isSubmitting ? "opacity-50" : ""}`}
-                    style={{ fontSize: fontSizes.bodySmall }}
+              ].map(({ key, label }) => {
+                const isChecked = formData.interests[key as keyof typeof formData.interests];
+                const selectedCount = Object.values(formData.interests).filter(Boolean).length;
+                const isDisabled = isSubmitting || (!isChecked && selectedCount >= 3);
+                
+                return (
+                  <label
+                    key={key}
+                    className={`flex items-center cursor-pointer group ${isDisabled ? 'cursor-not-allowed' : ''}`}
                   >
-                    {label}
-                  </span>
-                </label>
-              ))}
+                    <div className="relative">
+                      <input
+                        type="checkbox"
+                        checked={isChecked}
+                        onChange={() => handleCheckboxChange(key)}
+                        disabled={isDisabled}
+                        className="sr-only"
+                      />
+                      <div
+                        className={`w-5 h-5 border-2 border-brown-one transition-colors rounded-sm ${
+                          isChecked
+                            ? "bg-brown-one"
+                            : "bg-beige-one"
+                        } ${isDisabled ? "opacity-50 border-brown-one/30" : ""}`}
+                      ></div>
+                    </div>
+                    <span
+                      className={`ml-3 font-inconsolata text-brown-one transition-colors ${
+                        isDisabled 
+                          ? "opacity-50 text-brown-one/50" 
+                          : "group-hover:text-brown-two"
+                      }`}
+                      style={{ fontSize: fontSizes.bodySmall }}
+                    >
+                      {label}
+                    </span>
+                  </label>
+                );
+              })}
             </div>
           </div>
 
@@ -427,7 +458,7 @@ const BookingFormClient: React.FC = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="bg-brown-two text-beige-two border-none px-6 md:px-8 py-3 rounded-full font-inconsolata font-medium cursor-pointer transition-all duration-300 hover:bg-brown-one min-w-[140px] responsive-border-radius disabled:opacity-50 disabled:cursor-not-allowed"
+            className="bg-brown-two text-beige-two border-none px-6 md:px-8 py-3 rounded-[50%] font-inconsolata font-medium cursor-pointer transition-all duration-300 hover:bg-brown-one min-w-[140px] disabled:opacity-50 disabled:cursor-not-allowed"
             style={{
               fontSize: fontSizes.buttonText,
             }}

@@ -6,6 +6,7 @@ import { cubicBezier, easeInOut, motion, useInView } from "motion/react";
 import Image from "next/image";
 import React, { useRef } from "react";
 import Polaroid from "../../ui/Polaroid";
+import Link from "next/link";
 
 interface AboutClientProps {
   data?: ProcessedAboutSectionData;
@@ -258,14 +259,15 @@ const AboutClient: React.FC<AboutClientProps> = ({ data }) => {
                   delay: 1.8,
                 }}
               >
-                <button
-                  className="bg-black text-beige-two border-none px-6 md:px-8 py-3 rounded-full font-inconsolata font-medium cursor-pointer transition-all duration-300 hover:bg-brown-two hover:-translate-y-1 min-w-[140px] responsive-border-radius"
+                <Link
+                  href="/about"
+                  className="bg-black text-beige-two border-none px-6 md:px-8 py-3 font-inconsolata font-medium cursor-pointer transition-all duration-300 hover:bg-brown-two hover:-translate-y-1 min-w-[140px] rounded-[50%]"
                   style={{
                     fontSize: fontSizes.buttonText,
                   }}
                 >
                   {data?.ctaButtonText || "MY STORY"}
-                </button>
+                </Link>
               </motion.div>
             </div>
 

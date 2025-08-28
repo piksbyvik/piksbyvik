@@ -4,6 +4,7 @@ import { fontSizes } from "@/styles/typography";
 import Image from "next/image";
 import React from "react";
 import Polaroid from "../../ui/Polaroid";
+import Link from "next/link";
 
 // Fallback gallery data
 const fallbackGalleryImages = [
@@ -11,6 +12,7 @@ const fallbackGalleryImages = [
     id: 1,
     src: "/gallery-4.png",
     caption: "Jennifer & Anthony's Wedding",
+    link: "https://piksbyvik.passgallery.com/-piksbyvikfilmphotography/gallery",
     rotation: -3,
     shadowRotation: -8,
     decorativeElement: {
@@ -25,6 +27,7 @@ const fallbackGalleryImages = [
     id: 2,
     src: "/gallery-4.png",
     caption: "Emily & Ryan's Wedding",
+    link: "https://piksbyvik.passgallery.com/-piksbyvikfilmphotography/gallery",
     rotation: 2,
     shadowRotation: 6,
     decorativeElement: {
@@ -39,6 +42,7 @@ const fallbackGalleryImages = [
     id: 3,
     src: "/gallery-4.png",
     caption: "Emily & Ryan's Wedding",
+    link: "https://piksbyvik.passgallery.com/-piksbyvikfilmphotography/gallery",
     rotation: -1,
     shadowRotation: -7,
     decorativeElement: {
@@ -53,6 +57,7 @@ const fallbackGalleryImages = [
     id: 4,
     src: "/gallery-4.png",
     caption: "Amaris & Anthony's Wedding",
+    link: "https://piksbyvik.passgallery.com/-piksbyvikfilmphotography/gallery",
     rotation: 3,
     shadowRotation: 8,
     decorativeElement: {
@@ -67,6 +72,7 @@ const fallbackGalleryImages = [
     id: 5,
     src: "/gallery-4.png",
     caption: "The Nguyen Maternity Session",
+    link: "https://piksbyvik.passgallery.com/-piksbyvikfilmphotography/gallery",
     rotation: -2,
     shadowRotation: -6,
     decorativeElement: {
@@ -81,6 +87,7 @@ const fallbackGalleryImages = [
     id: 6,
     src: "/gallery-4.png",
     caption: "Amy's Maternity Session",
+    link: "https://piksbyvik.passgallery.com/-piksbyvikfilmphotography/gallery",
     rotation: 1,
     shadowRotation: 5,
     decorativeElement: {
@@ -108,6 +115,7 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
       id: index + 1,
       src: urlFor(item.image.asset).url(),
       caption: item.caption,
+      link: item.link,
       rotation:
         fallbackGalleryImages[index]?.rotation || (index % 2 === 0 ? -2 : 2),
       shadowRotation:
@@ -121,7 +129,6 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
       className="relative w-screen bg-beige-one min-h-screen py-8 md:py-16 lg:py-24 overflow-hidden"
       style={{
         backgroundImage: `url('${backgroundImage}')`,
-
         backgroundPosition: "center",
         backgroundRepeat: "repeat",
       }}
@@ -149,117 +156,116 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
 
         {/* Gallery Grid */}
         <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-24 md:gap-x-16 sm:gap-y-16 lg:gap-y-32 mt-10 mb-12 sm:mb-16 lg:mb-32 z-20">
-          {galleryItems.map((image, index) => (
-            <div
-              key={image.id}
-              className="relative flex justify-center items-center min-h-[300px] sm:min-h-[350px] lg:min-h-[420px]"
-            >
-              {/* Background Polaroid - Direct responsive sizing */}
-              <div className="absolute z-0 translate-x-1 translate-y-1 sm:translate-x-2 sm:translate-y-2">
-                <Polaroid
-                  imageSrc=""
-                  caption=""
-                  alt=""
-                  rotation={image.shadowRotation}
-                  className="shadow-lg bg-black"
-                  style={{
-                    width: "clamp(320px, 28vw, 380px)",
-                  }}
-                  imgclassName="bg-black"
-                  imgStyle={{
-                    height: "clamp(320px, 28vw, 400px)",
-                  }}
-                />
-              </div>
+          {galleryItems.map((image) => {
+            // If there's a link, use an anchor tag, otherwise use a div
+            const Component = image.link ? 'a' : 'div';
+            const linkProps = image.link ? {
+              href: image.link,
+              target: '_blank',
+              rel: 'noopener noreferrer',
+              'aria-label': `View ${image.caption} gallery`
+            } : {};
 
-              {/* Main Polaroid - Direct responsive sizing */}
-              <div className="relative z-20">
-                <Polaroid
-                  imageSrc={image.src}
-                  caption={image.caption}
-                  alt={`Gallery image ${image.id}`}
-                  rotation={image.rotation}
-                  className="shadow-xl"
-                  style={{
-                    width: "clamp(310px, 28vw, 380px)",
-                  }}
-                  imgStyle={{
-                    height: "clamp(310px, 28vw, 400px)",
-                  }}
-                />
+            return (
+              <Component
+                key={image.id}
+                className={`relative flex justify-center items-center min-h-[300px] sm:min-h-[350px] lg:min-h-[420px] group`}
+                {...linkProps}
+              >
+                
 
-                {/* Decorative Element - Now properly positioned relative to polaroid */}
-                {image.decorativeElement && (
-                  <div
-                    className="absolute z-30 scale-[0.8] md:scale-[1]"
+                {/* Background Polaroid - Direct responsive sizing */}
+                <div className="absolute z-0 translate-x-1 translate-y-1 sm:translate-x-2 sm:translate-y-2 transition-transform duration-300 group-hover:translate-x-2 group-hover:translate-y-2">
+                  <Polaroid
+                    imageSrc=""
+                    caption=""
+                    alt=""
+                    rotation={image.shadowRotation}
+                    className="shadow-lg bg-black"
                     style={{
-                      top: image.decorativeElement.position.top,
-                      left: image.decorativeElement.position.left,
-                      right: image.decorativeElement.position.right,
-                      transform: `${
-                        image.decorativeElement.position.translateX
-                          ? `translateX(${image.decorativeElement.position.translateX}) `
-                          : ""
-                      }rotate(${image.decorativeElement.rotation}deg) scale(${
-                        image.decorativeElement.type === "pin"
-                          ? "clamp(0.7, 1vw, 1)"
-                          : image.decorativeElement.type === "clip"
-                            ? "clamp(0.6, 1vw, 1)"
-                            : "clamp(0.5, 1vw, 1)" // tape
-                      })`,
+                      width: "clamp(320px, 28vw, 380px)",
                     }}
-                  >
-                    <Image
-                      src={image.decorativeElement.src}
-                      alt={`${image.decorativeElement.type} decoration`}
-                      width={image.decorativeElement.size.width}
-                      height={image.decorativeElement.size.height}
-                      className="object-contain"
-                    />
-                  </div>
-                )}
-              </div>
-            </div>
-          ))}
+                    imgclassName="bg-black"
+                    imgStyle={{
+                      height: "clamp(320px, 28vw, 400px)",
+                    }}
+                  />
+                </div>
+
+                {/* Main Polaroid - Direct responsive sizing */}
+                <div className="relative z-20 transition-transform duration-300 group-hover:scale-[1.01]">
+                  <Polaroid
+                    imageSrc={image.src}
+                    caption={image.caption}
+                    alt={`Gallery image ${image.id}`}
+                    rotation={image.rotation}
+                    className="shadow-xl"
+                    style={{
+                      width: "clamp(310px, 28vw, 380px)",
+                    }}
+                    imgStyle={{
+                      height: "clamp(310px, 28vw, 400px)",
+                    }}
+                  />
+
+                  {/* Decorative Element */}
+                  {image.decorativeElement && (
+                    <div
+                      className="absolute z-30 scale-[0.8] md:scale-[1] transition-transform duration-300"
+                      style={{
+                        top: image.decorativeElement.position.top,
+                        left: image.decorativeElement.position.left,
+                        right: image.decorativeElement.position.right,
+                        transform: `${
+                          image.decorativeElement.position.translateX
+                            ? `translateX(${image.decorativeElement.position.translateX}) `
+                            : ""
+                        }rotate(${image.decorativeElement.rotation}deg) scale(${
+                          image.decorativeElement.type === "pin"
+                            ? "clamp(0.7, 1vw, 1)"
+                            : image.decorativeElement.type === "clip"
+                              ? "clamp(0.6, 1vw, 1)"
+                              : "clamp(0.5, 1vw, 1)" // tape
+                        })`,
+                      }}
+                    >
+                      <Image
+                        src={image.decorativeElement.src}
+                        alt={`${image.decorativeElement.type} decoration`}
+                        width={image.decorativeElement.size.width}
+                        height={image.decorativeElement.size.height}
+                        className="object-contain"
+                      />
+                    </div>
+                  )}
+                </div>
+              </Component>
+            );
+          })}
         </div>
 
         {/* Action Buttons - Mobile responsive */}
         <div className="flex flex-col gap-4 sm:flex-row sm:gap-6 justify-center sm:justify-start items-center">
-          {data?.ctaButtons?.map((button, index) => (
-            <button
-              key={index}
-              className={`${
-                button.style === "primary"
-                  ? "bg-brown-two text-beige-two border-none hover:bg-brown-one"
-                  : "bg-transparent text-black border-black border hover:bg-brown-two hover:text-beige-one"
-              } px-6 md:px-8 py-3 rounded-full font-inconsolata font-medium cursor-pointer transition-all duration-300 min-w-[140px] responsive-border-radius-gallery`}
+          <>
+            <Link
+              href="/portfolio"
+              className="bg-brown-two text-beige-two border-none px-6 md:px-8 py-3 text-center font-inconsolata font-medium cursor-pointer transition-all duration-300 hover:bg-brown-one min-w-[140px] rounded-[50%]"
               style={{
                 fontSize: fontSizes.buttonText,
               }}
             >
-              {button.text}
-            </button>
-          )) || (
-            // Fallback buttons
-            <>
-              <button
-                className="bg-brown-two text-beige-two border-none px-6 md:px-8 py-3 rounded-full font-inconsolata font-medium cursor-pointer transition-all duration-300 hover:bg-brown-one min-w-[140px] responsive-border-radius-gallery"
-                style={{
-                  fontSize: fontSizes.buttonText,
-                }}
-              >
-                SEE MY WORK
-              </button>
-              <button
-                className="bg-transparent text-black border-black border px-6 md:px-8 py-3 rounded-full font-inconsolata font-medium cursor-pointer transition-all duration-300 hover:bg-brown-two hover:text-beige-one min-w-[140px] responsive-border-radius-gallery"
-                style={{
-                  fontSize: fontSizes.buttonText,
-                }}
-              >
-                GET IN TOUCH
-              </button>
-            </>
-          )}
+              SEE MY WORK
+            </Link>
+            <Link
+              href="/contact"
+              className="bg-transparent text-black border-black border px-6 md:px-8 py-3 text-center font-inconsolata font-medium cursor-pointer transition-all duration-300 hover:bg-brown-two hover:text-beige-one min-w-[140px] rounded-[50%]"
+              style={{
+                fontSize: fontSizes.buttonText,
+              }}
+            >
+              GET IN TOUCH
+            </Link>
+          </>
         </div>
 
         {/* Decorative Elements - Mobile responsive positioning */}

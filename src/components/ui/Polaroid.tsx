@@ -32,7 +32,7 @@ const Polaroid: React.FC<PolaroidProps> = ({
     >
       {/* Image section */}
       <div 
-        className={`w-full overflow-hidden border border-black ${imgclassName}`}
+        className={`relative w-full overflow-hidden border border-black ${imgclassName}`}
         style={imgStyle}
       >
         {
@@ -40,9 +40,10 @@ const Polaroid: React.FC<PolaroidProps> = ({
             <Image
               src={imageSrc}
               alt={alt}
-              width={380}
-              height={400}
+              fill
+              sizes="(max-width: 640px) 320px, (max-width: 768px) 400px, (max-width: 1024px) 450px, 500px"
               className="w-full h-full object-cover"
+              
             /> 
           ): (
             <div className='bg-black w-full h-full'>

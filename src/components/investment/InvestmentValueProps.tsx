@@ -54,7 +54,7 @@ export default function InvestmentValueProps({ data }: InvestmentValuePropsProps
   
   
   return (
-    <section ref={sectionRef} className="relative w-screen bg-beige-one py-10 ">
+    <section ref={sectionRef} className="relative w-screen bg-beige-one pb-24">
       <div
     className="absolute inset-0 z-5 opacity-12 pointer-events-none"
     style={{

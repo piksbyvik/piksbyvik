@@ -1,6 +1,7 @@
 "use client";
 import React, { useRef, useImperativeHandle, forwardRef, useMemo } from "react";
 import { cubicBezier, motion } from "motion/react";
+import Link from "next/link";
 
 interface InquireButtonProps {
   onClick?: () => void;
@@ -29,6 +30,7 @@ export const InquireButton = forwardRef<{ animate: () => void }, InquireButtonPr
   }), []);
 
   return (
+   <Link href="/contact">
     <motion.button
       ref={buttonRef}
       data-parallax="button"
@@ -48,6 +50,7 @@ export const InquireButton = forwardRef<{ animate: () => void }, InquireButtonPr
     >
       <span className="relative z-10">INQUIRE</span>
     </motion.button>
+   </Link>
   );
 });
 

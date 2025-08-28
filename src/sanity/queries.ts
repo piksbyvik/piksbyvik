@@ -82,7 +82,8 @@ export const LANDING_PAGE_QUERY = `*[_type == "landingPage"][0]{
           url
         }
       },
-      caption
+      caption,
+      link
     }
   },
   "testimonialSection": *[_type == "testimonial"][0]{
@@ -489,6 +490,7 @@ export interface GallerySectionData {
       }
     }
     caption: string
+    link?: string
   }>
   ctaButtons?: Array<{
     text: string

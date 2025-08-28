@@ -4,6 +4,8 @@ import { fontSizes } from "@/styles/typography";
 import { motion, AnimatePresence } from "motion/react";
 import { cn } from "@/lib/utils";
 import ImageWithFallback from "@/components/ui/ImageWithFallback";
+import Link from "next/link";
+import Image from "next/image";
 
 interface ProcessedPackageItem {
   title: string;
@@ -138,8 +140,11 @@ const packageTabs = [
   { key: "events", label: "Events" },
 ] as const;
 
-const InvestmentPackagesClient: React.FC<InvestmentPackagesClientProps> = ({ data }) => {
-  const [activeTab, setActiveTab] = useState<keyof ProcessedPackagesData>("weddings");
+const InvestmentPackagesClient: React.FC<InvestmentPackagesClientProps> = ({
+  data,
+}) => {
+  const [activeTab, setActiveTab] =
+    useState<keyof ProcessedPackagesData>("weddings");
   const [currentWeddingIndex, setCurrentWeddingIndex] = useState(0);
   const [currentLifestyleIndex, setCurrentLifestyleIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -178,18 +183,26 @@ const InvestmentPackagesClient: React.FC<InvestmentPackagesClientProps> = ({ dat
 
   // Updated packages data with proper fallback handling
   const packagesData: ProcessedPackagesData = {
-    weddings: (content.weddingPackages && content.weddingPackages.length > 0) 
-      ? content.weddingPackages 
-      : FALLBACK_WEDDING_PACKAGES,
-    engagements: (content.engagementPackage && content.engagementPackage.title && content.engagementPackage.price) 
-      ? content.engagementPackage 
-      : fallbackData.engagementPackage,
-    lifestyle: (content.lifestylePackages && content.lifestylePackages.length > 0) 
-      ? content.lifestylePackages 
-      : FALLBACK_LIFESTYLE_PACKAGES,
-    events: (content.eventsPackage && content.eventsPackage.title && content.eventsPackage.price) 
-      ? content.eventsPackage 
-      : fallbackData.eventsPackage,
+    weddings:
+      content.weddingPackages && content.weddingPackages.length > 0
+        ? content.weddingPackages
+        : FALLBACK_WEDDING_PACKAGES,
+    engagements:
+      content.engagementPackage &&
+      content.engagementPackage.title &&
+      content.engagementPackage.price
+        ? content.engagementPackage
+        : fallbackData.engagementPackage,
+    lifestyle:
+      content.lifestylePackages && content.lifestylePackages.length > 0
+        ? content.lifestylePackages
+        : FALLBACK_LIFESTYLE_PACKAGES,
+    events:
+      content.eventsPackage &&
+      content.eventsPackage.title &&
+      content.eventsPackage.price
+        ? content.eventsPackage
+        : fallbackData.eventsPackage,
   };
 
   const handleTabClick = async (key: keyof ProcessedPackagesData) => {
@@ -207,13 +220,17 @@ const InvestmentPackagesClient: React.FC<InvestmentPackagesClientProps> = ({ dat
     if (activeTab === "weddings") {
       if (packagesData.weddings.length > 1) {
         setIsAnimating(true);
-        setCurrentWeddingIndex((prev) => (prev + 1) % packagesData.weddings.length);
+        setCurrentWeddingIndex(
+          (prev) => (prev + 1) % packagesData.weddings.length
+        );
         setTimeout(() => setIsAnimating(false), 500);
       }
     } else if (activeTab === "lifestyle") {
       if (packagesData.lifestyle.length > 1) {
         setIsAnimating(true);
-        setCurrentLifestyleIndex((prev) => (prev + 1) % packagesData.lifestyle.length);
+        setCurrentLifestyleIndex(
+          (prev) => (prev + 1) % packagesData.lifestyle.length
+        );
         setTimeout(() => setIsAnimating(false), 500);
       }
     }
@@ -225,17 +242,24 @@ const InvestmentPackagesClient: React.FC<InvestmentPackagesClientProps> = ({ dat
       if (!weddingPackages || weddingPackages.length === 0) {
         return FALLBACK_WEDDING_PACKAGES[0];
       }
-      return weddingPackages[currentWeddingIndex] || FALLBACK_WEDDING_PACKAGES[0];
+      return (
+        weddingPackages[currentWeddingIndex] || FALLBACK_WEDDING_PACKAGES[0]
+      );
     } else if (activeTab === "lifestyle") {
       const lifestylePackages = packagesData.lifestyle;
       if (!lifestylePackages || lifestylePackages.length === 0) {
         return FALLBACK_LIFESTYLE_PACKAGES[0];
       }
-      return lifestylePackages[currentLifestyleIndex] || FALLBACK_LIFESTYLE_PACKAGES[0];
+      return (
+        lifestylePackages[currentLifestyleIndex] ||
+        FALLBACK_LIFESTYLE_PACKAGES[0]
+      );
     } else {
       const packageItem = packagesData[activeTab];
       if (!packageItem || !packageItem.title || !packageItem.price) {
-        return activeTab === "engagements" ? fallbackData.engagementPackage : fallbackData.eventsPackage;
+        return activeTab === "engagements"
+          ? fallbackData.engagementPackage
+          : fallbackData.eventsPackage;
       }
       return packageItem;
     }
@@ -254,24 +278,26 @@ const InvestmentPackagesClient: React.FC<InvestmentPackagesClientProps> = ({ dat
     if (activeTab === "weddings") {
       const weddingPackages = packagesData.weddings;
       if (!weddingPackages || weddingPackages.length <= 1) return "";
-      
+
       const nextIndex = (currentWeddingIndex + 1) % weddingPackages.length;
       const nextPackage = weddingPackages[nextIndex];
       if (!nextPackage) return "";
-      
+
       const packageName = nextPackage.title.split(" ")[0].toLowerCase();
-      const formattedName = packageName.charAt(0).toUpperCase() + packageName.slice(1);
+      const formattedName =
+        packageName.charAt(0).toUpperCase() + packageName.slice(1);
       return `View ${formattedName} Package`;
     } else if (activeTab === "lifestyle") {
       const lifestylePackages = packagesData.lifestyle;
       if (!lifestylePackages || lifestylePackages.length <= 1) return "";
-      
+
       const nextIndex = (currentLifestyleIndex + 1) % lifestylePackages.length;
       const nextPackage = lifestylePackages[nextIndex];
       if (!nextPackage) return "";
-      
+
       const sessionName = nextPackage.title.split(" ")[0].toLowerCase();
-      const formattedName = sessionName.charAt(0).toUpperCase() + sessionName.slice(1);
+      const formattedName =
+        sessionName.charAt(0).toUpperCase() + sessionName.slice(1);
       return `View ${formattedName} Sessions`;
     }
     return `More ${packageTabs.find((tab) => tab.key === activeTab)?.label} Options`;
@@ -306,7 +332,7 @@ const InvestmentPackagesClient: React.FC<InvestmentPackagesClientProps> = ({ dat
       />
 
       <div className="w-full bg-beige-one border-b border-black flex flex-col md:flex-row items-center justify-between px-[5vw] lg:px-[3.5vw] py-8">
-        <span className="font-inconsolata text-black text-lg md:text-xl tracking-wide">
+        <span className="font-inconsolata w-full text-center md:text-left text-black text-lg md:text-xl tracking-wide">
           {content.sectionTitle}
         </span>
         <nav className="w-full flex items-center justify-between md:justify-end md:gap-12 mt-4 md:mt-0">
@@ -314,7 +340,7 @@ const InvestmentPackagesClient: React.FC<InvestmentPackagesClientProps> = ({ dat
             <button
               key={tab.key}
               className={cn(
-                "font-la-belle-aurore text-lg md:text-2xl lg:text-3xl transition-colors duration-200",
+                "font-la-belle-aurore hover:cursor-pointer text-lg md:text-2xl lg:text-3xl transition-colors duration-200",
                 activeTab === tab.key
                   ? "text-black underline underline-offset-4"
                   : "text-[#403528] opacity-70"
@@ -397,7 +423,8 @@ const InvestmentPackagesClient: React.FC<InvestmentPackagesClientProps> = ({ dat
               ))}
             </ul>
             <div className="flex flex-col sm:flex-row w-full justify-between items-start sm:items-end gap-6 sm:gap-4 mt-6">
-              <button
+              <Link
+                href="/contact"
                 className="font-travel-november text-beige-one underline underline-offset-4 hover:cursor-pointer hover:opacity-80 transition-opacity"
                 style={{
                   fontSize: "clamp(20px, 4vw, 32px)",
@@ -405,7 +432,7 @@ const InvestmentPackagesClient: React.FC<InvestmentPackagesClientProps> = ({ dat
                 }}
               >
                 Inquire About This Package
-              </button>
+              </Link>
 
               {hasMultiplePackages() && (
                 <div className="flex flex-col items-start sm:items-end">
@@ -417,19 +444,11 @@ const InvestmentPackagesClient: React.FC<InvestmentPackagesClientProps> = ({ dat
                   </span>
                   <button
                     onClick={handleExploreMoreClick}
-                    className="font-la-belle-aurore text-beige-one flex justift-start text-start items-center gap-2 hover:cursor-pointer hover:opacity-80 transition-opacity group"
-                    style={{ fontSize: "clamp(18px, 4vw, 24px)" }}
+                    className="font-domaine-display text-beige-one flex justify-start text-start items-center gap-3 hover:cursor-pointer hover:opacity-80 transition-opacity group"
+                    style={{ fontSize: "clamp(18px, 3.5vw, 24px)" }}
                   >
                     <span className="">{getExploreButtonText()}</span>
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="currentColor"
-                      className="group-hover:translate-x-1 transition-transform"
-                    >
-                      <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z" />
-                    </svg>
+                    <Image src="/cta-arrow.svg" width={26} height={32} alt="" className="scale-120"/>
                   </button>
                 </div>
               )}

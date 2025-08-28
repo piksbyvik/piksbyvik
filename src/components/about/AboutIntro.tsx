@@ -4,6 +4,7 @@ import { fontSizes } from "@/styles/typography";
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 import React from "react";
+import Link from "next/link";
 
 interface AboutIntroProps {
   data?: {
@@ -195,14 +196,15 @@ const AboutIntro: React.FC<AboutIntroProps> = ({ data }) => {
             </div>
 
             {/* INQUIRE button */}
-            <button
+            <Link
+              href="/contact"
               className="bg-brown-one text-beige-two border-none px-4 md:px-8 py-2 md:py-3 font-inconsolata font-medium cursor-pointer transition-all duration-300 hover:bg-brown-two hover:-translate-y-1 min-w-[100px] md:min-w-[140px] rounded-[50%]"
               style={{
                 fontSize: "clamp(12px, 1.6vw, 16px)",
               }}
             >
               {data?.ctaButtonText || "INQUIRE"}
-            </button>
+            </Link>
           </div>
 
           {/* Right side - Images */}

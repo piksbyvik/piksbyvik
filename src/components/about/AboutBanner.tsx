@@ -80,7 +80,7 @@ const AboutBanner: React.FC<AboutBannerProps> = ({ data }) => {
         </motion.h1>
 
         <Link
-          href="/contact"
+          href="/investment"
           className="font-travel-november text-beige-two"
           style={{ fontSize: fontSizes.approachQuote }}
         >

@@ -198,7 +198,7 @@ const ThankYouModal: React.FC<ThankYouModalProps> = ({ customerName, onClose }) 
           {/* Close button */}
           <motion.button 
             onClick={onClose}
-            className="absolute top-3 right-3 sm:top-6 sm:right-6 z-20 w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-white/10 text-white/80 hover:bg-white/20 hover:text-white backdrop-blur-sm group"
+            className="absolute hover:cursor-pointer top-3 right-3 sm:top-6 sm:right-6 z-20 w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-white/10 text-white/80 hover:bg-white/20 hover:text-white backdrop-blur-sm group"
             aria-label="Close"
             whileHover={{ 
               scale: 1.05,
@@ -247,7 +247,7 @@ const ThankYouModal: React.FC<ThankYouModalProps> = ({ customerName, onClose }) 
                   transition={{ duration: 0.3 }}
                 >
                   <Image 
-                    src="/wedding-bride.jpg" 
+                    src="/hero-1.webp" 
                     alt="Wedding photo" 
                     fill
                     className="object-cover"

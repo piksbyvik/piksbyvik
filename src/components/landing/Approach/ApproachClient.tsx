@@ -5,6 +5,7 @@ import type { ProcessedApproachSectionData } from "@/lib/types"; // ✅ use proc
 import { fontSizes } from "@/styles/typography";
 import { cubicBezier, easeIn, motion, useInView } from "motion/react";
 import Image from "next/image";
+import Link from "next/link";
 import { useCallback, useMemo, useRef, useState } from "react";
 
 interface ApproachClientProps {
@@ -12,6 +13,9 @@ interface ApproachClientProps {
 }
 
 export function ApproachClient({ data }: ApproachClientProps) {
+
+  const MotionLink = motion(Link);
+
   const sectionRef = useRef<HTMLDivElement>(null);
   const [activeSection, setActiveSection] = useState<"capture" | "approach">(
     "capture"
@@ -189,7 +193,12 @@ export function ApproachClient({ data }: ApproachClientProps) {
                       '"Because these days are worth remembering. ♡"'}
                   </p>
                   <div className="absolute top-14 right-5">
-                    <Image src="/dots-2.svg" alt="Decorative dots" width={210} height={136}/>
+                    <Image
+                      src="/dots-2.svg"
+                      alt="Decorative dots"
+                      width={210}
+                      height={136}
+                    />
                   </div>
                 </div>
 
@@ -214,7 +223,10 @@ export function ApproachClient({ data }: ApproachClientProps) {
                     animate={isInView ? "visible" : "hidden"}
                   >
                     {captureWords.map((word, wordIndex) => (
-                      <span key={wordIndex} className="inline-block whitespace-nowrap">
+                      <span
+                        key={wordIndex}
+                        className="inline-block whitespace-nowrap"
+                      >
                         {word.split("").map((char, charIndex) => (
                           <motion.span
                             key={`${wordIndex}-${charIndex}`}
@@ -236,7 +248,8 @@ export function ApproachClient({ data }: ApproachClientProps) {
                     ))}
                   </motion.h2>
 
-                  <motion.button
+                  <MotionLink
+                    href="/investment"
                     className="mx-auto lg:mx-0 w-auto inline-flex items-center justify-center gap-3 px-6 lg:px-10 py-3 lg:py-4 border-2 border-brown-one rounded-full text-brown-one hover:bg-brown-one hover:text-beige-one transition-all duration-300 font-inconsolata font-medium uppercase tracking-wide mt-4 lg:mt-8"
                     style={{ fontSize: fontSizes.approachButtonText }}
                     initial={{ opacity: 0, y: 20 }}
@@ -252,7 +265,7 @@ export function ApproachClient({ data }: ApproachClientProps) {
                     >
                       <path d="M8 0L6.59 1.41L12.17 7H0v2h12.17L6.59 14.59L8 16l8-8z" />
                     </svg>
-                  </motion.button>
+                  </MotionLink>
                 </div>
               </div>
 
@@ -267,17 +280,19 @@ export function ApproachClient({ data }: ApproachClientProps) {
                       className="font-instrument-serif font-medium text-beige-two pb-4 lg:pb-6 uppercase"
                       style={{ fontSize: fontSizes.approachCategoryTitle }}
                       initial={{
-                        clipPath: "inset(0 100% 0 0)",
+                        opacity: 0,
+                        y: 20,
                         filter: "blur(2px)",
                       }}
                       whileInView={{
-                        clipPath: "inset(0 0% 0 0)",
+                        opacity: 1,
+                        y: 0,
                         filter: "blur(0px)",
                       }}
                       viewport={{ once: true, margin: "-10%" }}
                       transition={{
-                        duration: 1.2,
-                        ease: easeIn,
+                        duration: 0.8,
+                        ease: [0.25, 0.46, 0.45, 0.94],
                         delay: index * 0.15,
                       }}
                     >
@@ -290,7 +305,7 @@ export function ApproachClient({ data }: ApproachClientProps) {
                           variants={animationConfig.imageRevealVariants}
                           initial="hidden"
                           whileInView="visible"
-                          viewport={{ once: true, margin: "40%" }}
+                          viewport={{ once: true, margin: "30%" }}
                           transition={{
                             ...animationConfig.imageTransition,
                             delay: 0.8 + index * 0.2,
@@ -318,10 +333,20 @@ export function ApproachClient({ data }: ApproachClientProps) {
               <div className="relative w-full min-h-screen flex flex-col justify-between px-[5vw] lg:px-[3.5vw] pt-4 lg:pt-7">
                 {/* Decorative hearts */}
                 <div className="hidden lg:block absolute top-4 right-20">
-                  <Image src="/heart-dark.svg" alt="Decorative heart" width={40} height={40} />
+                  <Image
+                    src="/heart-dark.svg"
+                    alt="Decorative heart"
+                    width={40}
+                    height={40}
+                  />
                 </div>
                 <div className="hidden lg:block absolute top-0 right-10 opacity-70 rotate-13">
-                  <Image src="/heart-dark.svg" alt="Decorative heart" width={30} height={30} />
+                  <Image
+                    src="/heart-dark.svg"
+                    alt="Decorative heart"
+                    width={30}
+                    height={30}
+                  />
                 </div>
 
                 {/* Content */}
@@ -397,13 +422,14 @@ export function ApproachClient({ data }: ApproachClientProps) {
                       )}
                     </div>
 
-                    <button
-                      className="w-full lg:w-auto inline-flex items-center justify-center lg:justify-start font-instrument-serif text-brown-one hover:bg-brown-one hover:text-beige-one transition-all duration-300 font-medium uppercase tracking-wide underline underline-offset-8"
+                    <Link
+                      href="/investment"
+                      className="w-full hover:cursor-pointer lg:w-auto inline-flex items-center justify-center lg:justify-start font-instrument-serif text-brown-one hover:bg-brown-one hover:text-beige-one transition-all duration-300 font-medium uppercase tracking-wide underline underline-offset-8"
                       style={{ fontSize: fontSizes.approachButtonText }}
                     >
                       {data?.myApproachTab?.ctaButtonText ||
                         "EXPLORE MY PACKAGES"}
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>
