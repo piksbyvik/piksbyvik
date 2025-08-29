@@ -329,8 +329,8 @@ export function ApproachClient({ data }: ApproachClientProps) {
 
           {/* --- MY APPROACH --- */}
           {activeSection === "approach" && (
-            <>
-              <div className="relative w-full h-full flex flex-col justify-between px-[5vw] lg:px-[3.5vw] pt-4 lg:pt-7">
+            <div className="w-full">
+              <div className="relative w-full flex flex-col px-[5vw] lg:px-[3.5vw] pt-4 lg:pt-7 pb-8 lg:pb-12">
                 {/* Decorative hearts */}
                 <div className="hidden lg:block absolute top-4 right-20">
                   <Image
@@ -435,7 +435,7 @@ export function ApproachClient({ data }: ApproachClientProps) {
               </div>
 
               {/* Bottom Quote */}
-              <div className="relative w-full h-[200px] lg:h-[300px] mt-8 lg:mt-16 overflow-hidden">
+              <div className="relative w-full h-[200px] lg:h-[300px] mt-4 lg:mt-8 overflow-hidden">
                 <ImageWithFallback
                   src={data?.myApproachTab?.bottomQuoteBackground}
                   alt="Approach background"
@@ -465,7 +465,7 @@ export function ApproachClient({ data }: ApproachClientProps) {
                   </p>
                 </div>
               </div>
-            </>
+            </div>
           )}
         </div>
       </div>
