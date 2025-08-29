@@ -170,7 +170,7 @@ const TestimonialClient: React.FC<TestimonialClientProps> = ({
 
   return (
     <section
-      className="relative w-screen overflow-hidden pt-6 lg:pt-10"
+      className="relative max-w-[2200px] mx-auto w-full overflow-hidden pt-6 lg:pt-10"
       style={{
         background: bgColor,
         color: textColor,
@@ -190,7 +190,7 @@ const TestimonialClient: React.FC<TestimonialClientProps> = ({
 
       {/* Reduced wrapper - combined container with direct grid layout */}
       <div
-        className="w-full lg:min-h-screen py-8 lg:py-0"
+        className="w-full lg:h-full py-8 lg:py-0"
         style={{
           display: "grid",
           gridTemplateRows: "auto 1fr",

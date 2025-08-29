@@ -54,9 +54,9 @@ export default function InvestmentValueProps({ data }: InvestmentValuePropsProps
   
   
   return (
-    <section ref={sectionRef} className="relative w-screen bg-beige-one pb-24">
+    <section ref={sectionRef} className="relative max-w-[2200px] mx-auto w-full bg-beige-one pb-24">
       <div
-    className="absolute inset-0 z-5 opacity-12 pointer-events-none"
+    className="absolute inset-0 w-full h-full z-5 opacity-12 pointer-events-none"
     style={{
       backgroundImage: "url('/grain.webp')",
       

@@ -3,7 +3,7 @@ import React from "react";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="relative w-screen bg-beige-one pt-8 lg:pt-12 overflow-hidden border-t-4 border-black">
+    <footer className="relative w-full max-w-[2200px] mx-auto bg-beige-one pt-8 lg:pt-12 overflow-hidden border-t-4 border-black">
       {/* Grain overlay */}
       <div
         className="absolute inset-0 z-5 opacity-12 pointer-events-none"

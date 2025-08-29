@@ -129,7 +129,7 @@ export function ApproachClient({ data }: ApproachClientProps) {
       </div>
 
       {/* Wrapper */}
-      <div className="flex min-h-screen relative z-20">
+      <div className="flex h-full relative z-20">
         {/* Desktop Sidebar */}
         <div className="hidden lg:flex">
           {[
@@ -330,7 +330,7 @@ export function ApproachClient({ data }: ApproachClientProps) {
           {/* --- MY APPROACH --- */}
           {activeSection === "approach" && (
             <>
-              <div className="relative w-full min-h-screen flex flex-col justify-between px-[5vw] lg:px-[3.5vw] pt-4 lg:pt-7">
+              <div className="relative w-full h-full flex flex-col justify-between px-[5vw] lg:px-[3.5vw] pt-4 lg:pt-7">
                 {/* Decorative hearts */}
                 <div className="hidden lg:block absolute top-4 right-20">
                   <Image

@@ -26,7 +26,7 @@ interface AboutHeroProps {
 
 const AboutHero: React.FC<AboutHeroProps> = ({ data }) => {
   return (
-   <section className="relative w-screen h-screen overflow-hidden">
+   <section className="relative w-full h-screen overflow-hidden">
   {/* Background Image */}
   <div className="absolute inset-0 z-0">
     <Image
@@ -40,7 +40,7 @@ const AboutHero: React.FC<AboutHeroProps> = ({ data }) => {
   </div>
 
   {/* Content */}
-  <div className="relative z-10 h-full flex flex-col lg:flex-row items-center justify-center lg:justify-between px-[5vw] lg:px-[10vw] pt-40 lg:pt-20 gap-8">
+  <div className="relative max-w-[2200px] mx-auto z-10 h-full flex flex-col lg:flex-row items-center justify-center lg:justify-between px-[5vw] lg:px-[10vw] pt-40 lg:pt-20 gap-8">
     {/* Polaroid Image */}
     <div className="flex-shrink-0 mb-8 lg:mb-0">
       <Polaroid

@@ -30,14 +30,14 @@ export default function HeroClient({ data }: HeroClientProps) {
   }, []);
 
   return (
-    <div ref={containerRef} className="w-screen relative">
+    <div ref={containerRef} className="w-full relative">
       <HeroBackground 
         backgroundImageUrls={data?.backgroundImageUrls}
         backgroundImageAlts={data?.backgroundImageAlts}
       />
 
       {/* Main content */}
-      <div className="relative min-h-screen px-[5vw] md:px-[3.5vw] pb-8 md:pb-5 pt-20 md:pt-0 z-20 flex items-end">
+      <div className="relative max-w-[2200px] mx-auto min-h-screen px-[5vw] md:px-[3.5vw] pb-8 md:pb-5 pt-20 md:pt-0 z-20 flex items-end">
         <div
           className={cn(
             "flex w-full",

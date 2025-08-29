@@ -126,7 +126,7 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
 
   return (
     <section
-      className="relative w-screen bg-beige-one min-h-screen py-8 md:py-16 lg:py-24 overflow-hidden"
+      className="relative w-full max-w-[2200px] mx-auto bg-beige-one min-h-screen py-8 md:py-16 lg:py-24 overflow-hidden"
       style={{
         backgroundImage: `url('${backgroundImage}')`,
         backgroundPosition: "center",

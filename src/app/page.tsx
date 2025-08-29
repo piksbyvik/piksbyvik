@@ -37,7 +37,7 @@ export default async function Home() {
     console.error("Error fetching Sanity data:", error);
 
     return (
-      <div className="w-screen relative">
+      <div className="w-screen relative max-w-[1560px] mx-auto">
         <Hero />
         <Approach />
         <About />

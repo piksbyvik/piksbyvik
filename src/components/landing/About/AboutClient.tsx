@@ -88,7 +88,7 @@ const AboutClient: React.FC<AboutClientProps> = ({ data }) => {
       ref={containerRef}
       withGrain
       grainOpacity={0}
-      className="bg-beige-one w-screen flex items-center justify-center border-b-2 border-brown-two"
+      className="bg-beige-one w-full max-w-[2200px] mx-auto flex items-center justify-center border-b-2 border-brown-two"
     >
       <div className="w-full rounded-2xl md:rounded-3xl shadow-lg border border-black">
         <motion.div

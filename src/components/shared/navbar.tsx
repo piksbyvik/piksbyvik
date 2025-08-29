@@ -114,13 +114,14 @@ export default function Navbar() {
           </div>
 
           {/* CTA Button - Hidden on mobile */}
-          <button
+          <Link
+            href="/contact"
             className={cn(
-              "hidden md:block font-inconsolata text-sm px-6 py-2 border transition-colors hover:cursor-pointer",
+              "hidden md:block font-inconsolata text-sm px-6 py-3 rounded-[50%] border transition-colors hover:cursor-pointer",
               styles.textColor,
               styles.buttonBorder
             )}
-            style={{ borderRadius: "65px/20px" }}
+            
             onMouseEnter={(e) => {
               e.currentTarget.style.backgroundColor = styles.hoverBg;
               e.currentTarget.style.borderColor = styles.hoverBorder;
@@ -139,7 +140,7 @@ export default function Navbar() {
             }}
           >
             GET IN TOUCH
-          </button>
+          </Link>
         </div>
       </nav>
 
@@ -163,7 +164,7 @@ export default function Navbar() {
                 Navigate
               </h2>
               <Image
-                src={styles.logoSrc}
+                src="/piksbyvik-logo.svg"
                 alt="Piks by Vik Logo"
                 width={160}
                 height={50}

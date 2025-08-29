@@ -38,7 +38,7 @@ const AboutApproach: React.FC<AboutApproachProps> = ({ data }) => {
   };
 
   return (
-    <section className="relative w-screen py-16 md:py-20 lg:py-24 bg-beige-one border-b-4 border-beige-two">
+    <section className="relative max-w-[2200px] mx-auto w-full py-16 md:py-20 lg:py-24 bg-beige-one border-b-4 border-beige-two">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <ImageWithFallback

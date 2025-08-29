@@ -322,7 +322,7 @@ const InvestmentPackagesClient: React.FC<InvestmentPackagesClientProps> = ({
   };
 
   return (
-    <section className="relative w-screen bg-[#403528] pb-16 md:pb-24 overflow-x-hidden">
+    <section className="relative max-w-[2200px] mx-auto w-screen bg-[#403528] pb-16 md:pb-24 overflow-x-hidden">
       <div
         className="absolute inset-0 z-5 opacity-25 pointer-events-none"
         style={{

@@ -37,7 +37,7 @@ export default function ApproachSection({ data }: ApproachProps) {
   };
 
   return (
-    <section className="relative w-screen min-h-screen overflow-hidden">
+    <section className="relative max-w-[2200px] mx-auto w-full h-full overflow-hidden">
       <div className="absolute inset-0">
         <ImageWithFallback
           src={hydratedData.backgroundImage}

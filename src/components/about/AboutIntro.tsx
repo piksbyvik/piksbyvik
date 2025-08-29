@@ -51,7 +51,7 @@ const AboutIntro: React.FC<AboutIntroProps> = ({ data }) => {
   };
 
   return (
-    <section className="relative w-screen min-h-screen py-8 md:py-16">
+    <section className="relative max-w-[2200px] mx-auto w-full min-h-screen py-8 md:py-16">
       {/* Full screen background image */}
       <div className="absolute z-0 bottom-0 left-1/4">
         {data?.backgroundImage?.asset?.url ? (

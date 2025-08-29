@@ -44,7 +44,7 @@ const InvestmentHeroClient: React.FC<InvestmentHeroClientProps> = ({ data }) => 
   const content = data || fallbackData;
 
   return (
-    <section className="relative w-screen min-h-screen bg-beige-one overflow-hidden pt-20 md:pt-24 pb-8 md:pb-16 lg:pb-[130px]">
+    <section className="relative w-full min-h-screen bg-beige-one overflow-hidden pt-20 md:pt-24 pb-8 md:pb-16 lg:pb-[130px]">
       {/* ...existing code... */}
       <div
         className="absolute inset-0 z-5 opacity-12 pointer-events-none"
