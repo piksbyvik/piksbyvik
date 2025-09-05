@@ -3,7 +3,7 @@
 import ImageWithFallback from "@/components/ui/ImageWithFallback";
 import type { ProcessedApproachSectionData } from "@/lib/types"; // ✅ use processed type
 import { fontSizes } from "@/styles/typography";
-import { cubicBezier, easeIn, motion, useInView } from "motion/react";
+import { cubicBezier, motion, useInView } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useMemo, useRef, useState } from "react";
@@ -41,12 +41,12 @@ export function ApproachClient({ data }: ApproachClientProps) {
         visible: { transition: { staggerChildren: 0.08 } },
       },
       imageRevealVariants: {
-        hidden: { opacity: 0, clipPath: "inset(25%)" },
+        hidden: { opacity: 0, clipPath: "inset(50%)" },
         visible: { opacity: 1, clipPath: "inset(0%)" },
       },
       imageTransition: {
         duration: 1.4,
-        ease: cubicBezier(0.23, 1, 0.32, 1),
+        ease: cubicBezier(0.25, 0.46, 0.45, 0.94),
       },
     }),
     []
@@ -298,14 +298,14 @@ export function ApproachClient({ data }: ApproachClientProps) {
                     >
                       {category.title}
                     </motion.h3>
-                    <div className="h-[440px] md:h-[500px] relative overflow-hidden p-3 bg-white border border-black z-40">
-                      <div className="w-full h-full border border-black z-40">
+                    <div className="h-[440px] md:h-[500px] relative overflow-hidden p-3 bg-beige-two border border-black z-40">
+                      <div className="w-full h-full z-40">
                         <motion.div
                           className="w-full h-full z-40"
                           variants={animationConfig.imageRevealVariants}
                           initial="hidden"
                           whileInView="visible"
-                          viewport={{ once: true, margin: "30%" }}
+                          viewport={{ once: true, margin: "40%" }}
                           transition={{
                             ...animationConfig.imageTransition,
                             delay: 0.8 + index * 0.2,

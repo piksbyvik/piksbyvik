@@ -134,44 +134,43 @@ const BookingFormClient: React.FC = () => {
     setErrorMessage("");
 
     try {
-      // Lazy load EmailJS only when form is submitted
-      const { default: emailjs } = await import("@emailjs/browser");
-      
-      // Initialize EmailJS here, right before use
-      if (process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY) {
-        emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY);
+      const response = await fetch('/api/sendEmail', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fullName: formData.fullName,
+          email: formData.email,
+          eventDate: formData.eventDate,
+          eventLocation: formData.eventLocation,
+          interests: formData.interests,
+          vision: formData.vision,
+        }),
+      });
+
+      // Check if response is ok before parsing JSON
+      if (!response.ok) {
+        let errorText = '';
+        try {
+          errorText = await response.text();
+          
+          // Try to parse as JSON to get the actual error message
+          try {
+            const errorData = JSON.parse(errorText);
+            throw new Error(errorData.error || `HTTP ${response.status}`);
+          } catch (parseError) {
+            throw new Error(`HTTP ${response.status}: ${errorText || 'Unknown error'}`);
+          }
+        } catch (textError) {
+          throw new Error(`HTTP ${response.status}: Unable to read error response`);
+        }
       }
 
-      const selectedInterests = Object.entries(formData.interests)
-        .filter(([_, selected]) => selected)
-        .map(([interest, _]) => interest)
-        .join(", ");
+      const result = await response.json();
 
-      const isWeddingOrEngagement =
-        formData.interests.wedding || formData.interests.engagements;
-
-      const templateParams = {
-        to_name: "Vik",
-        from_name: formData.fullName,
-        from_email: formData.email,
-        event_date: formData.eventDate || "Not specified",
-        event_location: formData.eventLocation || "Not specified",
-        interests: selectedInterests || "None specified",
-        vision: formData.vision || "No additional details provided",
-        submission_date: new Date().toLocaleDateString(),
-        submission_time: new Date().toLocaleTimeString(),
-      };
-
-      const emailResponse = await emailjs.send(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
-        templateParams
-      );
-
-      if (emailResponse.status === 200) {
+      if (result.success) {
         setSubmitStatus("success");
 
-        if (isWeddingOrEngagement) {
+        if (result.isWeddingOrEngagement) {
           setShowThankYouModal(true);
         }
 
@@ -192,13 +191,13 @@ const BookingFormClient: React.FC = () => {
         });
         setHoneypot("");
       } else {
-        throw new Error("EmailJS failed");
+        throw new Error(result.error || 'Unknown error occurred');
       }
     } catch (error) {
-      console.error("EmailJS Error:", error);
+      console.error('Form submission error:', error);
       setSubmitStatus("error");
       setErrorMessage(
-        "Failed to send message. Please check your EmailJS configuration and try again."
+        error instanceof Error ? error.message : "Failed to send message. Please try again."
       );
     } finally {
       setIsSubmitting(false);

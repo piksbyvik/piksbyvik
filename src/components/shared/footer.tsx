@@ -174,11 +174,11 @@ const Footer: React.FC = () => {
         {/* Bottom Section */}
         <div className="w-full mt-8 border-t-8 border-brown-one px-[5vw] lg:px-[3.5vw] pt-4 pb-4">
           <div className="w-full flex justify-between items-center h-[40px]">
+            <a href="https://www.dyodigitals.com" className="font-inconsolata text-brown-one/70 text-sm md:text-lg text-center">
+              SITE BY DYO DIGITALS
+            </a>
             <p className="font-inconsolata text-brown-one/70 text-sm md:text-lg text-center">
-              SITE BY AP DIGITALS
-            </p>
-            <p className="font-inconsolata text-brown-one/70 text-sm md:text-lg text-center">
-              Photographer Based in NY
+              PHOTOGRAPHER BASED IN NY
             </p>
             <p className="font-inconsolata text-brown-one/70 text-sm md:text-lg text-center">
               © PIKSBYVIK PHOTOGRAPHY

@@ -41,8 +41,8 @@ export default function HeroClient({ data }: HeroClientProps) {
         <div
           className={cn(
             "flex w-full",
-            "flex-col gap-6 md:flex-row md:justify-between md:gap-0",
-            "items-start md:items-center"
+            "flex-col gap-6 lg:flex-row lg:justify-between md:gap-0",
+            "items-start lg:items-center"
           )}
         >
           <HeadingText />

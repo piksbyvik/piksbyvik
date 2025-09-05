@@ -88,7 +88,7 @@ const AboutPassions: React.FC<AboutPassionsProps> = ({ data }) => {
           {passions.map((passion, index) => (
             <div
               key={index}
-              className={`flex flex-col items-center text-center group relative ${
+              className={`flex flex-col items-center justify-center text-center group relative ${
                 passion.hasHeart ? "md:col-span-2 lg:col-span-1" : ""
               }`}
             >
@@ -98,7 +98,7 @@ const AboutPassions: React.FC<AboutPassionsProps> = ({ data }) => {
                   alt={`${passion.title} icon`}
                   width={80}
                   height={80}
-                  className="w-16 h-16 lg:w-20 lg:h-20 object-contain"
+                  
                 />
               </div>
               <h3
