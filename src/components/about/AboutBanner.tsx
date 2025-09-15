@@ -61,11 +61,12 @@ const AboutBanner: React.FC<AboutBannerProps> = ({ data }) => {
           }}
         />
       </div>
+      <div className="absolute inset-0 w-full h-full z-5 bg-black/20"/>
 
       {/* Text content with proper z-index to ensure visibility */}
-      <div className="relative z-10 w-full lg:max-w-5xl text-center px-4">
+      <div className="relative z-10 w-full lg:max-w-[1360px] text-center px-4">
         <motion.h1
-          className="font-instrument-serif font-medium text-beige-one capitalize text-center drop-shadow-md mb-8"
+          className="font-domaine-display text-beige-one capitalize text-center drop-shadow-md mb-8"
           style={{ fontSize: fontSizes.heroConnections }}
           initial={{ opacity: 0, scale: 0.95 }}
           animate={
