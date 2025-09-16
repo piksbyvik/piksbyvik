@@ -89,7 +89,6 @@ export default function Navbar() {
               priority={true}
             />
           </div>
-
           {/* Burger Menu - Left on desktop, right on mobile */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -100,7 +99,6 @@ export default function Navbar() {
           >
             MENU
           </button>
-
           {/* Brand - Center on desktop only */}
           <div className="hidden md:block ml-30">
             <Image
@@ -111,7 +109,8 @@ export default function Navbar() {
               className="md:w-[266px] md:h-[76px]"
               priority={true}
             />
-          </div>          {/* CTA Button - Hidden on mobile */}
+          </div>{" "}
+          {/* CTA Button - Hidden on mobile */}
           <Link
             href="/contact"
             className={cn(
@@ -119,11 +118,13 @@ export default function Navbar() {
               styles.textColor,
               styles.buttonBorder
             )}
-            style={{
-              '--hover-bg': styles.hoverBg,
-              '--hover-border': styles.hoverBorder,
-              '--hover-text': styles.hoverText,
-            } as React.CSSProperties}
+            style={
+              {
+                "--hover-bg": styles.hoverBg,
+                "--hover-border": styles.hoverBorder,
+                "--hover-text": styles.hoverText,
+              } as React.CSSProperties
+            }
             onMouseEnter={(e) => {
               e.currentTarget.style.backgroundColor = styles.hoverBg;
               e.currentTarget.style.borderColor = styles.hoverBorder;
@@ -184,7 +185,6 @@ export default function Navbar() {
               <nav className="mb-16 md:mb-8">
                 <ul className="flex flex-col items-start w-full space-y-16 md:space-y-10">
                   <li className="relative">
-                    
                     <Link
                       href="/"
                       className=" relative text-beige-one block font-instrument-serif text-4xl hover:text-beige-two hover:cursor-pointer transition-colors tracking-wide"
@@ -193,16 +193,6 @@ export default function Navbar() {
                     </Link>
                   </li>
                   <li className="relative">
-                    
-                    <Link
-                      href="/portfolio"
-                      className="text-beige-one block font-instrument-serif text-4xl hover:text-beige-two hover:cursor-pointer transition-colors tracking-wide"
-                    >
-                      PORTFOLIO
-                    </Link>
-                  </li>
-                  <li className="relative">
-                    
                     <Link
                       href="/about"
                       className="text-beige-one block font-instrument-serif text-4xl hover:text-beige-two hover:cursor-pointer transition-colors tracking-wide"
@@ -211,7 +201,14 @@ export default function Navbar() {
                     </Link>
                   </li>
                   <li className="relative">
-                   
+                    <Link
+                      href="/portfolio"
+                      className="text-beige-one block font-instrument-serif text-4xl hover:text-beige-two hover:cursor-pointer transition-colors tracking-wide"
+                    >
+                      PORTFOLIO
+                    </Link>
+                  </li>
+                  <li className="relative">
                     <Link
                       href="/investment"
                       className="text-beige-one block font-instrument-serif text-4xl hover:text-beige-two hover:cursor-pointer transition-colors tracking-wide"
@@ -220,8 +217,6 @@ export default function Navbar() {
                     </Link>
                   </li>
                   <li className="relative">
-                    
-
                     <Link
                       href="/contact"
                       className="text-beige-one block font-instrument-serif text-4xl hover:text-beige-two hover:cursor-pointer transition-colors tracking-wide"
@@ -256,7 +251,6 @@ export default function Navbar() {
               <button
                 onClick={() => setIsMenuOpen(false)}
                 className="font-inconsolata text-base md:text-lg px-6 py-2 md:px-8 md:py-2 border border-beige-one text-beige-one hover:bg-beige-one hover:text-brown-two hover:cursor-pointer transition-colors tracking-wide ml-auto md:ml-0 rounded-[50%]"
-                
               >
                 CLOSE
               </button>

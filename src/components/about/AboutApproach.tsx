@@ -53,35 +53,7 @@ const AboutApproach: React.FC<AboutApproachProps> = ({ data }) => {
         <div className="absolute inset-0 bg-brown-one/40"></div>
       </div>
 
-      <div className="absolute right-0 bottom-0 w-[180px] h-[240px] hidden lg:block">
-        <div className="relative w-full h-full overflow-hidden">
-          <ImageWithFallback
-            src={getImageUrl(data?.rightImage)}
-            alt="Wedding couple"
-            fill
-            className="object-cover"
-            fallback={
-              <div className="w-full h-full bg-brown-one/20"></div>
-            }
-          />
-          <div className="absolute inset-0 border-t-4 border-l-4 border-beige-two pointer-events-none"></div>
-        </div>
-      </div>
-      <div className="absolute bottom-0 left-0 w-[180px] h-[240px] hidden lg:block">
-        <div className="relative w-full h-full overflow-hidden">
-          <ImageWithFallback
-            src={getImageUrl(data?.leftImage)}
-            alt="Wedding detail"
-            fill
-            className="object-cover"
-            fallback={
-              <div className="w-full h-full bg-brown-one/20"></div>
-            }
-          />
-          {/* White border around smaller image */}
-          <div className="absolute inset-0 border-t-4 border-r-4 border-beige-two pointer-events-none"></div>
-        </div>
-      </div>
+      
 
       {/* Grain overlay */}
       <div
