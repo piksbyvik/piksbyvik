@@ -111,17 +111,19 @@ export default function Navbar() {
               className="md:w-[266px] md:h-[76px]"
               priority={true}
             />
-          </div>
-
-          {/* CTA Button - Hidden on mobile */}
+          </div>          {/* CTA Button - Hidden on mobile */}
           <Link
             href="/contact"
             className={cn(
-              "hidden md:block font-inconsolata text-sm px-6 py-3 rounded-[50%] border transition-colors hover:cursor-pointer",
+              "hidden md:block font-inconsolata text-sm px-6 py-3 rounded-[50%] border hover:cursor-pointer",
               styles.textColor,
               styles.buttonBorder
             )}
-            
+            style={{
+              '--hover-bg': styles.hoverBg,
+              '--hover-border': styles.hoverBorder,
+              '--hover-text': styles.hoverText,
+            } as React.CSSProperties}
             onMouseEnter={(e) => {
               e.currentTarget.style.backgroundColor = styles.hoverBg;
               e.currentTarget.style.borderColor = styles.hoverBorder;
@@ -129,14 +131,8 @@ export default function Navbar() {
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.backgroundColor = "transparent";
-              e.currentTarget.style.borderColor = styles.buttonBorder.includes(
-                "black"
-              )
-                ? "#000000"
-                : "#ffffff";
-              e.currentTarget.style.color = styles.textColor.includes("black")
-                ? "#000000"
-                : "#ffffff";
+              e.currentTarget.style.borderColor = "";
+              e.currentTarget.style.color = "";
             }}
           >
             GET IN TOUCH
@@ -159,8 +155,8 @@ export default function Navbar() {
           {/* Menu Content */}
           <div className="relative w-full md:w-1/2 h-full bg-brown-one flex flex-col justify-between px-8 py-12 md:px-12 md:pt-12 md:pb-4">
             {/* Header */}
-            <div className="flex justify-center md:justify-start mb-16 md:mb-8">
-              <h2 className="hidden md:block font-travel-november text-beige-one text-3xl md:text-4xl">
+            <div className="flex justify-between md:justify-start mb-16 md:mb-8">
+              <h2 className="font-travel-november text-beige-one text-3xl md:text-4xl">
                 Navigate
               </h2>
               <Image
@@ -184,16 +180,11 @@ export default function Navbar() {
             </div>
 
             {/* Navigation Links */}
-            <div className="flex flex-col justify-center flex-1">
-              <nav className="mx-auto md:mx-0 mb-16 md:mb-8">
-                <ul className="flex flex-col mx-auto md:mx-0 space-y-16 md:space-y-10 md:px-[2.5vw]">
-                  <li className="relative ml-6 md:ml-0 md:mx-0 flex-0">
-                    <span
-                      className="absolute -top-4 -left-8 md:-left-10 text-beige-two font-inconsolata text-xs md:text-sm"
-                      style={{ fontSize: "12px" }}
-                    >
-                      01
-                    </span>
+            <div className="flex flex-col items-start justify-center flex-1">
+              <nav className="mb-16 md:mb-8">
+                <ul className="flex flex-col items-start w-full space-y-16 md:space-y-10">
+                  <li className="relative">
+                    
                     <Link
                       href="/"
                       className=" relative text-beige-one block font-instrument-serif text-4xl hover:text-beige-two hover:cursor-pointer transition-colors tracking-wide"
@@ -201,13 +192,8 @@ export default function Navbar() {
                       HOME
                     </Link>
                   </li>
-                  <li className="relative mx-auto ml-40 md:ml-10">
-                    <span
-                      className="absolute -top-4 -left-8 md:-left-10 text-beige-two font-inconsolata text-xs md:text-sm"
-                      style={{ fontSize: "12px" }}
-                    >
-                      02
-                    </span>
+                  <li className="relative">
+                    
                     <Link
                       href="/portfolio"
                       className="text-beige-one block font-instrument-serif text-4xl hover:text-beige-two hover:cursor-pointer transition-colors tracking-wide"
@@ -215,13 +201,8 @@ export default function Navbar() {
                       PORTFOLIO
                     </Link>
                   </li>
-                  <li className="relative mx-auto ml-5 md:ml-0">
-                    <span
-                      className="absolute -top-4 -left-8 md:-left-10 text-beige-two font-inconsolata text-xs md:text-sm"
-                      style={{ fontSize: "12px" }}
-                    >
-                      03
-                    </span>
+                  <li className="relative">
+                    
                     <Link
                       href="/about"
                       className="text-beige-one block font-instrument-serif text-4xl hover:text-beige-two hover:cursor-pointer transition-colors tracking-wide"
@@ -229,13 +210,8 @@ export default function Navbar() {
                       ABOUT
                     </Link>
                   </li>
-                  <li className="relative mx-auto ml-24 md:ml-10">
-                    <span
-                      className="absolute -top-4 -left-8 md:-left-10 text-beige-two font-inconsolata text-xs md:text-sm"
-                      style={{ fontSize: "12px" }}
-                    >
-                      04
-                    </span>
+                  <li className="relative">
+                   
                     <Link
                       href="/investment"
                       className="text-beige-one block font-instrument-serif text-4xl hover:text-beige-two hover:cursor-pointer transition-colors tracking-wide"
@@ -243,13 +219,8 @@ export default function Navbar() {
                       INVESTMENT
                     </Link>
                   </li>
-                  <li className="relative mx-auto ml-6 md:ml-0">
-                    <span
-                      className="absolute -top-4 -left-8 md:-left-10 text-beige-two font-inconsolata text-xs md:text-sm"
-                      style={{ fontSize: "12px" }}
-                    >
-                      05
-                    </span>
+                  <li className="relative">
+                    
 
                     <Link
                       href="/contact"
@@ -284,8 +255,8 @@ export default function Navbar() {
               {/* Close Button */}
               <button
                 onClick={() => setIsMenuOpen(false)}
-                className="font-inconsolata text-base md:text-lg px-6 py-2 md:px-8 md:py-2 border border-beige-one text-beige-one hover:bg-beige-one hover:text-brown-two hover:cursor-pointer transition-colors tracking-wide ml-auto md:ml-0"
-                style={{ borderRadius: "60px/25px" }}
+                className="font-inconsolata text-base md:text-lg px-6 py-2 md:px-8 md:py-2 border border-beige-one text-beige-one hover:bg-beige-one hover:text-brown-two hover:cursor-pointer transition-colors tracking-wide ml-auto md:ml-0 rounded-[50%]"
+                
               >
                 CLOSE
               </button>

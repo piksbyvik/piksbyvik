@@ -13,7 +13,6 @@ interface ApproachClientProps {
 }
 
 export function ApproachClient({ data }: ApproachClientProps) {
-
   const MotionLink = motion(Link);
 
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -72,7 +71,6 @@ export function ApproachClient({ data }: ApproachClientProps) {
   const TabButton = ({
     isActive,
     onClick,
-    label,
     title,
     className = "",
     labelColor,
@@ -80,7 +78,6 @@ export function ApproachClient({ data }: ApproachClientProps) {
   }: {
     isActive: boolean;
     onClick: () => void;
-    label: string;
     title: string;
     className?: string;
     labelColor: string;
@@ -92,7 +89,6 @@ export function ApproachClient({ data }: ApproachClientProps) {
       aria-pressed={isActive}
     >
       <div className="space-y-1">
-        <p className={`font-domaine-display text-xs ${labelColor}`}>{label}</p>
         <span
           className={`font-instrument-serif uppercase font-medium block text-xl ${titleColor}`}
         >
@@ -101,7 +97,6 @@ export function ApproachClient({ data }: ApproachClientProps) {
       </div>
     </button>
   );
-
   return (
     <div ref={sectionRef}>
       {/* Mobile Tab Switcher */}
@@ -110,7 +105,6 @@ export function ApproachClient({ data }: ApproachClientProps) {
           <TabButton
             isActive={activeSection === "capture"}
             onClick={() => handleSectionChange("capture")}
-            label="spectrum"
             title="WHAT I CAPTURE"
             className="bg-brown-one"
             labelColor="text-beige-two"
@@ -119,7 +113,6 @@ export function ApproachClient({ data }: ApproachClientProps) {
           <TabButton
             isActive={activeSection === "approach"}
             onClick={() => handleSectionChange("approach")}
-            label="ethos"
             title="MY APPROACH"
             className="bg-beige-two border-l border-black/20"
             labelColor="text-brown-one"
@@ -129,13 +122,13 @@ export function ApproachClient({ data }: ApproachClientProps) {
       </div>
 
       {/* Wrapper */}
-      <div className="flex h-full relative z-20">
+      <div className="flex min-h-fit relative z-20">
         {/* Desktop Sidebar */}
         <div className="hidden lg:flex">
           {[
             {
               section: "capture" as const,
-              label: "spectrum",
+
               title: "WHAT I CAPTURE",
               bgClass: "bg-brown-one",
               labelColor: "text-beige-two",
@@ -143,38 +136,29 @@ export function ApproachClient({ data }: ApproachClientProps) {
             },
             {
               section: "approach" as const,
-              label: "ethos",
+
               title: "MY APPROACH",
               bgClass: "bg-beige-two border border-black",
               labelColor: "text-brown-one",
               titleColor: "text-brown-one",
             },
-          ].map(
-            ({ section, label, title, bgClass, labelColor, titleColor }) => (
-              <div
-                key={section}
-                className={`w-24 flex items-center justify-center cursor-pointer transition-all duration-300 ${bgClass}`}
-                onClick={() => handleSectionChange(section)}
-              >
-                <div className="absolute top-12">
-                  <p
-                    className={`font-domaine-display ${labelColor}`}
-                    style={{ fontSize: fontSizes.approachSidebarLabel }}
-                  >
-                    {label}
-                  </p>
-                </div>
-                <div className="transform -rotate-90 origin-center">
-                  <span
-                    className={`font-instrument-serif uppercase whitespace-nowrap transition-colors ${titleColor}`}
-                    style={{ fontSize: fontSizes.approachSidebarText }}
-                  >
-                    {title}
-                  </span>
-                </div>
+          ].map(({ section, title, bgClass, labelColor, titleColor }) => (
+            <div
+              key={section}
+              className={`w-24 flex items-center justify-center cursor-pointer transition-all duration-300 ${bgClass}`}
+              onClick={() => handleSectionChange(section)}
+            >
+              <div className="absolute top-12"></div>
+              <div className="transform -rotate-90 origin-center">
+                <span
+                  className={`font-instrument-serif uppercase whitespace-nowrap transition-colors ${titleColor}`}
+                  style={{ fontSize: fontSizes.approachSidebarText }}
+                >
+                  {title}
+                </span>
               </div>
-            )
-          )}
+            </div>
+          ))}
         </div>
 
         {/* Main Content */}
@@ -182,147 +166,161 @@ export function ApproachClient({ data }: ApproachClientProps) {
           {/* --- WHAT I CAPTURE --- */}
           {activeSection === "capture" && (
             <>
-              <div className="relative pb-6 lg:pb-10 px-[5vw] lg:px-[3.5vw] overflow-hidden">
-                {/* Desktop Quote */}
-                <div className="hidden lg:block absolute top-12 right-15 transform -rotate-10 origin-top-right">
-                  <p
-                    className="font-la-belle-aurore text-black"
-                    style={{ fontSize: fontSizes.approachQuote }}
-                  >
-                    {data?.whatICaptureTab?.quote ||
-                      '"Because these days are worth remembering. ♡"'}
-                  </p>
-                  <div className="absolute top-14 right-5">
-                    <Image
-                      src="/dots-2.svg"
-                      alt="Decorative dots"
-                      width={210}
-                      height={136}
-                    />
-                  </div>
-                </div>
-
-                {/* Mobile Quote */}
-                <div className="lg:hidden text-center pt-4 mb-4 -rotate-3">
-                  <p
-                    className="font-la-belle-aurore text-black"
-                    style={{ fontSize: fontSizes.bodyLarge }}
-                  >
-                    {data?.whatICaptureTab?.quote ||
-                      '"Because these days are worth remembering. ♡"'}
-                  </p>
-                </div>
-
-                {/* Title Animation - Fixed Word Breaking */}
-                <div className="flex flex-col items-start gap-4 lg:gap-8">
-                  <motion.h2
-                    className="font-domaine-display font-semibold text-brown-one relative inline-block text-center lg:text-left w-full lg:w-auto word-underline"
-                    style={{ fontSize: fontSizes.approachTitle }}
-                    variants={animationConfig.containerVariants}
-                    initial="hidden"
-                    animate={isInView ? "visible" : "hidden"}
-                  >
-                    {captureWords.map((word, wordIndex) => (
-                      <span
-                        key={wordIndex}
-                        className="inline-block whitespace-nowrap"
-                      >
-                        {word.split("").map((char, charIndex) => (
-                          <motion.span
-                            key={`${wordIndex}-${charIndex}`}
-                            variants={animationConfig.letterVariants}
-                            className="inline-block"
-                          >
-                            {char}
-                          </motion.span>
-                        ))}
-                        {wordIndex < captureWords.length - 1 && (
-                          <motion.span
-                            variants={animationConfig.letterVariants}
-                            className="inline-block"
-                          >
-                            &nbsp;
-                          </motion.span>
-                        )}
-                      </span>
-                    ))}
-                  </motion.h2>
-
-                  <MotionLink
-                    href="/investment"
-                    className="mx-auto lg:mx-0 w-auto inline-flex items-center justify-center gap-3 px-6 lg:px-10 py-3 lg:py-4 border-2 border-brown-one rounded-full text-brown-one hover:bg-brown-one hover:text-beige-one transition-all duration-300 font-inconsolata font-medium uppercase tracking-wide mt-4 lg:mt-8"
-                    style={{ fontSize: fontSizes.approachButtonText }}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.8, delay: 1.5 }}
-                  >
-                    {data?.whatICaptureTab?.ctaButtonText ||
-                      "EXPLORE MY PACKAGES"}
-                    <svg
-                      className="w-4 h-4 rotate-310"
-                      viewBox="0 0 16 16"
-                      fill="currentColor"
+              <div className="flex flex-col justify-between">
+                <div className="relative pb-6 lg:pb-10 px-[5vw] lg:px-[3.5vw] overflow-hidden">
+                  {/* Desktop Quote */}
+                  <div className="hidden lg:block absolute top-12 right-15 transform -rotate-10 origin-top-right">
+                    <p
+                      className="font-la-belle-aurore text-black"
+                      style={{ fontSize: fontSizes.approachQuote }}
                     >
-                      <path d="M8 0L6.59 1.41L12.17 7H0v2h12.17L6.59 14.59L8 16l8-8z" />
-                    </svg>
-                  </MotionLink>
-                </div>
-              </div>
-
-              {/* Categories */}
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-12 bg-[#4C453B] w-full pb-6 lg:pb-10 pt-8 lg:pt-14 px-[5vw] lg:px-[3.5vw] z-20">
-                {data?.whatICaptureTab?.categories?.map((category, index) => (
-                  <div
-                    key={category.title || index}
-                    className="text-center lg:text-left z-40"
-                  >
-                    <motion.h3
-                      className="font-instrument-serif font-medium text-beige-two pb-4 lg:pb-6 uppercase"
-                      style={{ fontSize: fontSizes.approachCategoryTitle }}
-                      initial={{
-                        opacity: 0,
-                        y: 20,
-                        filter: "blur(2px)",
-                      }}
-                      whileInView={{
-                        opacity: 1,
-                        y: 0,
-                        filter: "blur(0px)",
-                      }}
-                      viewport={{ once: true, margin: "-10%" }}
-                      transition={{
-                        duration: 0.8,
-                        ease: [0.25, 0.46, 0.45, 0.94],
-                        delay: index * 0.15,
-                      }}
-                    >
-                      {category.title}
-                    </motion.h3>
-                    <div className="h-[440px] md:h-[500px] relative overflow-hidden p-3 bg-beige-two border border-black z-40">
-                      <div className="w-full h-full z-40">
-                        <motion.div
-                          className="w-full h-full z-40"
-                          variants={animationConfig.imageRevealVariants}
-                          initial="hidden"
-                          whileInView="visible"
-                          viewport={{ once: true, margin: "40%" }}
-                          transition={{
-                            ...animationConfig.imageTransition,
-                            delay: 0.8 + index * 0.2,
-                          }}
-                          style={{
-                            backgroundImage: category.imageUrl
-                              ? `url('${category.imageUrl}')`
-                              : "linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%)",
-                            backgroundSize: "cover",
-                            backgroundPosition: "center",
-                            backgroundRepeat: "no-repeat",
-                          }}
-                        />
-                      </div>
+                      {data?.whatICaptureTab?.quote ||
+                        '"Because these days are worth remembering. ♡"'}
+                    </p>
+                    <div className="absolute top-14 right-5">
+                      <Image
+                        src="/dots-2.svg"
+                        alt="Decorative dots"
+                        width={210}
+                        height={136}
+                      />
                     </div>
                   </div>
-                ))}
+
+                  {/* Mobile Quote */}
+                  <div className="lg:hidden text-center pt-4 mb-4 -rotate-3">
+                    <p
+                      className="font-la-belle-aurore text-black"
+                      style={{ fontSize: fontSizes.bodyLarge }}
+                    >
+                      {data?.whatICaptureTab?.quote ||
+                        '"Because these days are worth remembering. ♡"'}
+                    </p>
+                  </div>
+
+                  {/* Title Animation - Fixed Word Breaking */}
+                  <div className="flex flex-col items-start gap-4 lg:gap-8">
+                    <motion.h2
+                      className="font-domaine-display font-semibold text-brown-one relative inline-block text-center lg:text-left w-full lg:w-auto word-underline"
+                      style={{ fontSize: fontSizes.approachTitle }}
+                      variants={animationConfig.containerVariants}
+                      initial="hidden"
+                      animate={isInView ? "visible" : "hidden"}
+                    >
+                      {captureWords.map((word, wordIndex) => (
+                        <span
+                          key={wordIndex}
+                          className="inline-block whitespace-nowrap"
+                        >
+                          {word.split("").map((char, charIndex) => (
+                            <motion.span
+                              key={`${wordIndex}-${charIndex}`}
+                              variants={animationConfig.letterVariants}
+                              className="inline-block"
+                            >
+                              {char}
+                            </motion.span>
+                          ))}
+                          {wordIndex < captureWords.length - 1 && (
+                            <motion.span
+                              variants={animationConfig.letterVariants}
+                              className="inline-block"
+                            >
+                              &nbsp;
+                            </motion.span>
+                          )}
+                        </span>
+                      ))}
+                    </motion.h2>
+
+                    <MotionLink
+                      href="/investment"
+                      className="mx-auto lg:mx-0 w-auto inline-flex items-center justify-center gap-3 px-6 lg:px-10 py-3 lg:py-4 border-2 border-brown-one rounded-full text-brown-one hover:bg-brown-one hover:text-beige-one transition-all duration-300 font-inconsolata font-medium uppercase tracking-wide mt-4 lg:mt-8"
+                      style={{ fontSize: fontSizes.approachButtonText }}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={isInView ? { opacity: 1, y: 0 } : {}}
+                      transition={{ duration: 0.8, delay: 1.5 }}
+                    >
+                      {data?.whatICaptureTab?.ctaButtonText ||
+                        "EXPLORE MY PACKAGES"}
+                      <svg
+                        className="w-4 h-4 rotate-310"
+                        viewBox="0 0 16 16"
+                        fill="currentColor"
+                      >
+                        <path d="M8 0L6.59 1.41L12.17 7H0v2h12.17L6.59 14.59L8 16l8-8z" />
+                      </svg>
+                    </MotionLink>
+                  </div>
+                </div>{" "}                {/* Categories */}
+                <div className="flex flex-wrap lg:flex-nowrap justify-center gap-6 lg:gap-0 lg:justify-between bg-[#4C453B] w-full pb-6 lg:pb-10 pt-8 lg:pt-14 px-[5vw] lg:px-[3.5vw] relative z-30">
+                  <div
+                    className="absolute inset-0 z-30 opacity-30 pointer-events-none"
+                    style={{
+                      backgroundImage: "url('/grain.webp')",
+                      backgroundRepeat: "repeat",
+                    }}
+                  />
+
+                  {data?.whatICaptureTab?.categories?.map((category, index) => (
+                    <div
+                      key={category.title || index}
+                      className="text-center relative z-40 lg:text-left w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] max-w-[350px] xl:max-w-[380px]"
+                    >
+                      <motion.h3
+                        className="font-instrument-serif font-medium text-beige-two pb-4 lg:pb-6 uppercase"
+                        style={{ fontSize: fontSizes.approachCategoryTitle }}
+                        initial={{
+                          opacity: 0,
+                          y: 20,
+                          filter: "blur(2px)",
+                        }}
+                        whileInView={{
+                          opacity: 1,
+                          y: 0,
+                          filter: "blur(0px)",
+                        }}
+                        viewport={{ once: true, margin: "-10%" }}
+                        transition={{
+                          duration: 0.8,
+                          ease: [0.25, 0.46, 0.45, 0.94],
+                          delay: index * 0.15,
+                        }}
+                      >
+                        {category.title}
+                      </motion.h3>
+                      <div className="aspect-[4/5] relative overflow-hidden p-3 bg-beige-two border border-black z-40">
+                        <div className="w-full h-full relative z-40">
+                          <motion.div
+                            className="w-full h-full relative z-40"
+                            variants={animationConfig.imageRevealVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, margin: "40%" }}
+                            transition={{
+                              ...animationConfig.imageTransition,
+                              delay: 0.8 + index * 0.2,
+                            }}
+                          >
+                            {category.imageUrl ? (
+                              <ImageWithFallback
+                                src={category.imageUrl}
+                                alt={category.title}
+                                fill
+                                className="object-cover"
+                                fallback={
+                                  <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300" />
+                                }
+                              />
+                            ) : (
+                              <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300" />
+                            )}
+                          </motion.div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </>
           )}
@@ -347,13 +345,12 @@ export function ApproachClient({ data }: ApproachClientProps) {
                     width={30}
                     height={30}
                   />
-                </div>
-
+                </div>{" "}
                 {/* Content */}
-                <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 items-stretch w-full">
+                <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 items-start w-full">
                   {/* Image */}
-                  <div className="w-full lg:w-[80%] order-2 lg:order-1">
-                    <div className="aspect-[3/4] bg-brown-one p-3 shadow-xl overflow-hidden">
+                  <div className="w-full lg:w-[40%] xl:w-[35%] order-2 lg:order-1">
+                    <div className="aspect-[3/4] mx-auto bg-brown-one p-3 shadow-xl overflow-hidden h-[400px] md:h-[450px] lg:h-[400px] xl:h-[450px]">
                       <div className="w-full h-full relative border border-white/80">
                         <ImageWithFallback
                           src={data?.myApproachTab?.image}
@@ -366,7 +363,7 @@ export function ApproachClient({ data }: ApproachClientProps) {
                   </div>
 
                   {/* Text */}
-                  <div className="flex flex-col items-start gap-4 lg:gap-8 max-w-full lg:max-w-[700px] order-1 lg:order-2">
+                  <div className="flex flex-col items-start gap-4 lg:gap-8 w-full lg:w-[60%] xl:w-[65%] order-1 lg:order-2">
                     <h2
                       className="font-domaine-display font-medium text-brown-one text-center lg:text-left w-full"
                       style={{ fontSize: fontSizes.approachWayIWork }}

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const Footer: React.FC = () => {
@@ -41,44 +42,44 @@ const Footer: React.FC = () => {
                 <nav>
                   <ul className="space-y-2">
                     <li>
-                      <a
-                        href="#"
+                      <Link
+                        href="/"
                         className="font-inconsolata text-brown-one hover:text-brown-two transition-colors text-sm"
                       >
                         Home
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a
-                        href="#"
+                      <Link
+                        href="/about"
                         className="font-inconsolata text-brown-one hover:text-brown-two transition-colors text-sm"
                       >
                         About
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a
-                        href="#"
+                      <Link
+                        href="/portfolio"
                         className="font-inconsolata text-brown-one hover:text-brown-two transition-colors text-sm"
                       >
-                        Gallery
-                      </a>
+                        Portfolio
+                      </Link>
                     </li>
                     <li>
-                      <a
-                        href="#"
+                      <Link
+                        href="/investment"
                         className="font-inconsolata text-brown-one hover:text-brown-two transition-colors text-sm"
                       >
                         Investment
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a
-                        href="#"
+                      <Link
+                        href="/contact"
                         className="font-inconsolata text-brown-one hover:text-brown-two transition-colors text-sm"
                       >
                         Contact
-                      </a>
+                      </Link>
                     </li>
                   </ul>
                 </nav>
@@ -96,7 +97,7 @@ const Footer: React.FC = () => {
                   <ul className="space-y-2">
                     <li>
                       <a
-                        href="#"
+                        href="https://www.instagram.com/piksbyvik/"
                         className="font-inconsolata text-brown-one hover:text-brown-two transition-colors text-sm"
                       >
                         Instagram

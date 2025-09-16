@@ -35,9 +35,8 @@ export default function ApproachSection({ data }: ApproachProps) {
         : null,
     },
   };
-
   return (
-    <section className="relative max-w-[2200px] mx-auto w-full h-full overflow-hidden">
+    <section className="relative max-w-[2200px] mx-auto w-full overflow-hidden">
       <div className="absolute inset-0">
         <ImageWithFallback
           src={hydratedData.backgroundImage}
@@ -49,14 +48,6 @@ export default function ApproachSection({ data }: ApproachProps) {
           }
         />
       </div>
-
-      <div
-        className="absolute inset-0 z-30 opacity-30 pointer-events-none"
-        style={{
-          backgroundImage: "url('/grain.webp')",
-          backgroundRepeat: "repeat",
-        }}
-      />
 
       <ApproachClient data={hydratedData} />
     </section>

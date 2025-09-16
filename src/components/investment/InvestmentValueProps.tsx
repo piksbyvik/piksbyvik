@@ -95,7 +95,7 @@ export default function InvestmentValueProps({ data }: InvestmentValuePropsProps
 
       <div className="relative z-20 px-[5vw] lg:px-[3.5vw]">
         {/* Heading */}
-        <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-12 md:mb-16">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-12 md:mb-24">
           <motion.h2
             className="font-la-belle-aurore text-black text-center text-[2.2rem] md:text-[2.8rem] lg:text-[3.2rem] font-normal"
             style={{ letterSpacing: "0.02em" }}
@@ -127,7 +127,7 @@ export default function InvestmentValueProps({ data }: InvestmentValuePropsProps
             <Image
               src="/circle-icon.svg"
               alt="Oval icon"
-              width={314}
+              width={350}
               height={140}
               className="absolute left-0 top-1/2 -translate-y-1/2 -z-10 pointer-events-none"
             />
@@ -139,7 +139,7 @@ export default function InvestmentValueProps({ data }: InvestmentValuePropsProps
           {content.valueCards.map((card, index) => (
             <motion.div 
               key={index}
-              className={`border border-black p-6 md:p-8 rounded-none shadow-none`}
+              className={`border border-black p-6 md:p-8 rounded-2xl shadow-none`}
               style={{ 
                 backgroundColor: card.backgroundColor === 'blue' ? 'var(--color-blue)' :
                                card.backgroundColor === 'brown-one' ? 'var(--color-brown-one)' :
@@ -156,7 +156,7 @@ export default function InvestmentValueProps({ data }: InvestmentValuePropsProps
               }}
             >
               <h3
-                className={`font-domaine-display font-normal mb-4 ${
+                className={`font-domaine-display font-normal mb-4 text-center ${
                   card.backgroundColor === 'blue' ? 'text-black' : 'text-beige-one'
                 }`}
                 style={{ fontSize: fontSizes.approachSidebarText }}
@@ -164,7 +164,7 @@ export default function InvestmentValueProps({ data }: InvestmentValuePropsProps
                 {card.title}
               </h3>
               <p 
-                className={`font-inconsolata leading-relaxed tracking-tight ${
+                className={`font-inconsolata leading-relaxed tracking-tight text-center ${
                   card.backgroundColor === 'blue' ? 'text-black' : 'text-beige-one'
                 }`} 
                 style={{ fontSize: fontSizes.bodyMedium }}

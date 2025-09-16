@@ -10,7 +10,6 @@ interface TestimonialProps {
   accentColor?: string;
   borderColor?: string;
   headerColor?: string;
-  underlineColor?: string;
   buttonColor?: string;
   imgBg?: string;
   imgBorder?: string;

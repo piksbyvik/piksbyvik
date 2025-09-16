@@ -196,14 +196,19 @@ const TestimonialClient: React.FC<TestimonialClientProps> = ({
           gridTemplateRows: "auto 1fr",
           alignItems: "lg:center",
         }}
-      >
-        {/* Decorative dots */}
+      >        {/* Decorative dots */}
         
           <div
             className="absolute top-2 -right-4 md:top-5 md:-right-5 w-40 h-28 md:w-85 md:h-60 scale-[0.8] md:scale-100 z-10"
             style={{ contain: "layout style paint" }}
           >
-            <Image src="/dots-light.svg" alt="Decorative dots" width={390} height={340} />
+            <Image 
+              src="/dots-light.svg" 
+              alt="Decorative dots" 
+              className={textColor === "#403528" ? "brightness-0" : ""} 
+              width={390} 
+              height={340} 
+            />
           </div>
         
 
@@ -242,13 +247,18 @@ const TestimonialClient: React.FC<TestimonialClientProps> = ({
             borderColor: borderColor,
             background: bgColor,
           }}
-        >
-          {/* Left decorative dots */}
+        >          {/* Left decorative dots */}
           <div
               className="hidden lg:block absolute -top-25 -left-20 w-80 h-56 z-0 opacity-80 scale-90"
               style={{ contain: "layout style paint" }}
             >
-             <Image src="/dots-light.svg" alt="Decorative dots" width={210} height={136} />
+             <Image 
+               src="/dots-light.svg" 
+               alt="Decorative dots" 
+               className={textColor === "#403528" ? "brightness-0" : ""} 
+               width={210} 
+               height={136} 
+             />
             </div>
 
           {/* Image container with preloading */}
