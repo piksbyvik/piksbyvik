@@ -424,7 +424,7 @@ const InvestmentPackagesClient: React.FC<InvestmentPackagesClientProps> = ({
             
             {activeTab !== "weddings" && (
               <div className="font-inconsolata italic tracking-tight text-beige-one/90 text-sm md:text-xl mb-6 px-4 py-3 border-l-2 border-beige-one/30">
-                Your story might take us just down the road or miles away — either way, I'm in! For select locations, a travel fee may apply.
+                Your story might take us just down the road or miles away — either way, I&apos;m in! For select locations, a travel fee may apply.
               </div>
             )}
             

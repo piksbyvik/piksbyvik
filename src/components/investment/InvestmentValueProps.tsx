@@ -78,7 +78,7 @@ export default function InvestmentValueProps({ data }: InvestmentValuePropsProps
       
       {/* Camera icon (top right) */}
       <motion.div 
-        className="absolute -top-10 right-0 scale-[0.7] md:scale-[1] lg:top-8 md:right-8 z-10"
+        className="absolute top-24 -right-4 scale-[0.7] md:scale-[1] lg:top-8 md:right-8 z-10"
         animate={{
           y: [0, -10, 0],
           rotate: [0, -2, 0],
@@ -97,7 +97,7 @@ export default function InvestmentValueProps({ data }: InvestmentValuePropsProps
         {/* Heading */}
         <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-12 md:mb-24">
           <motion.h2
-            className="font-la-belle-aurore text-black text-center text-[2.2rem] md:text-[2.8rem] lg:text-[3.2rem] font-normal"
+            className="font-la-belle-aurore text-black text-center text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-normal"
             style={{ letterSpacing: "0.02em" }}
             variants={headingVariants}
             initial="hidden"
@@ -120,7 +120,7 @@ export default function InvestmentValueProps({ data }: InvestmentValuePropsProps
               delay: 0.2
             }}
           >
-            <span className="font-la-belle-aurore text-black text-[2.2rem] md:text-[2.8rem] lg:text-[3.2rem] font-normal px-6">
+            <span className="font-la-belle-aurore text-black text-[2rem] md:text-[2rem] lg:text-[3rem] font-normal px-6">
               {content.heading.highlightedText}
             </span>
             {/* Oval/circle icon SVG */}

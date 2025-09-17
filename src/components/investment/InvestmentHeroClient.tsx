@@ -103,7 +103,7 @@ const InvestmentHeroClient: React.FC<InvestmentHeroClientProps> = ({ data }) => 
             {/* Right side - Single image on mobile, three images on desktop */}
             <div className="w-full lg:w-[50%] pt-0 md:pt-4 lg:pt-10 h-[60vh] md:h-[70vh] lg:h-[calc(100vh-136px)] order-1 lg:order-2">
               {/* Mobile/Tablet: Single main image */}
-              <div className="block lg:hidden w-full h-full relative">
+              <div className="block md:hidden w-full h-full relative">
                 <div className="border border-black h-full shadow-lg">
                   <div className="w-full h-full relative overflow-hidden">
                     <ImageWithFallback
@@ -117,7 +117,7 @@ const InvestmentHeroClient: React.FC<InvestmentHeroClientProps> = ({ data }) => 
               </div>
 
               {/* Desktop: Three images layout */}
-              <div className="hidden lg:flex gap-3 md:gap-4 lg:gap-6 h-full">
+              <div className="hidden md:flex gap-3 md:gap-4 lg:gap-6 h-full">
                 {/* Large main image */}
                 <div className="w-3/5 relative">
                   <div className="border border-black border-b-0 h-full shadow-lg">
