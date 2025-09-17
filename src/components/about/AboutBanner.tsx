@@ -31,7 +31,7 @@ const AboutBanner: React.FC<AboutBannerProps> = ({ data }) => {
   return (
     <div
       ref={bannerRef}
-      className="relative w-screen h-[240px] md:h-[400px] lg:h-[528px] flex items-center justify-center overflow-hidden"
+      className="relative w-screen min-h-[240px] md:min-h-[400px] lg:h-[460px] py-12 lg:py-0 flex items-center justify-center overflow-hidden"
     >
       {/* Background container with conditional rendering */}
       <div className="absolute inset-0 w-full h-full" style={{ zIndex: 0 }}>

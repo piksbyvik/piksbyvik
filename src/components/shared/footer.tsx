@@ -134,7 +134,7 @@ const Footer: React.FC = () => {
               </div>
 
               {/* Handwritten Text - Hidden on mobile, shown on larger screens */}
-              <div className="hidden md:block absolute right-[17%] top-[17%] md:col-span-1">
+              <div className="hidden md:block absolute right-1/4 top-[17%] md:col-span-1">
                 <div className="mt-4">
                   <p
                     className="font-travel-november text-brown-one transform -rotate-18 leading-relaxed"
@@ -155,7 +155,7 @@ const Footer: React.FC = () => {
                   src="/footer-img.jpg"
                   alt="Romantic couple photography"
                   fill
-                  className="object-cover opacity-40 border-4 border-black"
+                  className="object-cover opacity-40 md:opacity-100 border-4 border-black"
                   sizes="(max-width: 768px) 192px, 224px"
                 />
               </div>

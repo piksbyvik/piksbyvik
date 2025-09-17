@@ -8,5 +8,5 @@ const builder = imageUrlBuilder(client);
 
 // Export a function that can be used to get image URLs
 export function urlFor(source: SanityImageSource) {
-  return builder.image(source).auto("format").quality(85);
+  return builder.image(source).auto("format").quality(90);
 }

@@ -114,7 +114,7 @@ const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ data }) => {
       {/* Masonry Gallery */}
       <div className="relative z-10 px-[3vw] lg:px-[2vw] py-8 md:py-12">
         <div
-          className="absolute inset-0 z-5 opacity-20 pointer-events-none"
+          className="absolute inset-0 z-0 opacity-20 pointer-events-none"
           style={{
             backgroundImage: "url('/grain.webp')",
 
@@ -126,7 +126,7 @@ const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ data }) => {
           {currentImages && currentImages.length > 0 ? (
             <motion.div
               key={activeTab}
-              className="columns-1 md:columns-2 lg:columns-3 gap-4 md:gap-6 space-y-4 md:space-y-6"
+              className="columns-1 md:columns-2 z-10 lg:columns-3 gap-4 md:gap-6 space-y-4 md:space-y-6"
               variants={containerVariants}
               initial="hidden"
               animate="visible"
@@ -145,7 +145,7 @@ const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ data }) => {
                 return (
                   <motion.div
                     key={imageId || index}
-                    className="break-inside-avoid block w-full cursor-pointer mb-4 md:mb-6"
+                    className="break-inside-avoid z-20 block w-full cursor-pointer mb-4 md:mb-6"
                     variants={imageVariants}
                   >
                     <div className="relative w-full overflow-hidden">

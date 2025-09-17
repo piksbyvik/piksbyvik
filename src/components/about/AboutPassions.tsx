@@ -52,7 +52,7 @@ const AboutPassions: React.FC<AboutPassionsProps> = ({ data }) => {
   const passions = data?.passions || defaultPassions;
 
   return (
-    <section className="relative w-full py-16 md:py-20 lg:py-24 bg-brown-one">
+    <section className="relative w-full py-16 md:py-20 lg:py-24 max-w-[2200px] mx-auto bg-brown-one">
       {/* Decorative dots - positioned like in the image */}
       <div className="absolute -top-8 -left-10 text-beige-one/80 hidden lg:block">
         <Image

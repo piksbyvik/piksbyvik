@@ -50,7 +50,7 @@ const AboutRightFit: React.FC<AboutRightFitProps> = ({ data }) => {
     <section className="relative max-w-[2200px] mx-auto w-full bg-beige-one">
       <div className="relative flex flex-col lg:flex-row items-stretch min-h-[600px] lg:min-h-[700px]">
         {/* Left side - Text content */}
-        <div className="lg:w-1/2 flex flex-col justify-center px-[5vw] lg:px-[3.5vw] py-8 lg:py-0">
+        <div className="lg:w-1/2 flex flex-col justify-center px-[5vw] lg:px-[3.5vw] py-8 lg:py-10">
           {/* Title with heart */}
           <div className="flex items-center gap-3 mb-8 lg:my-10">
             <Image
@@ -122,7 +122,7 @@ const AboutRightFit: React.FC<AboutRightFitProps> = ({ data }) => {
 
       {/* Grain overlay */}
       <div
-        className="absolute inset-0 z-5 opacity-20 pointer-events-none"
+        className="absolute inset-0 z-5 opacity-15 pointer-events-none"
         style={{
           backgroundImage: "url('/grain.webp')",
 

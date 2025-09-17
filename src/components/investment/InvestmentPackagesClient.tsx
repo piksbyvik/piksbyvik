@@ -376,7 +376,7 @@ const InvestmentPackagesClient: React.FC<InvestmentPackagesClientProps> = ({
         >
           <div
             className={cn(
-              "relative w-full lg:w-[36%] h-[240px] md:h-[400px] lg:h-auto",
+              "relative w-full lg:w-[36%] h-[300px] md:h-[400px] lg:h-auto",
               "border-4 border-beige-one overflow-hidden shadow-lg",
               "mb-8 md:mb-0 flex-shrink-0"
             )}
@@ -420,9 +420,15 @@ const InvestmentPackagesClient: React.FC<InvestmentPackagesClientProps> = ({
                 >
                   • {feature}
                 </li>
-              ))}
-            </ul>
-            <div className="flex flex-col sm:flex-row w-full justify-between items-start sm:items-end gap-6 sm:gap-4 mt-6">
+              ))}            </ul>
+            
+            {activeTab !== "weddings" && (
+              <div className="font-inconsolata italic tracking-tight text-beige-one/90 text-sm md:text-xl mb-6 px-4 py-3 border-l-2 border-beige-one/30">
+                Your story might take us just down the road or miles away — either way, I'm in! For select locations, a travel fee may apply.
+              </div>
+            )}
+            
+            <div className="flex flex-col sm:flex-row w-full justify-between items-start sm:items-center gap-6 sm:gap-4 mt-6">
               <Link
                 href="/contact"
                 className="font-travel-november text-beige-one underline underline-offset-4 hover:cursor-pointer hover:opacity-80 transition-opacity"
@@ -435,13 +441,8 @@ const InvestmentPackagesClient: React.FC<InvestmentPackagesClientProps> = ({
               </Link>
 
               {hasMultiplePackages() && (
-                <div className="flex flex-col items-start sm:items-end">
-                  <span
-                    className="font-inconsolata text-beige-one/70 mb-2"
-                    style={{ fontSize: "clamp(14px, 3vw, 16px)" }}
-                  >
-                    Looking for something different?
-                  </span>
+                <div className="flex flex-col justify-center items-center">
+                  
                   <button
                     onClick={handleExploreMoreClick}
                     className="font-domaine-display text-beige-one flex justify-start text-start items-center gap-3 hover:cursor-pointer hover:opacity-80 transition-opacity group"

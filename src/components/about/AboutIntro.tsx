@@ -223,7 +223,7 @@ const AboutIntro: React.FC<AboutIntroProps> = ({ data }) => {
 
             {/* Desktop: Main large image */}
             <div className="hidden lg:block absolute left-1/4 -top-15 -translate-x-1/2 w-[320px] h-[400px]">
-              <div className="relative w-full h-full overflow-hidden">
+              <div className="relative w-full h-full overflow-hidden border-4 border-brown-two">
                 <ImageWithFallback
                   src={getImageUrl(data?.mainImage)}
                   alt="Victoria portrait main"

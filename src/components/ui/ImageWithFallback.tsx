@@ -67,7 +67,7 @@ export const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({
   loadingComponent,
   sizes,
   objectFit = "cover",
-  quality = 75,
+  quality = 100,
 }) => {
   const [imageError, setImageError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
