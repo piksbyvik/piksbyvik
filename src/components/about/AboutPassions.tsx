@@ -114,7 +114,7 @@ const AboutPassions: React.FC<AboutPassionsProps> = ({ data }) => {
           />          {passions.map((passion, index) => {
             // Define positions for each passion item
             const positions = [
-              { top: "10%", left: "5%" }, // Rewatching movies - top left
+              { top: "0%", left: "5%" }, // snowboarding - top left
               { top: "60%", left: "15%" }, // Alternative music - bottom left
               { top: "35%", left: "45%" }, // Photography - center (with hearts)
               { top: "-4%", right: "8%" }, // Travelling - top right

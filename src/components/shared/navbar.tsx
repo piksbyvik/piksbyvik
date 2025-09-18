@@ -80,7 +80,7 @@ export default function Navbar() {
       >
         <div className="flex justify-between items-center w-full">
           {/* Brand - Left on mobile, center on desktop */}
-          <div className="block md:hidden">
+          <Link href="/" className="block md:hidden">
             <Image
               src={styles.logoSrc}
               alt="Piks by Vik Logo"
@@ -88,7 +88,7 @@ export default function Navbar() {
               height={50}
               priority={true}
             />
-          </div>
+          </Link>
           {/* Burger Menu - Left on desktop, right on mobile */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -100,7 +100,7 @@ export default function Navbar() {
             MENU
           </button>
           {/* Brand - Center on desktop only */}
-          <div className="hidden md:block ml-30">
+          <Link href="/" className="hidden md:block ml-30">
             <Image
               src={styles.logoSrc}
               alt="Piks by Vik Logo"
@@ -109,7 +109,7 @@ export default function Navbar() {
               className="md:w-[266px] md:h-[76px]"
               priority={true}
             />
-          </div>{" "}
+          </Link>{" "}
           {/* CTA Button - Hidden on mobile */}
           <Link
             href="/contact"
