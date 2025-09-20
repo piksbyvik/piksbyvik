@@ -22,6 +22,7 @@ export function middleware(request: NextRequest) {
     '/piksbyvik-logo.svg',
     '/logo-light-navbar.svg',
     '/grain.webp',
+    "/thankyou-modal.avif",
     // Allow all static assets
     '/.*\\.(svg|png|jpg|jpeg|gif|webp|ico|css|js)$'
   ];
