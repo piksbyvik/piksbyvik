@@ -11,14 +11,6 @@ export default function Navbar() {
   const [hasScrolledPastHero, setHasScrolledPastHero] = useState(false);
   const pathname = usePathname();
 
-  // Check if coming soon mode is enabled
-  const isComingSoonMode = process.env.NEXT_PUBLIC_COMING_SOON_MODE === 'true';
-  
-  // Don't render navbar if coming soon mode is enabled
-  if (isComingSoonMode) {
-    return null;
-  }
-
   // Define pages with light backgrounds that need dark navbar
   const lightBackgroundPages = ["/investment", "/portfolio"];
   const isLightPage = lightBackgroundPages.includes(pathname);
@@ -40,11 +32,17 @@ export default function Navbar() {
       } else {
         setIsVisible(false);
       }
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    };    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Check if coming soon mode is enabled (after hooks)
+  const isComingSoonMode = process.env.NEXT_PUBLIC_COMING_SOON_MODE === 'true';
+  
+  // Don't render navbar if coming soon mode is enabled
+  if (isComingSoonMode) {
+    return null;
+  }
 
   // Dynamic styles based on page type
   const getNavbarStyles = () => {
