@@ -50,17 +50,19 @@ const AboutRightFit: React.FC<AboutRightFitProps> = ({ data }) => {
     <section className="relative max-w-[2200px] mx-auto w-full bg-beige-one">
       <div className="relative flex flex-col lg:flex-row items-stretch min-h-[600px] lg:min-h-[700px]">
         {/* Left side - Text content */}
-        <div className="lg:w-1/2 flex flex-col justify-center px-[5vw] lg:px-[3.5vw] py-8 lg:py-10">
+        <div className="lg:w-1/2 flex flex-col justify-center px-[5vw] lg:pl-[3.5vw] lg:pr-[2vw] py-8 lg:py-10">
           {/* Title with heart */}
-          <div className="flex items-center gap-3 mb-8 lg:my-10">
+          <div className="flex items-start gap-3 mb-8 lg:my-10">
             <Image
               src="/heart-dark.svg"
               alt="Decorative heart"
               width={36}
               height={36}
+              className="mt-2 lg:mt-[10px]"
             />
+            
             <h2
-              className="font-domaine-display font-medium text-brown-one uppercase leading-tight"
+              className="font-domaine-display w-full font-medium text-brown-one uppercase leading-tight"
               style={{ fontSize: fontSizes.heroTitle }}
             >
               {data?.title || "WE'RE THE RIGHT FIT IF..."}
