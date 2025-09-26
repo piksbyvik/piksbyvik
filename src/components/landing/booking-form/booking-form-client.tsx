@@ -45,9 +45,12 @@ const BookingFormClient: React.FC = () => {
   };
 
   const handleCheckboxChange = (interest: string) => {
-    const currentlySelected = Object.values(formData.interests).filter(Boolean).length;
-    const isCurrentlyChecked = formData.interests[interest as keyof typeof formData.interests];
-    
+    const currentlySelected = Object.values(formData.interests).filter(
+      Boolean
+    ).length;
+    const isCurrentlyChecked =
+      formData.interests[interest as keyof typeof formData.interests];
+
     // If trying to check a new box and already have 3 selected, don't allow it
     if (!isCurrentlyChecked && currentlySelected >= 3) {
       return;
@@ -84,7 +87,9 @@ const BookingFormClient: React.FC = () => {
     }
 
     // Check if at least one interest is selected
-    const selectedInterestsCount = Object.values(formData.interests).filter(Boolean).length;
+    const selectedInterestsCount = Object.values(formData.interests).filter(
+      Boolean
+    ).length;
     if (selectedInterestsCount === 0) {
       setErrorMessage("Please select at least one area of interest");
       return false;
@@ -134,9 +139,9 @@ const BookingFormClient: React.FC = () => {
     setErrorMessage("");
 
     try {
-      const response = await fetch('/api/sendEmail', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/sendEmail", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           fullName: formData.fullName,
           email: formData.email,
@@ -149,19 +154,23 @@ const BookingFormClient: React.FC = () => {
 
       // Check if response is ok before parsing JSON
       if (!response.ok) {
-        let errorText = '';
+        let errorText = "";
         try {
           errorText = await response.text();
-          
+
           // Try to parse as JSON to get the actual error message
           try {
             const errorData = JSON.parse(errorText);
             throw new Error(errorData.error || `HTTP ${response.status}`);
           } catch (parseError) {
-            throw new Error(`HTTP ${response.status}: ${errorText || 'Unknown error'}`);
+            throw new Error(
+              `HTTP ${response.status}: ${errorText || "Unknown error"}`
+            );
           }
         } catch (textError) {
-          throw new Error(`HTTP ${response.status}: Unable to read error response`);
+          throw new Error(
+            `HTTP ${response.status}: Unable to read error response`
+          );
         }
       }
 
@@ -191,13 +200,15 @@ const BookingFormClient: React.FC = () => {
         });
         setHoneypot("");
       } else {
-        throw new Error(result.error || 'Unknown error occurred');
+        throw new Error(result.error || "Unknown error occurred");
       }
     } catch (error) {
-      console.error('Form submission error:', error);
+      console.error("Form submission error:", error);
       setSubmitStatus("error");
       setErrorMessage(
-        error instanceof Error ? error.message : "Failed to send message. Please try again."
+        error instanceof Error
+          ? error.message
+          : "Failed to send message. Please try again."
       );
     } finally {
       setIsSubmitting(false);
@@ -310,20 +321,21 @@ const BookingFormClient: React.FC = () => {
               style={{ fontSize: fontSizes.bodySmall }}
             >
               Event Date (if it&apos;s set in stone)
-            </label>
+            </label>{" "}
             <div className="relative">
+              {" "}
               <input
-                type="text"
+                type="date"
                 id="eventDate"
                 name="eventDate"
                 value={formData.eventDate}
                 onChange={handleInputChange}
                 placeholder="MM/DD/YY"
                 disabled={isSubmitting}
-                className="w-full px-4 py-3 bg-beige-one border border-brown-one/30 focus:border-brown-one focus:outline-none transition-colors font-inconsolata pr-12 disabled:opacity-50"
+                className="w-full px-4 py-3 bg-beige-one border border-brown-one/30 focus:border-brown-one focus:outline-none transition-colors font-inconsolata pr-12 disabled:opacity-50 [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:right-3 [&::-webkit-calendar-picker-indicator]:w-5 [&::-webkit-calendar-picker-indicator]:h-5 [&::-webkit-calendar-picker-indicator]:cursor-pointer"
                 style={{ fontSize: fontSizes.bodySmall }}
               />
-              <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+              <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
                 <Image
                   src="/calendar-icon.svg"
                   alt="calendar"
@@ -366,8 +378,6 @@ const BookingFormClient: React.FC = () => {
             >
               I&apos;m Interested In *
             </h3>
-            
-            
 
             <div className="space-y-4">
               {[
@@ -378,14 +388,18 @@ const BookingFormClient: React.FC = () => {
                 { key: "maternity", label: "Maternity" },
                 { key: "events", label: "Events" },
               ].map(({ key, label }) => {
-                const isChecked = formData.interests[key as keyof typeof formData.interests];
-                const selectedCount = Object.values(formData.interests).filter(Boolean).length;
-                const isDisabled = isSubmitting || (!isChecked && selectedCount >= 3);
-                
+                const isChecked =
+                  formData.interests[key as keyof typeof formData.interests];
+                const selectedCount = Object.values(formData.interests).filter(
+                  Boolean
+                ).length;
+                const isDisabled =
+                  isSubmitting || (!isChecked && selectedCount >= 3);
+
                 return (
                   <label
                     key={key}
-                    className={`flex items-center cursor-pointer group ${isDisabled ? 'cursor-not-allowed' : ''}`}
+                    className={`flex items-center cursor-pointer group ${isDisabled ? "cursor-not-allowed" : ""}`}
                   >
                     <div className="relative">
                       <input
@@ -397,16 +411,14 @@ const BookingFormClient: React.FC = () => {
                       />
                       <div
                         className={`w-5 h-5 border-2 border-brown-one transition-colors rounded-sm ${
-                          isChecked
-                            ? "bg-brown-one"
-                            : "bg-beige-one"
+                          isChecked ? "bg-brown-one" : "bg-beige-one"
                         } ${isDisabled ? "opacity-50 border-brown-one/30" : ""}`}
                       ></div>
                     </div>
                     <span
                       className={`ml-3 font-inconsolata text-brown-one transition-colors ${
-                        isDisabled 
-                          ? "opacity-50 text-brown-one/50" 
+                        isDisabled
+                          ? "opacity-50 text-brown-one/50"
                           : "group-hover:text-brown-two"
                       }`}
                       style={{ fontSize: fontSizes.bodySmall }}
