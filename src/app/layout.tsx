@@ -4,7 +4,7 @@ import {
   Instrument_Serif,
   La_Belle_Aurore,
 } from "next/font/google";
-import localFont from "next/font/local";
+  import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/shared/navbar";
 
@@ -73,8 +73,8 @@ export const metadata: Metadata = {
     default: "PiksByVik - Wedding | Lifestyle Photography",
     template: "%s | PiksByVik"
   },
-  description: "Vintage-inspired wedding photography capturing timeless moments. Based in NYC, serving couples worldwide with authentic, editorial-style photography.",
-  keywords: ["wedding photography", "lifestyle photography", "NY photographer", "vintage photography", "editorial photography", "couples photography"],
+  description: "Vintage-inspired wedding photography capturing timeless moments. Based in New York, serving couples worldwide with authentic, editorial-style photography.",
+  keywords: ["wedding photography", "lifestyle photography", "New York photographer", "vintage photography", "editorial photography", "couples photography"],
   authors: [{ name: "Victoria", url: "https://www.piksbyvikphotography.com" }],
   creator: "Victoria - PiksByVik",
   publisher: "PiksByVik",

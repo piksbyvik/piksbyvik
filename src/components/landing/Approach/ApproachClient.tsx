@@ -50,7 +50,7 @@ export function ApproachClient({ data }: ApproachClientProps) {
     }),
     []
   );
-
+   console.log('ApproachTitle:', data?.myApproachTab?.title);
   // Tab change handler
   const handleSectionChange = useCallback((section: "capture" | "approach") => {
     setActiveSection(section);
@@ -252,7 +252,8 @@ export function ApproachClient({ data }: ApproachClientProps) {
                       </svg>
                     </MotionLink>
                   </div>
-                </div>{" "}                {/* Categories */}
+                </div>{" "}
+                {/* Categories */}
                 <div className="flex flex-wrap lg:flex-nowrap justify-center gap-6 lg:gap-0 lg:justify-between bg-[#4C453B] w-full pb-6 lg:pb-10 pt-8 lg:pt-14 px-[5vw] lg:px-[3.5vw] relative z-30">
                   <div
                     className="absolute inset-0 z-30 opacity-30 pointer-events-none"
@@ -265,10 +266,10 @@ export function ApproachClient({ data }: ApproachClientProps) {
                   {data?.whatICaptureTab?.categories?.map((category, index) => (
                     <div
                       key={category.title || index}
-                      className="text-center relative z-40 lg:text-left w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] max-w-[350px] xl:max-w-[380px]"
+                      className=" relative z-40 lg:text-left w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] max-w-[350px] xl:max-w-[380px]"
                     >
                       <motion.h3
-                        className="font-instrument-serif font-medium text-beige-two pb-4 lg:pb-6 uppercase"
+                        className="font-instrument-serif font-medium text-beige-two pb-4 lg:pb-6 uppercase text-center"
                         style={{ fontSize: fontSizes.approachCategoryTitle }}
                         initial={{
                           opacity: 0,
@@ -347,7 +348,7 @@ export function ApproachClient({ data }: ApproachClientProps) {
                   />
                 </div>{" "}
                 {/* Content */}
-                <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 items-start w-full">
+                <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 items-center w-full">
                   {/* Image */}
                   <div className="w-full lg:w-[40%] xl:w-[35%] order-2 lg:order-1">
                     <div className="aspect-[3/4] mx-auto bg-brown-one p-3 shadow-xl overflow-hidden h-[400px] md:h-[450px] lg:h-[400px] xl:h-[450px]">
@@ -368,7 +369,7 @@ export function ApproachClient({ data }: ApproachClientProps) {
                       className="font-domaine-display font-medium text-brown-one text-center lg:text-left w-full"
                       style={{ fontSize: fontSizes.approachWayIWork }}
                     >
-                      {approachTitle}
+                      {data?.myApproachTab?.title}
                     </h2>
 
                     <div className="space-y-4 lg:space-y-6 text-brown-one">
@@ -444,7 +445,7 @@ export function ApproachClient({ data }: ApproachClientProps) {
                 />
                 <div className="absolute inset-0 bg-brown-one/50" />
                 <div className="relative z-10 h-full flex items-center justify-center lg:justify-start pl-4 lg:pl-20 pr-4 lg:pr-6 text-center lg:text-left">
-                  <div className="scale-[0.4] lg:scale-[0.9] absolute left-10 -top-4 lg:left-20 lg:top-4">
+                  <div className="scale-[0.4] lg:scale-[0.8] absolute left-10 -top-4 lg:left-20 lg:top-5">
                     <Image
                       src="/my-approach-hearts.svg"
                       alt="heart icons"

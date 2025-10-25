@@ -139,7 +139,7 @@ export default function InvestmentValueProps({ data }: InvestmentValuePropsProps
           {content.valueCards.map((card, index) => (
             <motion.div 
               key={index}
-              className={`border border-black p-6 md:p-8 rounded-2xl shadow-none`}
+              className={`border border-black p-6 md:p-8 shadow-none`}
               style={{ 
                 backgroundColor: card.backgroundColor === 'blue' ? 'var(--color-blue)' :
                                card.backgroundColor === 'brown-one' ? 'var(--color-brown-one)' :
