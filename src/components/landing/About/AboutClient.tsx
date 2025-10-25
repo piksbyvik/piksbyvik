@@ -258,6 +258,7 @@ const AboutClient: React.FC<AboutClientProps> = ({ data }) => {
                   ease: [0.25, 0.46, 0.45, 0.94],
                   delay: 1.8,
                 }}
+                className="lg:pt-8 md:pt-4 pt-0"
               >
                 <Link
                   href="/about"
