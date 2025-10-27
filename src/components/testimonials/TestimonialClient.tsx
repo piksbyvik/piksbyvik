@@ -320,7 +320,7 @@ const TestimonialClient: React.FC<TestimonialClientProps> = ({
           </div>
           {/* Text content - Reduced wrapper structure */}
           <article
-            className="order-2 lg:order-1 w-full lg:w-[40%] z-20"
+            className="order-2 lg:order-1 w-full lg:w-[45%] 2xl:w-[40%] z-20"
             style={{ color: textColor }}
           >
             {/* Testimonial text with word pairs */}
