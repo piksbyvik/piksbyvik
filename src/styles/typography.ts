@@ -21,7 +21,7 @@ export const fontSizes = {
   approachSidebarText: "clamp(24px, 2.2vw, 36px)",
   approachSidebarLabel: "clamp(10px, 1.2vw, 18px)",
   approachCategoryTitle: "clamp(24px, 2.3vw, 40px)",
-  approachBodyText: "clamp(14px, 1.6vw, 18px)",
+  approachBodyText: "clamp(14px, 1.6vw, 16px)",
   approachButtonText: "clamp(14px, 1.8vw, 24px)",
   approachQuote: "clamp(18px, 2.2vw, 32px)",
   
