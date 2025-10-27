@@ -28,12 +28,12 @@ export default function HeroClient({ data }: HeroClientProps) {
       }, 100);
     }, 500);
   }, []);
-
   return (
     <div ref={containerRef} className="w-full relative">
       <HeroBackground 
         backgroundImageUrls={data?.backgroundImageUrls}
         backgroundImageAlts={data?.backgroundImageAlts}
+        backgroundImagePositions={data?.backgroundImagePositions}
       />
 
       {/* Main content */}

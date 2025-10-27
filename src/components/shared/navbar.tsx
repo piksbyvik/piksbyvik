@@ -177,9 +177,9 @@ export default function Navbar() {
             </div>
 
             {/* Circular Image - Desktop only */}
-            <div className="hidden lg:block z-40 absolute w-64 h-80 rounded-[50%] top-20 right-10 border border-beige-one overflow-hidden">
+            <div className="hidden lg:block z-40 absolute w-76 h-100 rounded-[50%] top-20 right-10 border border-beige-one overflow-hidden">
               <Image
-                src="/gallery-4.png"
+                src="/nav-5.jpg"
                 alt="couple Image for navbar"
                 fill
                 className="object-cover rounded-[50%]"

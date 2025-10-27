@@ -36,99 +36,90 @@ interface InvestmentPackagesClientProps {
 const FALLBACK_WEDDING_PACKAGES: ProcessedPackageItem[] = [
   {
     title: "TRADITIONAL PACKAGE",
-    price: "$5600",
+    price: "$5800",
     imageUrl: null,
     features: [
-      "Upto 250 guests",
-      "10 hours of photo coverage by Me!",
+      "Up to 250 guests",
+      "10 hours of photo coverage",
       "Second Photographer Included",
       "1000+ fully enhanced & edited high-resolution JPEG images made available to client via digital download",
       "Personal printing & sharing rights",
       "Travel included up to 70 miles round trip (Over 70 miles round-trip results in an additional travel fee)",
-      "Preview of 100+ fully enhanced & edited high-resolution images made available to client 7-10 days following the wedding date",
+      "Preview of 100+ fully enhanced & edited high-resolution images made available to client within 7-10 days following the wedding date",
     ],
   },
   {
     title: "INTIMATE PACKAGE",
-    price: "$3800",
+    price: "$4000",
     imageUrl: null,
     features: [
-      "Up to 75 guests",
-      "8 hours of photo coverage",
-      "600+ fully enhanced & edited high-resolution images",
+      "Up to 60 guests",
+      "6 hours of photo coverage",
+      "600+ fully enhanced & edited high-resolution JPEG images made available to client via digital download",
       "Personal printing & sharing rights",
-      "Travel included up to 50 miles round trip",
-      "Preview of 75+ images within 5-7 days",
-      "Online gallery for easy sharing",
+      "Travel included up to 70 miles round trip (Over 70 miles round-trip results in an additional travel fee)",
+      "Preview of 50+ fully enhanced & edited high-resolution images made available to client within 5 days following the wedding date",
     ],
   },
   {
     title: "ELOPEMENT PACKAGE",
-    price: "$2200",
+    price: "$2000",
     imageUrl: null,
     features: [
-      "Up to 10 guests",
-      "4 hours of photo coverage",
-      "300+ fully enhanced & edited images",
+      "Up to 20 guests",
+      "3 hours of photo coverage",
+      "300+ fully enhanced & edited high-resolution JPEG images made available to client via digital download",
       "Personal printing & sharing rights",
-      "Travel included up to 30 miles round trip",
-      "Preview of 50+ images within 3-5 days",
-      "Intimate ceremony focus",
+      "Travel included up to 70 miles round trip (Over 70 miles round-trip results in an additional travel fee)",
+      "Preview of 20+ fully enhanced & edited high-resolution images made available to client within 5 days following the wedding date",
     ],
   },
 ];
 
 const FALLBACK_LIFESTYLE_PACKAGES: ProcessedPackageItem[] = [
   {
-    title: "FAMILY SESSIONS",
-    price: "$1200",
+    title: "FAMILY PACKAGE",
+    price: "$450",
     imageUrl: null,
     features: [
-      "Up to 1.5 hours of coverage",
-      "Location of your choice or studio",
-      "100+ edited high-resolution images",
+      "1 hour of coverage",
+      "80+ professionally edited images",
       "Personal printing & sharing rights",
-      "Online gallery for downloads",
-      "Perfect for family milestones & updates",
+      "Styling & location guide",
+      "Online client gallery for downloads",
     ],
   },
   {
-    title: "MATERNITY SESSIONS",
-    price: "$1400",
+    title: "MATERNITY PACKAGE",
+    price: "$450",
     imageUrl: null,
     features: [
-      "Up to 2 hours of coverage",
-      "Multiple outfit changes included",
-      "120+ edited high-resolution images",
-      "Partner & family shots included",
+      "1 hour of coverage",
+      "80+ professionally edited images",
       "Personal printing & sharing rights",
-      "Celebrating this beautiful chapter",
+      "Styling & location guide",
+      "Online client gallery for downloads",
     ],
   },
   {
-    title: "NEWBORN SESSIONS",
-    price: "$1600",
+    title: "NEWBORN SESSION",
+    price: "$550",
     imageUrl: null,
     features: [
-      "Up to 3 hours of coverage",
-      "In-home or studio setting",
-      "80+ edited high-resolution images",
-      "Family & sibling shots included",
-      "Props & styling assistance",
-      "Capturing those precious first weeks",
+      "Up to 90 minutes of coverage",
+      "80+ professionally edited images",
+      "Personal printing & sharing rights",
+      "Online client gallery for downloads",
+      "Adding one or more siblings to the session is a flat $50 fee (not per sibling).",
     ],
   },
   {
-    title: "JOURNEY TO MOTHERHOOD",
-    price: "$3200",
+    title: "JOURNEY TO MOTHERHOOD PACKAGE",
+    price: "$950",
     imageUrl: null,
     features: [
-      "Maternity session (2nd or 3rd trimester)",
-      "Newborn session (first 2 weeks)",
-      "6-month milestone session",
-      "300+ edited images across all sessions",
-      "Personal printing & sharing rights",
-      "Documenting your complete journey",
+      "Includes both maternity & newborn package combined into one",
+      "By booking together, you'll save $50 & ensure your story is captured from bump to baby with the same consistent style and care",
     ],
   },
 ];
@@ -148,33 +139,31 @@ const InvestmentPackagesClient: React.FC<InvestmentPackagesClientProps> = ({
   const [currentWeddingIndex, setCurrentWeddingIndex] = useState(0);
   const [currentLifestyleIndex, setCurrentLifestyleIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
-
   const fallbackData = {
     sectionTitle: "EXPLORE INVESTMENT",
     weddingPackages: FALLBACK_WEDDING_PACKAGES,
     engagementPackage: {
-      title: "Engagement Package",
-      price: "$1800",
+      title: "ENGAGEMENT PACKAGE",
+      price: "$450",
       imageUrl: null,
       features: [
-        "Up to 2 hours of coverage",
-        "Location of your choice",
-        "150+ edited high-res images",
+        "1 hour of coverage",
+        "80+ professionally edited images",
         "Personal printing & sharing rights",
-        "Online gallery for downloads",
+        "Styling & location guide",
+        "Online client gallery for downloads",
       ],
     },
     lifestylePackages: FALLBACK_LIFESTYLE_PACKAGES,
     eventsPackage: {
-      title: "Event Package",
-      price: "$2200",
+      title: "EVENTS PACKAGE",
+      price: "Starting From $650",
       imageUrl: null,
       features: [
-        "Up to 4 hours of coverage",
-        "Corporate events, parties, celebrations",
-        "200+ edited images",
+        "3 hour minimum coverage for $650 - each additional hour is $200",
+        "Unlimited professionally edited images",
         "Personal printing & sharing rights",
-        "Online gallery for downloads",
+        "Online client gallery for downloads",
       ],
     },
   };
@@ -273,7 +262,6 @@ const InvestmentPackagesClient: React.FC<InvestmentPackagesClientProps> = ({
     }
     return false;
   };
-
   const getExploreButtonText = () => {
     if (activeTab === "weddings") {
       const weddingPackages = packagesData.weddings;
@@ -295,10 +283,15 @@ const InvestmentPackagesClient: React.FC<InvestmentPackagesClientProps> = ({
       const nextPackage = lifestylePackages[nextIndex];
       if (!nextPackage) return "";
 
+      // Special case for "Journey to Motherhood"
+      if (nextPackage.title.toLowerCase().includes("journey") && nextPackage.title.toLowerCase().includes("motherhood")) {
+        return "View Motherhood Package";
+      }
+
       const sessionName = nextPackage.title.split(" ")[0].toLowerCase();
       const formattedName =
         sessionName.charAt(0).toUpperCase() + sessionName.slice(1);
-      return `View ${formattedName} Sessions`;
+      return `View ${formattedName} Package`;
     }
     return `More ${packageTabs.find((tab) => tab.key === activeTab)?.label} Options`;
   };

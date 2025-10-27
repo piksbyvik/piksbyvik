@@ -28,15 +28,15 @@ const InvestmentHeroClient: React.FC<InvestmentHeroClientProps> = ({ data }) => 
   const fallbackData = {
     title: "INVESTMENT",
     description:
-      "Your photos and film will only grow more valuable with time. That's why I share all pricing upfront - because transparency matters.",
+      "Memories captured in photos only grow more cherished with time.",
     heroImages: {
       mainImageUrl: null,
       topSmallImageUrl: null,
       bottomSmallImageUrl: null,
     },
     quoteOverlay: {
-      text: "Captured our day perfectly",
-      author: "Emily & Ryan",
+      text: "She really truly cares about you and this momentous occasion!!",
+      author: "Stephanie & Sean",
     },
     propImageUrl: null,
   };
@@ -44,10 +44,10 @@ const InvestmentHeroClient: React.FC<InvestmentHeroClientProps> = ({ data }) => 
   const content = data || fallbackData;
 
   return (
-    <section className="relative w-full min-h-screen bg-beige-one overflow-hidden pt-20 md:pt-24 pb-8 md:pb-16 lg:pb-[130px]">
+    <section className="relative w-full bg-beige-one overflow-hidden pt-20 md:pt-24 pb-8 md:pb-16 lg:pb-[130px]">
       {/* ...existing code... */}
       <div
-        className="absolute inset-0 z-5 opacity-12 pointer-events-none"
+        className="absolute inset-0 z-5 opacity-15 pointer-events-none"
         style={{
           backgroundImage: "url('/grain.webp')",
           backgroundRepeat: "repeat",
@@ -57,7 +57,7 @@ const InvestmentHeroClient: React.FC<InvestmentHeroClientProps> = ({ data }) => 
       <div className="relative w-full h-auto border-b pt-10 lg:pt-0">
         {/* Quote image - Desktop only */}
         <div className="hidden lg:block absolute bottom-0 -left-2">
-          <div className="relative w-[372px] h-[260px] border-2 border-b-0 border-black">
+          <div className="relative w-[302px] h-[260px] border border-black border-b-0">
             <ImageWithFallback
               src={content.propImageUrl}
               alt="Investment hero prop"
@@ -69,9 +69,9 @@ const InvestmentHeroClient: React.FC<InvestmentHeroClientProps> = ({ data }) => 
 
         <div className="relative z-20 px-[5vw] lg:px-[3.5vw] h-full flex items-start">
           {/* Handwritten quote overlay - Desktop only */}
-          <div className="hidden lg:block absolute bottom-1/4 left-1/4 z-10">
+          <div className="hidden lg:block absolute bottom-1/4 left-[22%] z-10">
             <p
-              className="font-la-belle-aurore text-black italic text-left leading-relaxed transform -rotate-7"
+              className="font-la-belle-aurore w-[60%] text-black italic text-left leading-relaxed transform -rotate-7"
               style={{ fontSize: fontSizes.bodyLarge }}
             >
               {content.quoteOverlay?.text || "Captured our day perfectly"}

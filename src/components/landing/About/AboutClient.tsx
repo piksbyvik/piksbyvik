@@ -222,11 +222,13 @@ const AboutClient: React.FC<AboutClientProps> = ({ data }) => {
                         delay: 1.2,
                       }}
                     >
-                      I&apos;m not just your photographer - I&apos;m your hype
-                      girl, your calm in the chaos, and your biggest fan behind
-                      the lens. I&apos;m here to capture your magic, the wild
-                      love, the quiet glances, the full-body laughs - all the
-                      moments that make your story uniquely you.
+                      Think of me not only as your photographer, but as your
+                      hype girl, your calm in the chaos, and your biggest fan
+                      behind the lens. Whether you&apos;re just starting your
+                      forever or building your family, I&apos;m here to capture
+                      it all — the wild love, the soft moments, the messy
+                      laughter, and the kind of magic that only happens when
+                      you&apos;re authentically yourselves.
                     </motion.p>
                     <motion.p
                       className="font-inconsolata font-medium text-black m-0"
@@ -240,10 +242,10 @@ const AboutClient: React.FC<AboutClientProps> = ({ data }) => {
                         delay: 1.35,
                       }}
                     >
-                      Whether we&apos;re dancing barefoot on Long Island or
-                      chasing sunsets across the globe, I&apos;ll be right there
-                      - grounding you, guiding you, and soaking in every ounce
-                      of light + love right alongside you ♡
+                      From dancing barefoot on Long Island to chasing sunsets
+                      across the globe, I&apos;ll be right there — grounding you,
+                      guiding you, and soaking in every ounce of light and love
+                      along the way.
                     </motion.p>
                   </>
                 )}

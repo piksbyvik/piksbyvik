@@ -9,14 +9,14 @@ import React, { useCallback, useMemo, useRef, useState } from "react";
 const fallbackTestimonials = [
   {
     id: 1,
-    text: "From the very first meeting, Victoria made us feel completely at ease. On our wedding day, they blended in so effortlessly - capturing the big moments, the quiet glances, and everything in between. Looking through our photos felt like reliving the day all over again. Every image holds so much emotion and beauty. We couldn't have asked for a more perfect way to remember one of the most important days of our lives.",
-    author: "Alexis & Nion",
+    text: "From start to finish Vik has been such a positive person to work with. She is incredibly talented and has an eye for all the little things. We have loved working with her and will continue to work with her for all of our future life events! -4/28/2025",
+    author: "Alexis & Dillon",
     imageUrl: "/testimonial-1.jpg",
   },
   {
     id: 2,
-    text: "From the very first meeting, Victoria made us feel completely at ease. On our wedding day, they blended in so effortlessly - capturing the big moments, the quiet glances, and everything in between. Looking through our photos felt like reliving the day all over again. Every image holds so much emotion and beauty. We couldn't have asked for a more perfect way to remember one of the most important days of our lives.",
-    author: "Sarah & Michael",
+    text: "RUNNNN to book Victoria! She made us feel so comfortable during our engagement shoot and the photos were amazing! The day of the wedding I was soooo happy to have Victoria, she basically doubled as a day of coordinator as she helped us make our timeline and made sure we stayed on schedule. She made sure to ask beforehand exactly what pictures we wanted. She doesn&apos;t make you feel awkward and posed and you can tell how genuinely happy and comfortable we look in our photos. We got a hugeee sneak peak gallery a week after the wedding and we're in love with every picture! Her work speaks for itself, she is AMAZING!",
+    author: "Katie & Andrew",
     imageUrl: "/what-i-capture-weddings-couples.png",
   },
 ];
@@ -183,7 +183,7 @@ const TestimonialClient: React.FC<TestimonialClientProps> = ({
         style={{
           backgroundImage: "url('/grain.webp')",
           backgroundRepeat: "repeat",
-          
+
           contain: "strict",
         }}
       />
@@ -196,22 +196,21 @@ const TestimonialClient: React.FC<TestimonialClientProps> = ({
           gridTemplateRows: "auto 1fr",
           alignItems: "lg:center",
         }}
-      >        {/* Decorative dots */}
-        
-          <div
-            className="absolute top-2 -right-4 md:top-5 md:-right-5 w-40 h-28 md:w-85 md:h-60 scale-[0.8] md:scale-100 z-10"
-            style={{ contain: "layout style paint" }}
-          >
-            <Image 
-              src="/dots-light.svg" 
-              alt="Decorative dots" 
-              className={textColor === "#403528" ? "brightness-0" : ""} 
-              width={390} 
-              height={340} 
-            />
-          </div>
-        
-
+      >
+        {" "}
+        {/* Decorative dots */}
+        <div
+          className="absolute top-2 -right-4 md:top-5 md:-right-5 w-40 h-28 md:w-85 md:h-60 scale-[0.8] md:scale-100 z-10"
+          style={{ contain: "layout style paint" }}
+        >
+          <Image
+            src="/dots-light.svg"
+            alt="Decorative dots"
+            className={textColor === "#403528" ? "brightness-0" : ""}
+            width={390}
+            height={340}
+          />
+        </div>
         {/* Header - Static content */}
         <header className="relative w-full md:w-[50%] px-[5vw] lg:px-[3.5vw] z-20">
           <h2
@@ -239,7 +238,6 @@ const TestimonialClient: React.FC<TestimonialClientProps> = ({
             {data?.subtitle || "from my couples ♡"}
           </p>
         </header>
-
         {/* Main content - Reduced wrapper structure */}
         <main
           className="w-full flex flex-col lg:flex-row lg:items-center lg:justify-between border-t border-b px-[5vw] lg:pl-[3.5vw] py-8 lg:py-0 relative"
@@ -247,20 +245,21 @@ const TestimonialClient: React.FC<TestimonialClientProps> = ({
             borderColor: borderColor,
             background: bgColor,
           }}
-        >          {/* Left decorative dots */}
+        >
+          {" "}
+          {/* Left decorative dots */}
           <div
-              className="hidden lg:block absolute -top-25 -left-20 w-80 h-56 z-0 opacity-80 scale-90"
-              style={{ contain: "layout style paint" }}
-            >
-             <Image 
-               src="/dots-light.svg" 
-               alt="Decorative dots" 
-               className={textColor === "#403528" ? "brightness-0" : ""} 
-               width={210} 
-               height={136} 
-             />
-            </div>
-
+            className="hidden lg:block absolute -top-25 -left-20 w-80 h-56 z-0 opacity-80 scale-90"
+            style={{ contain: "layout style paint" }}
+          >
+            <Image
+              src="/dots-light.svg"
+              alt="Decorative dots"
+              className={textColor === "#403528" ? "brightness-0" : ""}
+              width={210}
+              height={136}
+            />
+          </div>
           {/* Image container with preloading */}
           <div className="order-1 lg:order-2 w-full lg:w-1/2 flex justify-center lg:justify-end z-20 mb-8 lg:mb-0 px-0">
             <figure
@@ -319,7 +318,6 @@ const TestimonialClient: React.FC<TestimonialClientProps> = ({
               ))}
             </figure>
           </div>
-
           {/* Text content - Reduced wrapper structure */}
           <article
             className="order-2 lg:order-1 w-full lg:w-[40%] z-20"
@@ -406,11 +404,17 @@ const TestimonialClient: React.FC<TestimonialClientProps> = ({
                   fontSize: fontSizes.buttonText,
                   color: buttonColor,
                   borderColor: buttonColor,
-                  opacity: currentTestimonial === testimonials.length - 1 ? 0.5 : 1,
-                  cursor: currentTestimonial === testimonials.length - 1 ? "not-allowed" : "pointer",
+                  opacity:
+                    currentTestimonial === testimonials.length - 1 ? 0.5 : 1,
+                  cursor:
+                    currentTestimonial === testimonials.length - 1
+                      ? "not-allowed"
+                      : "pointer",
                 }}
                 onClick={handleNext}
-                disabled={currentTestimonial === testimonials.length - 1 || isAnimating}
+                disabled={
+                  currentTestimonial === testimonials.length - 1 || isAnimating
+                }
                 type="button"
                 aria-label="Next testimonial"
               >

@@ -161,7 +161,7 @@ const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ data }) => {
                           "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTk4yB0xXzXalGVZk8vr0w/8QAGhAAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAgBAQABPxDbGkjIooBx8fqNxWOVKO0OiPR5b/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAgBAgEBPwDbGkjIooBx8fqNxWOVKO0OiPR5b/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAgBAwEBPwDbGkjIooBx8fqNxWOVKO0OiPR5b//Z"
                         }
                         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        priority={index < 6}
+                        priority={index < 3}
                       />
                     </div>
 

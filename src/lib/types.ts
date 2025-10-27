@@ -50,6 +50,10 @@ export interface ProcessedHeroSectionData {
   locationText?: string;
   backgroundImageUrls?: string[]; // Pre-resolved URL strings
   backgroundImageAlts?: string[];
+  backgroundImagePositions?: {
+    desktop: string[];
+    mobile: string[];
+  };
 }
 
 export interface ProcessedInvestmentPackageItem {

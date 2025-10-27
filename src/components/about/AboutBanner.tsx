@@ -22,7 +22,7 @@ const AboutBanner: React.FC<AboutBannerProps> = ({ data }) => {
 
   // Fallback data without image
   const fallbackData = {
-    text: "If you were nodding along, I think we’d be a great fit. Let’s make something beautiful together.",
+    text: "If it feels right...let&apos;s capture your love story together!",
     backgroundImage: { asset: { url: "" } },
   };
 
@@ -37,7 +37,7 @@ const AboutBanner: React.FC<AboutBannerProps> = ({ data }) => {
       <div className="absolute inset-0 w-full h-full" style={{ zIndex: 0 }}>
         {content.backgroundImage?.asset?.url ? (
           <div
-            className="w-full h-full"
+            className="w-full h-full grayscale-100"
             style={{
               backgroundImage: `url('${content.backgroundImage.asset.url}')`,
               backgroundSize: "cover",
@@ -53,7 +53,7 @@ const AboutBanner: React.FC<AboutBannerProps> = ({ data }) => {
 
         {/* Grain overlay */}
         <div
-          className="absolute inset-0 z-5 opacity-25 pointer-events-none"
+          className="absolute inset-0 z-5 opacity-20 pointer-events-none"
           style={{
             backgroundImage: "url('/grain.webp')",
 
@@ -61,7 +61,8 @@ const AboutBanner: React.FC<AboutBannerProps> = ({ data }) => {
           }}
         />
       </div>
-      <div className="absolute inset-0 w-full h-full z-5 bg-black/20"/>
+     
+      <div className="absolute inset-0 w-full h-full z-5 bg-black/40"/>
 
       {/* Text content with proper z-index to ensure visibility */}
       <div className="relative z-10 w-full lg:max-w-[1360px] text-center px-4">

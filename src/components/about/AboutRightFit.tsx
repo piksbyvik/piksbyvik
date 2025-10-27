@@ -31,16 +31,16 @@ const AboutRightFit: React.FC<AboutRightFitProps> = ({ data }) => {
   // Default fit items if no data provided
   const defaultFitItems = [
     {
-      title: "YOU LOVE CANDID SHOTS",
-      description: "the little in-between moments that tell the truest story",
+      title: "YOU VALUE INTENTIONAL STORYTELLING",
+      description: "capturing moments with meaning, not just pretty pictures",
     },
     {
-      title: "YOU WANT TO FEEL RELAXED AT YOUR SESSION",
-      description: "no pressure, no posing—just being yourself",
+      title: "YOU WANT GUIDANCE WITHOUT POSING PRESSURE",
+      description: "gentle direction so you feel natural, never staged",
     },
     {
-      title: "YOU WANT A FRIEND AND A PHOTOGRAPHER",
-      description: "someone who gets you, not just takes your photo",
+      title: "YOU CARE ABOUT TRUE-TO-YOU EDITING & A TIMELESS LOOK",
+      description: "colors and tones that feel authentic today and forever",
     },
   ];
 
@@ -102,19 +102,17 @@ const AboutRightFit: React.FC<AboutRightFitProps> = ({ data }) => {
                 style={{ fontSize: fontSizes.bodyMedium }}
               >
                 {data?.bottomParagraph ||
-                  "When we work together, I'll take the time to really understand your story. My approach is calm and intentional, so you can relax and simply be yourself. In the end, you'll have photos that feel true, heartfelt, and timeless."}
+                  "The result? A collection of treasured memories turned into timeless imagery you&apos;ll love looking back on for years to come."}
               </p>
             </div>
-          </div>
-        </div>
-
-        {/* Right side - Image */}
+          </div>        </div>        {/* Right side - Image */}
         <div className="lg:w-1/2 relative min-h-[400px] lg:min-h-full">
           <ImageWithFallback
             src={getImageUrl(data?.sectionImage)}
             alt="Couple walking in field at sunset"
             fill
-            className="object-cover"
+            className="object-cover object-[50%_80%]"
+            
             fallback={
               <div className="w-full h-full bg-gradient-to-br from-beige-one to-brown-one"></div>
             }

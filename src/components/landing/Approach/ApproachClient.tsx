@@ -50,7 +50,7 @@ export function ApproachClient({ data }: ApproachClientProps) {
     }),
     []
   );
-   console.log('ApproachTitle:', data?.myApproachTab?.title);
+  console.log("ApproachTitle:", data?.myApproachTab?.title);
   // Tab change handler
   const handleSectionChange = useCallback((section: "capture" | "approach") => {
     setActiveSection(section);
@@ -438,28 +438,20 @@ export function ApproachClient({ data }: ApproachClientProps) {
                   src={data?.myApproachTab?.bottomQuoteBackground}
                   alt="Approach background"
                   fill
-                  className="object-cover"
+                  className="object-cover object-[50%_40%]"
                   fallback={
                     <div className="w-full h-full bg-gradient-to-br from-brown-one to-beige-one" />
                   }
                 />
                 <div className="absolute inset-0 bg-brown-one/50" />
-                <div className="relative z-10 h-full flex items-center justify-center lg:justify-start pl-4 lg:pl-20 pr-4 lg:pr-6 text-center lg:text-left">
-                  <div className="scale-[0.4] lg:scale-[0.8] absolute left-10 -top-4 lg:left-20 lg:top-5">
-                    <Image
-                      src="/my-approach-hearts.svg"
-                      alt="heart icons"
-                      width={94}
-                      height={122}
-                      className="object-cover"
-                    />
-                  </div>
+                <div className="relative w-full z-10 h-full flex flex-row-reverse items-end pb-6 md:pb-0 md:items-center justify-center lg:justify-start pl-4 lg:pl-20 pr-4 lg:pr-6 text-center lg:text-left">
                   <p
-                    className="text-white font-la-belle-aurore italic max-w-3xl leading-relaxed transform -rotate-1 lg:-rotate-4 mt-0 lg:mt-10"
+                    className="text-white realtive text-left font-la-belle-aurore max-w-[700px] leading-relaxed transform -rotate-3 lg:-rotate-4 mt-0 lg:mt-10"
                     style={{ fontSize: fontSizes.approachQuote }}
                   >
                     {data?.myApproachTab?.bottomQuote ||
                       '"Every photo is a piece of your story, told with light and love."'}
+                    
                   </p>
                 </div>
               </div>

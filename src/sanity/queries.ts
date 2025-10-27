@@ -1,9 +1,9 @@
 // Landing Page Queries - Optimized for performance
-export const LANDING_PAGE_QUERY = `*[_type == "landingPage"][0]{
-  "heroSection": *[_type == "heroSection"][0]{
+export const LANDING_PAGE_QUERY = `*[_type == "homePage"][0]{
+  heroSection {
     typewriterText,
     locationText,
-    backgroundImages[0...3] {
+    backgroundImages[0...5] {
       asset->{
         _id,
         url
@@ -11,7 +11,7 @@ export const LANDING_PAGE_QUERY = `*[_type == "landingPage"][0]{
       alt
     }
   },
-  "approachSection": *[_type == "approachSection"][0]{
+  approachSection {
     backgroundImage {
       asset->{
         _id,
@@ -50,7 +50,7 @@ export const LANDING_PAGE_QUERY = `*[_type == "landingPage"][0]{
       }
     }
   },
-  "aboutSection": *[_type == "aboutSection"][0]{
+  aboutSection {
     heading,
     description[0...3],
     profileImage {
@@ -63,11 +63,11 @@ export const LANDING_PAGE_QUERY = `*[_type == "landingPage"][0]{
     decorativeImage {
       asset->{
         _id,
-        url
+          url
       }
     }
   },
-  "gallerySection": *[_type == "gallerySection"][0]{
+  gallerySection {
     backgroundImage {
       asset->{
         _id,
@@ -89,7 +89,7 @@ export const LANDING_PAGE_QUERY = `*[_type == "landingPage"][0]{
   "testimonialSection": *[_type == "testimonial"][0]{
     title,
     subtitle,
-    testimonials[0...3] {
+    testimonials[0...10] {
       text,
       author,
       image {
@@ -220,7 +220,7 @@ export const INVESTMENT_PAGE_QUERY = `{
   "testimonialSection": *[_type == "testimonial"][0]{
     title,
     subtitle,
-    testimonials[0...3] {
+    testimonials[0...10] {
       text,
       author,
       image {

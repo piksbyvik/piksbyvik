@@ -32,7 +32,9 @@ interface AboutApproachProps {
 
 const AboutApproach: React.FC<AboutApproachProps> = ({ data }) => {
   // Helper function to resolve image URLs
-  const getImageUrl = (image: { asset: { _id: string; url: string; } } | undefined): string | null => {
+  const getImageUrl = (
+    image: { asset: { _id: string; url: string } } | undefined
+  ): string | null => {
     if (!image?.asset) return null;
     return urlFor(image.asset).url();
   };
@@ -53,30 +55,28 @@ const AboutApproach: React.FC<AboutApproachProps> = ({ data }) => {
         <div className="absolute inset-0 bg-brown-one/40"></div>
       </div>
 
-      
-
       {/* Grain overlay */}
       <div
-    className="absolute inset-0 z-5 opacity-25 pointer-events-none"
-    style={{
-      backgroundImage: "url('/grain.webp')",
-      
-      backgroundRepeat: "repeat",
-    }}
-  />
+        className="absolute inset-0 z-5 opacity-25 pointer-events-none"
+        style={{
+          backgroundImage: "url('/grain.webp')",
 
-      <div className="relative flex flex-col items-center gap-6 z-10 px-[5vw] lg:px-0 lg:max-w-3xl xl:max-w-5xl mx-auto">
+          backgroundRepeat: "repeat",
+        }}
+      />
 
+      <div className="relative flex flex-col items-center gap-10 z-10 px-[5vw] lg:px-0 lg:max-w-3xl xl:max-w-5xl mx-auto">
         {/* Main Quote */}
         <div className="text-center">
           <h1
             className="font-instrument-serif text-beige-one leading-tight"
             style={{ fontSize: fontSizes.galleryTitle }}
           >
-            {data?.title || "CAPTURING YOUR LOVE, LIKE THE WARM EMBRACE OF AUTUMN."}
+            {data?.title ||
+              "CAPTURING YOUR LOVE, LIKE THE WARM EMBRACE OF AUTUMN."}
           </h1>
         </div>
-        <div className="flex flex-col items-center gap-6 lg:max-w-2xl xl:max-w-4xl">
+        <div className="flex flex-col items-center gap-12 lg:max-w-2xl xl:max-w-4xl">
           {data?.paragraphs?.map((paragraph, index) => (
             <p
               key={index}
@@ -91,29 +91,16 @@ const AboutApproach: React.FC<AboutApproachProps> = ({ data }) => {
                 className="font-inconsolata text-beige-two leading-relaxed tracking-tight text-center"
                 style={{ fontSize: fontSizes.bodyMedium }}
               >
-                It is so hard to put into words how I capture a day or what my
-                approach is without using cliché words. If I had to put it into
-                words, I would say - I capture the days as they happen in its rawest
-                form while enhancing the moments through a creative eye.
-              </p>
-              <p
-                className="font-inconsolata text-beige-two leading-relaxed tracking-tight text-center"
-                style={{ fontSize: fontSizes.bodyMedium }}
-              >
-                I think the most beautiful moments are the ones that happen
-                naturally, so my goal is to make you feel comfortable and
-                comfortable for everyone. This comfortable is where I ease your
-                worries about posing for me and just let you in our time together
-                and give my advice on positioning, but I do not &quot;pose&quot; you in ways
-                that feel stiff because, to me, that isn&apos;t the true nature of
-                your love story.
-              </p>
-              <p
-                className="font-inconsolata text-beige-two leading-relaxed tracking-tight text-center"
-                style={{ fontSize: fontSizes.bodyMedium }}
-              >
-                With that, I approach a day honestly + bringing my guidance while
-                keeping your story and moments at the center of it all.
+                I capture your day as it unfolds — the raw, real moments — using
+                a creative eye to highlight the details that make it uniquely
+                yours. The moments I love most are the ones that happen
+                naturally, so my main focus is always making you feel
+                comfortable and relaxed. My approach is simple: I show up
+                honestly, offer guidance when you need it, and remain fully
+                present, keeping your story — all the little in-between moments
+                included — at the heart of everything I do, while making the
+                experience feel effortless, fun, and completely true to who you
+                are.
               </p>
             </>
           )}
@@ -124,7 +111,6 @@ const AboutApproach: React.FC<AboutApproachProps> = ({ data }) => {
             </button>
           </Link>
         </div>
-        
       </div>
     </section>
   );
