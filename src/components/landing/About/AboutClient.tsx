@@ -272,10 +272,8 @@ const AboutClient: React.FC<AboutClientProps> = ({ data }) => {
                   {data?.ctaButtonText || "MY STORY"}
                 </Link>
               </motion.div>
-            </div>
-
-            {/* Visual Content */}
-            <div className="relative flex justify-center items-center order-1 lg:order-2 z-20 flex-shrink-0">
+            </div>            {/* Visual Content */}
+            <div className="relative flex justify-center items-center order-1 lg:order-2 z-10 flex-shrink-0">
               <motion.div
                 variants={imageVariants}
                 initial="hidden"
@@ -313,11 +311,9 @@ const AboutClient: React.FC<AboutClientProps> = ({ data }) => {
                 />
               </motion.div>
             </div>
-          </div>
-
-          {/* Decorative Icons */}
+          </div>          {/* Decorative Icons */}
           <motion.div
-            className="absolute top-2 right-0 md:top-8 md:right-16 z-20 scale-80 md:scale-100"
+            className="absolute top-2 right-0 md:top-8 md:right-16 z-30 scale-80 md:scale-100"
             variants={iconVariants}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
@@ -335,7 +331,7 @@ const AboutClient: React.FC<AboutClientProps> = ({ data }) => {
           </motion.div>
 
           <motion.div
-            className="absolute top-6 right-2 md:top-6 md:right-6 scale-60 md:scale-70 z-10"
+            className="absolute top-6 right-2 md:top-6 md:right-6 scale-60 md:scale-70 z-30"
             variants={iconVariants}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}

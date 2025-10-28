@@ -77,7 +77,9 @@ export function HeroBackground({
       const img = new window.Image();
       img.src = imagesToUse[nextIndex];
     }
-  }, [currentImageIndex, imagesToUse, imagesLoaded]);  return (
+  }, [currentImageIndex, imagesToUse, imagesLoaded]);
+
+  return (
     <>
       {/* Background with absolute positioning */}
       <div className="absolute inset-0 z-0 w-full h-full">
@@ -89,6 +91,7 @@ export function HeroBackground({
           }
           fill
           priority
+          quality={100}
           className="object-cover"
           style={{
             objectPosition: 
