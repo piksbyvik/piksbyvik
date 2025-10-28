@@ -13,7 +13,6 @@ const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ data }) => {
   const [activeTab, setActiveTab] = useState<"weddings" | "lifestyle">(
     "weddings"
   );
-  const [isAnimating, setIsAnimating] = useState(false);
 
   // Fallback data
   const fallbackData = {
@@ -21,14 +20,11 @@ const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ data }) => {
     weddingImages: [],
     lifestyleImages: [],
   };
-
   const content = data || fallbackData;
 
-  const handleTabClick = async (tab: "weddings" | "lifestyle") => {
-    if (isAnimating || tab === activeTab) return;
-    setIsAnimating(true);
+  const handleTabClick = (tab: "weddings" | "lifestyle") => {
+    if (tab === activeTab) return;
     setActiveTab(tab);
-    setTimeout(() => setIsAnimating(false), 600);
   };
 
   const currentImages =
