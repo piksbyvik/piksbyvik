@@ -47,7 +47,7 @@ export function TypewriterText({
     hasStarted.current = false;
 
     if (isMultiWord && words.length > 0) {
-      console.log("Starting typewriter with words:", words);
+      
       
       // Multi-word cycling typewriter
       let currentWordIndex = 0;

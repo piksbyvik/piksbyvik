@@ -211,7 +211,7 @@ const AboutIntro: React.FC<AboutIntroProps> = ({ data }) => {
                   src={getImageUrl(data?.mainImage)}
                   alt="Victoria portrait main"
                   fill
-                  className="object-cover"
+                  className="object-cover object-[45%_50%]"
                 />
               </div>
             </div>
@@ -223,7 +223,7 @@ const AboutIntro: React.FC<AboutIntroProps> = ({ data }) => {
                   src={getImageUrl(data?.mainImage)}
                   alt="Victoria portrait main"
                   fill
-                  className="object-cover"
+                  className="object-cover object-[45%_50%]"
                 />
               </div>
             </div>

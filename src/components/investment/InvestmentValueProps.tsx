@@ -78,7 +78,7 @@ export default function InvestmentValueProps({ data }: InvestmentValuePropsProps
       
       {/* Camera icon (top right) */}
       <motion.div 
-        className="absolute top-24 -right-4 scale-[0.7] md:scale-[1] lg:top-8 md:right-8 z-10"
+        className="absolute top-16 -right-4 scale-[0.6] md:scale-[1] lg:top-8 md:right-8 z-10"
         animate={{
           y: [0, -10, 0],
           rotate: [0, -2, 0],
