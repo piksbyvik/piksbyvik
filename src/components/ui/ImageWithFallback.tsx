@@ -21,6 +21,8 @@ interface ImageWithFallbackProps {
   sizes?: string;
   // Image object-fit style
   objectFit?: "cover" | "contain" | "fill" | "none" | "scale-down";
+  // Image object-position style
+  objectPosition?: string;
   // Quality setting
   quality?: number;
 }
@@ -67,6 +69,7 @@ export const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({
   loadingComponent,
   sizes,
   objectFit = "cover",
+  objectPosition,
   quality = 100,
 }) => {
   const [imageError, setImageError] = useState(false);
@@ -87,7 +90,6 @@ export const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({
   if (isLoading && loadingComponent) {
     return loadingComponent;
   }
-
   const imageProps = {
     src,
     alt,
@@ -100,6 +102,7 @@ export const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({
     quality,
     ...(sizes && { sizes }),
     ...(fill ? { fill: true } : { width, height }),
+    ...(objectPosition && { style: { objectPosition } }),
   };
 
   return <Image {...imageProps} />;

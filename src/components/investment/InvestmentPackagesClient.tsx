@@ -299,8 +299,8 @@ const InvestmentPackagesClient: React.FC<InvestmentPackagesClientProps> = ({
     }
     return `More ${packageTabs.find((tab) => tab.key === activeTab)?.label} Options`;
   };
-
   const pkg = getCurrentPackage();
+
 
   if (!pkg) {
     return (
@@ -371,25 +371,19 @@ const InvestmentPackagesClient: React.FC<InvestmentPackagesClientProps> = ({
             ease: [0.25, 0.46, 0.45, 0.94],
           }}
         >
-          {" "}
-          <div
+          {" "}          <div
             className={cn(
               "relative w-full lg:w-[36%] h-[350px] md:h-[600px] lg:h-auto",
               "border-4 border-beige-one overflow-hidden shadow-lg",
               "mb-8 md:mb-0 flex-shrink-0"
             )}
-          >
-            <ImageWithFallback
+          >            <ImageWithFallback
               src={pkg?.imageUrl || null}
               alt={pkg?.title || "Package image"}
               fill
               placeholder="blur"
-              className={cn(
-                "object-cover",
-                pkg?.imagePosition
-                  ? `lg:object-center object-[${pkg.imagePosition}]`
-                  : "object-center"
-              )}
+              className="object-cover"
+              objectPosition={pkg?.imagePosition?.replace(/_/g, ' ') || '50% 50%'}
             />
           </div>
           <div className="w-full lg:w-[60%] flex flex-col items-start">
