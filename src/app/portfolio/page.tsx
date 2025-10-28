@@ -1,5 +1,6 @@
 
 import PortfolioGallery from "@/components/portfolio/PortfolioGallery";
+import Footer from "@/components/shared/footer";
 import { client } from "@/sanity/lib/client";
 import { PORTFOLIO_PAGE_QUERY, type PortfolioPageData } from "@/sanity/queries";
 
@@ -16,6 +17,7 @@ export default async function Portfolio() {
     return (
       <div className="w-screen relative">
         <PortfolioGallery data={data?.portfolioGallery} />
+        <Footer />
       </div>
     );
   } catch (error) {
@@ -25,6 +27,7 @@ export default async function Portfolio() {
     return (
       <div className="w-screen relative">
         <PortfolioGallery />
+        <Footer />
       </div>
     );
   }

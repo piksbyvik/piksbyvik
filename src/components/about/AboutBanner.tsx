@@ -34,7 +34,7 @@ const AboutBanner: React.FC<AboutBannerProps> = ({ data }) => {
     >{/* Background container with conditional rendering */}
       <div className="absolute inset-0 w-full h-full" style={{ zIndex: 0 }}>        {content.backgroundImage?.asset?.url ? (
           <div
-            className="w-full h-full grayscale-100 lg:bg-fixed bg-local"
+            className="w-full h-full grayscale-100 bg-local"
             style={{
               backgroundImage: `url('${content.backgroundImage.asset.url}')`,
               backgroundSize: "cover",

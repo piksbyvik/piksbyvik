@@ -20,14 +20,14 @@ const Footer: React.FC = () => {
           {/* Left Content - Logo and Navigation */}
           <div className="lg:col-span-8 space-y-6">
             {/* Logo */}
-            <div>
+            <Link href="/" className="hover:cursor-pointer">
               <Image
                 src="/logo-footer-version.svg"
                 alt="Piks by Vik Photography"
                 width={569}
                 height={134}
               />
-            </div>
+            </Link>
 
             {/* Navigation Grid */}
             <div className="grid grid-cols-2 md:grid-cols-3 gap-6 lg:gap-8 pt-10">
