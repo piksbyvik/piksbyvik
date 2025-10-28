@@ -317,7 +317,7 @@ const AboutClient: React.FC<AboutClientProps> = ({ data }) => {
 
           {/* Decorative Icons */}
           <motion.div
-            className="absolute top-2 right-0 md:top-8 md:right-16 z-10 scale-80 md:scale-100"
+            className="absolute top-2 right-0 md:top-8 md:right-16 z-20 scale-80 md:scale-100"
             variants={iconVariants}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
