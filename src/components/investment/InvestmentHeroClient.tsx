@@ -57,7 +57,7 @@ const InvestmentHeroClient: React.FC<InvestmentHeroClientProps> = ({ data }) => 
       <div className="relative w-full h-auto border-b pt-10 lg:pt-0">
         {/* Quote image - Desktop only */}
         <div className="hidden lg:block absolute bottom-0 -left-2">
-          <div className="relative w-[302px] h-[260px] border border-black border-b-0">
+          <div className="relative w-[302px] h-[260px] border border-black border-b-0 scale-90 origin-bottom-left 2xl:scale-100">
             <ImageWithFallback
               src={content.propImageUrl}
               alt="Investment hero prop"
@@ -69,9 +69,9 @@ const InvestmentHeroClient: React.FC<InvestmentHeroClientProps> = ({ data }) => 
 
         <div className="relative z-20 px-[5vw] lg:px-[3.5vw] h-full flex items-start">
           {/* Handwritten quote overlay - Desktop only */}
-          <div className="hidden lg:block absolute bottom-1/4 left-[22%] z-10">
+          <div className="hidden lg:block absolute bottom-1/4 left-1/4 2xl:left-[22%] z-10">
             <p
-              className="font-la-belle-aurore w-[60%] text-black italic text-left leading-relaxed transform -rotate-7"
+              className="font-la-belle-aurore w-[50%] 2xl:w-[60%] text-black italic text-left leading-relaxed transform -rotate-7"
               style={{ fontSize: fontSizes.bodyLarge }}
             >
               {content.quoteOverlay?.text || "Captured our day perfectly"}
@@ -150,7 +150,7 @@ const InvestmentHeroClient: React.FC<InvestmentHeroClientProps> = ({ data }) => 
 
                   {/* Bottom small image with reel overlay */}
                   <div className="h-[40%] w-full relative">
-                    <div className="border-2 md:border-3 lg:border-r-5 lg:border-t-2 lg:border-b-0 lg:border-l-2 h-full shadow-lg relative">
+                    <div className="border-2 md:border-3 lg:border-r-1 lg:border-t-1 lg:border-b-0 lg:border-l-1 h-full shadow-lg relative">
                       <div className="w-full h-full overflow-hidden border border-black lg:border-0">
                         <ImageWithFallback
                           src={content.heroImages?.bottomSmallImageUrl}

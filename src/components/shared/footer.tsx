@@ -134,7 +134,7 @@ const Footer: React.FC = () => {
               </div>
 
               {/* Handwritten Text - Hidden on mobile, shown on larger screens */}
-              <div className="hidden md:block absolute right-1/4 top-[17%] md:col-span-1">
+              <div className="hidden md:block absolute right-[30%] top-[17%] md:col-span-1">
                 <div className="mt-4">
                   <p
                     className="font-travel-november text-brown-one transform -rotate-18 leading-relaxed"

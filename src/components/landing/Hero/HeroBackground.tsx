@@ -12,7 +12,7 @@ interface HeroBackgroundProps {
 }
 
 const fallbackImages = ["/hero-1.webp"];
-const grainImageUrl = "/grain.webp";
+
 
 export function HeroBackground({
   backgroundImageUrls,

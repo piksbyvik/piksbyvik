@@ -50,7 +50,7 @@ export function ApproachClient({ data }: ApproachClientProps) {
     }),
     []
   );
-  console.log("ApproachTitle:", data?.myApproachTab?.title);
+  
   // Tab change handler
   const handleSectionChange = useCallback((section: "capture" | "approach") => {
     setActiveSection(section);
@@ -62,10 +62,7 @@ export function ApproachClient({ data }: ApproachClientProps) {
     [data?.whatICaptureTab?.title]
   );
 
-  const approachTitle = useMemo(
-    () => (data?.myApproachTab?.title || "THE WAY I WORK").split(""),
-    [data?.myApproachTab?.title]
-  );
+ 
 
   // TabButton (shared)
   const TabButton = ({
@@ -191,7 +188,7 @@ export function ApproachClient({ data }: ApproachClientProps) {
                   <div className="lg:hidden text-center pt-4 mb-4 -rotate-3">
                     <p
                       className="font-la-belle-aurore text-black"
-                      style={{ fontSize: fontSizes.bodyLarge }}
+                      style={{ fontSize: fontSizes.bodyMedium }}
                     >
                       {data?.whatICaptureTab?.quote ||
                         '"Because these days are worth remembering. ♡"'}
@@ -331,7 +328,7 @@ export function ApproachClient({ data }: ApproachClientProps) {
             <div className="w-full">
               <div className="relative w-full flex flex-col px-[5vw] lg:px-[3.5vw] pt-4 lg:pt-7 pb-8 lg:pb-12">
                 {/* Decorative hearts */}
-                <div className="hidden lg:block absolute top-4 right-20">
+                <div className="hidden lg:block scale-85 2xl:scale-100 absolute top-2 2xl:top-4 right-18 2xl:right-20">
                   <Image
                     src="/heart-dark.svg"
                     alt="Decorative heart"
@@ -339,7 +336,7 @@ export function ApproachClient({ data }: ApproachClientProps) {
                     height={40}
                   />
                 </div>
-                <div className="hidden lg:block absolute top-0 right-10 opacity-70 rotate-13">
+                <div className="hidden lg:block scale-90 2xl:scale-100 absolute top-0 right-10 opacity-70 rotate-13">
                   <Image
                     src="/heart-dark.svg"
                     alt="Decorative heart"
@@ -348,7 +345,7 @@ export function ApproachClient({ data }: ApproachClientProps) {
                   />
                 </div>{" "}
                 {/* Content */}
-                <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 items-center w-full">
+                <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 items-start w-full pt-6">
                   {/* Image */}
                   <div className="w-full lg:w-[40%] xl:w-[35%] order-2 lg:order-1">
                     <div className="aspect-[3/4] mx-auto bg-brown-one p-3 shadow-xl overflow-hidden h-[400px] md:h-[450px] lg:h-[400px] xl:h-[450px]">
@@ -366,7 +363,7 @@ export function ApproachClient({ data }: ApproachClientProps) {
                   {/* Text */}
                   <div className="flex flex-col items-start gap-4 lg:gap-8 w-full lg:w-[60%] xl:w-[65%] order-1 lg:order-2">
                     <h2
-                      className="font-domaine-display font-medium text-brown-one text-center lg:text-left w-full"
+                      className="font-domaine-display leading-none font-medium text-brown-one text-center lg:text-left w-full"
                       style={{ fontSize: fontSizes.approachWayIWork }}
                     >
                       {data?.myApproachTab?.title}

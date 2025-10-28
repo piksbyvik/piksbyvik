@@ -10,8 +10,8 @@ import Link from "next/link";
 const fallbackGalleryImages = [
   {
     id: 1,
-    src: "/gallery-4.png",
-    caption: "Jennifer & Anthony's Wedding",
+    src: "/gallery-1.avif",
+    caption: "Emily & Ryan's Wedding",
     link: "https://piksbyvik.passgallery.com/-piksbyvikfilmphotography/gallery",
     rotation: -3,
     shadowRotation: -8,
@@ -25,9 +25,9 @@ const fallbackGalleryImages = [
   },
   {
     id: 2,
-    src: "/gallery-4.png",
-    caption: "Emily & Ryan's Wedding",
-    link: "https://piksbyvik.passgallery.com/-piksbyvikfilmphotography/gallery",
+    src: "/gallery-2.avif",
+    caption: "Carly & Brian's Wedding",
+    link: "https://piksbyvik.passgallery.com/-carlybrianwedding/gallery",
     rotation: 2,
     shadowRotation: 6,
     decorativeElement: {
@@ -40,9 +40,9 @@ const fallbackGalleryImages = [
   },
   {
     id: 3,
-    src: "/gallery-4.png",
-    caption: "Emily & Ryan's Wedding",
-    link: "https://piksbyvik.passgallery.com/-piksbyvikfilmphotography/gallery",
+    src: "/gallery-3.avif",
+    caption: "Wesley & Eugene's Wedding",
+    link: "https://piksbyvik.passgallery.com/-wesleyeugenewedding/gallery",
     rotation: -1,
     shadowRotation: -7,
     decorativeElement: {
@@ -55,9 +55,9 @@ const fallbackGalleryImages = [
   },
   {
     id: 4,
-    src: "/gallery-4.png",
-    caption: "Amaris & Anthony's Wedding",
-    link: "https://piksbyvik.passgallery.com/-piksbyvikfilmphotography/gallery",
+    src: "/gallery-4.avif",
+    caption: "Nicole & Zach's Wedding",
+    link: "https://piksbyvik.passgallery.com/-nicolezachwedding/gallery",
     rotation: 3,
     shadowRotation: 8,
     decorativeElement: {
@@ -70,9 +70,9 @@ const fallbackGalleryImages = [
   },
   {
     id: 5,
-    src: "/gallery-4.png",
-    caption: "The Nguyen Maternity Session",
-    link: "https://piksbyvik.passgallery.com/-piksbyvikfilmphotography/gallery",
+    src: "/gallery-5.avif",
+    caption: "Elizabeth & Connor's Wedding",
+    link: "https://piksbyvik.passgallery.com/-elizabethconnorwedding/gallery",
     rotation: -2,
     shadowRotation: -6,
     decorativeElement: {
@@ -85,10 +85,10 @@ const fallbackGalleryImages = [
   },
   {
     id: 6,
-    src: "/gallery-4.png",
-    caption: "Amy's Maternity Session",
-    link: "https://piksbyvik.passgallery.com/-piksbyvikfilmphotography/gallery",
-    rotation: 1,
+    src: "/gallery-6.avif",
+    caption: "Julia & Peter's Wedding",
+    link: "https://piksbyvik.passgallery.com/-juliapeterwedding/gallery",
+    rotatioyn: 1,
     shadowRotation: 5,
     decorativeElement: {
       type: "pin",
@@ -281,7 +281,7 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
         </div>
 
         {/* Decorative Elements - Mobile responsive positioning */}
-        <div className="hidden sm:block absolute bottom-0 left-[25%] w-16 h-16 sm:w-20 sm:h-20 opacity-100 z-10 rotate-8 scale-80">
+        <div className="hidden sm:block absolute bottom-0 left-[32%] w-16 h-16 sm:w-20 sm:h-20 opacity-100 z-10 rotate-8 scale-80">
           <Image
             src="/heart-dark.svg"
             alt="Decorative heart"
