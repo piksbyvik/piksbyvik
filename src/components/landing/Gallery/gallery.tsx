@@ -105,6 +105,16 @@ interface GalleryProps {
 }
 
 const Gallery: React.FC<GalleryProps> = ({ data }) => {
+  // Mobile object positions - customize per image
+  const mobileObjectPositions = [
+    '50% 75%',  // Image 1
+    '50% 40%',  // Image 2
+    '90% 50%',  // Image 3
+    '50% 90%',  // Image 4
+    '50% 45%',  // Image 5
+    '50% 100%',  // Image 6
+  ];
+
   // Use Sanity data if available, otherwise fallback
   const backgroundImage = data?.backgroundImage
     ? urlFor(data.backgroundImage.asset).url()
@@ -122,7 +132,11 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
         fallbackGalleryImages[index]?.shadowRotation ||
         (index % 2 === 0 ? -6 : 6),
       decorativeElement: fallbackGalleryImages[index]?.decorativeElement,
-    })) || fallbackGalleryImages;
+      mobileObjectPosition: mobileObjectPositions[index] || '50% 50%',
+    })) || fallbackGalleryImages.map((item, index) => ({
+      ...item,
+      mobileObjectPosition: mobileObjectPositions[index] || '50% 50%',
+    }));
 
   return (
     <section
@@ -190,9 +204,7 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
                       height: "clamp(320px, 28vw, 400px)",
                     }}
                   />
-                </div>
-
-                {/* Main Polaroid - Direct responsive sizing */}
+                </div>                {/* Main Polaroid - Direct responsive sizing */}
                 <div className="relative z-20 transition-transform duration-300 group-hover:scale-[1.01]">
                   <Polaroid
                     imageSrc={image.src}
@@ -205,7 +217,7 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
                     }}
                     imgStyle={{
                       height: "clamp(310px, 28vw, 400px)",
-                    }}
+                    }}                    objectPosition={image.mobileObjectPosition}
                   />
 
                   {/* Decorative Element */}
