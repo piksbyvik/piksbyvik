@@ -80,8 +80,7 @@ export function HeroBackground({
   }, [currentImageIndex, imagesToUse, imagesLoaded]);
 
   return (
-    <>
-      {/* Background with absolute positioning */}
+    <>      {/* Background with absolute positioning */}
       <div className="absolute inset-0 z-0 w-full h-full">
         <Image
           src={imagesToUse[currentImageIndex]}
@@ -90,8 +89,8 @@ export function HeroBackground({
             "Vintage wedding photography"
           }
           fill
-          priority
-          quality={100}
+          loading="eager"
+          quality={95}
           className="object-cover"
           style={{
             objectPosition: 
@@ -100,6 +99,7 @@ export function HeroBackground({
                 : backgroundImagePositions?.desktop?.[currentImageIndex] || 'center'
           }}
           sizes="100vw"
+          unoptimized={true}
         />
       </div>
 
