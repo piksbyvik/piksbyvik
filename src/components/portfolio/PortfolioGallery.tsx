@@ -68,7 +68,8 @@ const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ data }) => {
         <div className="w-full flex">
           {/* Weddings Tab */}
           <button
-            className="w-1/2 flex justify-center items-center py-4 cursor-pointer bg-blue touch-manipulation"
+            className="w-1/2 flex justify-center items-center py-4 cursor-pointer bg-blue touch-manipulation active:scale-[0.98]"
+            onTouchStart={() => handleTabClick("weddings")}
             onClick={() => handleTabClick("weddings")}
             type="button"
             aria-label="View weddings gallery"
@@ -89,7 +90,8 @@ const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ data }) => {
 
           {/* Lifestyle Tab */}
           <button
-            className="w-1/2 flex justify-center items-center py-4 cursor-pointer bg-brown-one touch-manipulation"
+            className="w-1/2 flex justify-center items-center py-4 cursor-pointer bg-brown-one touch-manipulation active:scale-[0.98]"
+            onTouchStart={() => handleTabClick("lifestyle")}
             onClick={() => handleTabClick("lifestyle")}
             type="button"
             aria-label="View lifestyle gallery"
