@@ -67,14 +67,15 @@ const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ data }) => {
   };
 
   return (
-    <section className="relative min-h-screen bg-beige-one pt-19 md:pt-25">
-      {/* Simple Header Navigation */}
+    <section className="relative min-h-screen bg-beige-one pt-19 md:pt-25">      {/* Simple Header Navigation */}
       <div className="relative z-10 w-full border-b border-black">
         <div className="w-full flex">
           {/* Weddings Tab */}
-          <div
-            className="w-1/2 flex justify-center items-center py-4 cursor-pointer bg-blue"
+          <button
+            className="w-1/2 flex justify-center items-center py-4 cursor-pointer bg-blue touch-manipulation"
             onClick={() => handleTabClick("weddings")}
+            type="button"
+            aria-label="View weddings gallery"
           >
             <h2
               className={cn(
@@ -88,12 +89,14 @@ const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ data }) => {
             >
               WEDDINGS
             </h2>
-          </div>
+          </button>
 
           {/* Lifestyle Tab */}
-          <div
-            className="w-1/2 flex justify-center items-center py-4 cursor-pointer bg-brown-one"
+          <button
+            className="w-1/2 flex justify-center items-center py-4 cursor-pointer bg-brown-one touch-manipulation"
             onClick={() => handleTabClick("lifestyle")}
+            type="button"
+            aria-label="View lifestyle gallery"
           >
             <h2
               className={cn(
@@ -107,7 +110,7 @@ const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ data }) => {
             >
               LIFESTYLE
             </h2>
-          </div>
+          </button>
         </div>
       </div>
 

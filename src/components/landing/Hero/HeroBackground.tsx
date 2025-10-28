@@ -21,12 +21,26 @@ export function HeroBackground({
 }: HeroBackgroundProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Memoize images to prevent recalculation
   const imagesToUse = useMemo(
     () => (backgroundImageUrls?.length ? backgroundImageUrls : fallbackImages),
     [backgroundImageUrls]
   );
+
+  // Track screen size
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    // Set initial value
+    handleResize();
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   useEffect(() => {
     // Preload all images
     const preloadImages = async () => {
@@ -77,34 +91,17 @@ export function HeroBackground({
           priority
           className="object-cover"
           style={{
-            objectPosition: backgroundImagePositions?.desktop?.[currentImageIndex] || 'center'
-          }}
-          sizes="100vw"
-        />
-        {/* Mobile overlay with different positioning */}
-        <Image
-          src={imagesToUse[currentImageIndex]}
-          alt={
-            backgroundImageAlts?.[currentImageIndex] ||
-            "Vintage wedding photography"
-          }
-          fill
-          priority
-          className="object-cover md:hidden"
-          style={{
-            objectPosition: backgroundImagePositions?.mobile?.[currentImageIndex] || 'center'
+            objectPosition: 
+              isMobile
+                ? backgroundImagePositions?.mobile?.[currentImageIndex] || 'center'
+                : backgroundImagePositions?.desktop?.[currentImageIndex] || 'center'
           }}
           sizes="100vw"
         />
       </div>
 
-      {/* Grain overlay - only render when images are loaded */}
-      {imagesLoaded && (
-        <>
-          <div className="absolute inset-0 z-10 opacity-25 bg-black  pointer-events-none" />
-         
-        </>
-      )}
+      {/* Grain and dark overlay - always present */}
+      <div className="absolute inset-0 z-10 opacity-25 bg-black pointer-events-none" />
     </>
   );
 }
