@@ -14,7 +14,7 @@ import {
 // This automatically detects the environment
 const options = {
   next: {
-    revalidate: process.env.NODE_ENV === "production" ? 1800 : 30, // 30 min in prod, 30 sec in dev
+    revalidate: 0, // Disable cache temporarily to see changes immediately
   },
 };
 
