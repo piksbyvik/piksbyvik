@@ -28,21 +28,18 @@ const AboutBanner: React.FC<AboutBannerProps> = ({ data }) => {
 
   const content = data || fallbackData;
 
-  return (
-    <div
+  return (    <div
       ref={bannerRef}
       className="relative w-screen min-h-[240px] md:min-h-[400px] lg:h-[460px] py-12 lg:py-0 flex items-center justify-center overflow-hidden"
-    >
-      {/* Background container with conditional rendering */}
-      <div className="absolute inset-0 w-full h-full" style={{ zIndex: 0 }}>
-        {content.backgroundImage?.asset?.url ? (
+    >{/* Background container with conditional rendering */}
+      <div className="absolute inset-0 w-full h-full" style={{ zIndex: 0 }}>        {content.backgroundImage?.asset?.url ? (
           <div
-            className="w-full h-full grayscale-100"
+            className="w-full h-full grayscale-100 lg:bg-fixed bg-local"
             style={{
               backgroundImage: `url('${content.backgroundImage.asset.url}')`,
               backgroundSize: "cover",
               backgroundPosition: "center",
-              backgroundAttachment: "fixed",
+              
             }}
           />
         ) : (
@@ -61,8 +58,8 @@ const AboutBanner: React.FC<AboutBannerProps> = ({ data }) => {
           }}
         />
       </div>
-     
-      <div className="absolute inset-0 w-full h-full z-5 bg-black/40"/>
+
+      <div className="absolute inset-0 w-full h-full z-5 bg-black/40" />
 
       {/* Text content with proper z-index to ensure visibility */}
       <div className="relative z-10 w-full lg:max-w-[1360px] text-center px-4">

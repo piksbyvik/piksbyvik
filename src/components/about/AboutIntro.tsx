@@ -205,7 +205,7 @@ const AboutIntro: React.FC<AboutIntroProps> = ({ data }) => {
           {/* Right side - Images */}
           <div className="order-1 lg:order-2 relative h-[300px] md:h-[400px] lg:h-auto">
             {/* Mobile: Single centered image */}
-            <div className="lg:hidden absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[220px] h-[280px] md:w-[260px] md:h-[320px]">
+            <div className="lg:hidden border-brown-one border-3 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[220px] h-[280px] md:w-[260px] md:h-[320px]">
               <div className="relative w-full h-full overflow-hidden">
                 <ImageWithFallback
                   src={getImageUrl(data?.mainImage)}

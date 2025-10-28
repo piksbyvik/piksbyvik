@@ -163,7 +163,7 @@ export const INVESTMENT_PAGE_QUERY = `{
   },
   "investmentPackages": *[_type == "investmentPackages"][0]{
     sectionTitle,
-    weddingPackages[0...3] {
+    weddingPackages[0...4] {
       title,
       price,
       image {
@@ -172,6 +172,7 @@ export const INVESTMENT_PAGE_QUERY = `{
           url
         }
       },
+      imagePosition,
       features
     },
     engagementPackage {
@@ -183,6 +184,7 @@ export const INVESTMENT_PAGE_QUERY = `{
           url
         }
       },
+      imagePosition,
       features
     },
     lifestylePackages[0...4] {
@@ -194,6 +196,7 @@ export const INVESTMENT_PAGE_QUERY = `{
           url
         }
       },
+      imagePosition,
       features
     },
     eventsPackage {
@@ -205,6 +208,7 @@ export const INVESTMENT_PAGE_QUERY = `{
           url
         }
       },
+      imagePosition,
       features
     }
   },
@@ -595,6 +599,7 @@ export interface InvestmentPackagesData {
         url: string
       }
     }
+    imagePosition?: string
     features: string[]
   }>
   engagementPackage: {
@@ -606,6 +611,7 @@ export interface InvestmentPackagesData {
         url: string
       }
     }
+    imagePosition?: string
     features: string[]
   }
   lifestylePackages: Array<{
@@ -617,6 +623,7 @@ export interface InvestmentPackagesData {
         url: string
       }
     }
+    imagePosition?: string
     features: string[]
   }>
   eventsPackage: {
@@ -628,6 +635,7 @@ export interface InvestmentPackagesData {
         url: string
       }
     }
+    imagePosition?: string
     features: string[]
   }
 }

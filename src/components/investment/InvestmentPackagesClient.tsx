@@ -11,6 +11,7 @@ interface ProcessedPackageItem {
   title: string;
   price: string;
   imageUrl: string | null;
+  imagePosition?: string;
   features: string[];
 }
 
@@ -284,7 +285,10 @@ const InvestmentPackagesClient: React.FC<InvestmentPackagesClientProps> = ({
       if (!nextPackage) return "";
 
       // Special case for "Journey to Motherhood"
-      if (nextPackage.title.toLowerCase().includes("journey") && nextPackage.title.toLowerCase().includes("motherhood")) {
+      if (
+        nextPackage.title.toLowerCase().includes("journey") &&
+        nextPackage.title.toLowerCase().includes("motherhood")
+      ) {
         return "View Motherhood Package";
       }
 
@@ -367,9 +371,10 @@ const InvestmentPackagesClient: React.FC<InvestmentPackagesClientProps> = ({
             ease: [0.25, 0.46, 0.45, 0.94],
           }}
         >
+          {" "}
           <div
             className={cn(
-              "relative w-full lg:w-[36%] h-[300px] md:h-[400px] lg:h-auto",
+              "relative w-full lg:w-[36%] h-[350px] md:h-[600px] lg:h-auto",
               "border-4 border-beige-one overflow-hidden shadow-lg",
               "mb-8 md:mb-0 flex-shrink-0"
             )}
@@ -379,9 +384,14 @@ const InvestmentPackagesClient: React.FC<InvestmentPackagesClientProps> = ({
               alt={pkg?.title || "Package image"}
               fill
               placeholder="blur"
+              className={cn(
+                "object-cover",
+                pkg?.imagePosition
+                  ? `lg:object-center object-[${pkg.imagePosition}]`
+                  : "object-center"
+              )}
             />
           </div>
-
           <div className="w-full lg:w-[60%] flex flex-col items-start">
             <h2
               className="font-instrument-serif text-beige-one mb-4 capitalize"
@@ -413,14 +423,17 @@ const InvestmentPackagesClient: React.FC<InvestmentPackagesClientProps> = ({
                 >
                   • {feature}
                 </li>
-              ))}            </ul>
-            
+              ))}{" "}
+            </ul>
+
             {activeTab !== "weddings" && (
               <div className="font-inconsolata italic tracking-tight text-beige-one/90 text-sm md:text-xl mb-6 px-4 py-3 border-l-2 border-beige-one/30">
-                Your story might take us just down the road or miles away — either way, I&apos;m in! For select locations, a travel fee may apply.
+                Your story might take us just down the road or miles away —
+                either way, I&apos;m in! For select locations, a travel fee may
+                apply.
               </div>
             )}
-            
+
             <div className="flex flex-col sm:flex-row w-full justify-between items-start sm:items-center gap-6 sm:gap-4 mt-6">
               <Link
                 href="/contact"
@@ -435,14 +448,19 @@ const InvestmentPackagesClient: React.FC<InvestmentPackagesClientProps> = ({
 
               {hasMultiplePackages() && (
                 <div className="flex flex-col justify-center items-center">
-                  
                   <button
                     onClick={handleExploreMoreClick}
                     className="font-domaine-display text-beige-one flex justify-start text-start items-center gap-3 hover:cursor-pointer hover:opacity-80 transition-opacity group"
                     style={{ fontSize: "clamp(18px, 3.5vw, 24px)" }}
                   >
                     <span className="">{getExploreButtonText()}</span>
-                    <Image src="/cta-arrow.svg" width={26} height={32} alt="" className="scale-120"/>
+                    <Image
+                      src="/cta-arrow.svg"
+                      width={26}
+                      height={32}
+                      alt=""
+                      className="scale-120"
+                    />
                   </button>
                 </div>
               )}
