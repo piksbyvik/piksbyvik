@@ -18,7 +18,7 @@ const ContactHero: React.FC<ContactHeroProps> = ({ data }) => {
   const heroText = data?.text || "GET IN TOUCH";
 
   return (
-    <section className="relative w-screen h-screen overflow-hidden pb-5">
+    <section className="relative w-screen h-screen overflow-hidden lg:pb-10 pb-50">
       {/* Background Image with fallback */}
       <div className="absolute inset-0 z-0">
         <ImageWithFallback
