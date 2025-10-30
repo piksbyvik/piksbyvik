@@ -1,18 +1,29 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, cubicBezier } from "motion/react";
 import { cn } from "@/lib/utils";
 import { PortfolioGalleryData } from "@/sanity/queries";
+import { useSearchParams } from "next/navigation";
 
 interface PortfolioGalleryProps {
   data?: PortfolioGalleryData;
 }
 
 const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ data }) => {
+  const searchParams = useSearchParams();
+  const tabParam = searchParams.get('tab');
+  
   const [activeTab, setActiveTab] = useState<"weddings" | "lifestyle">(
-    "weddings"
+    (tabParam === 'lifestyle' || tabParam === 'weddings') ? tabParam : "weddings"
   );
+
+  // Update active tab when URL parameter changes
+  useEffect(() => {
+    if (tabParam === 'lifestyle' || tabParam === 'weddings') {
+      setActiveTab(tabParam);
+    }
+  }, [tabParam]);
 
   // Fallback data
   const fallbackData = {

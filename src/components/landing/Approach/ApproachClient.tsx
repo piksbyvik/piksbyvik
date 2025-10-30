@@ -50,7 +50,7 @@ export function ApproachClient({ data }: ApproachClientProps) {
     }),
     []
   );
-  
+
   // Tab change handler
   const handleSectionChange = useCallback((section: "capture" | "approach") => {
     setActiveSection(section);
@@ -61,8 +61,6 @@ export function ApproachClient({ data }: ApproachClientProps) {
     () => (data?.whatICaptureTab?.title || "WHERE MY LENS LEADS").split(" "),
     [data?.whatICaptureTab?.title]
   );
-
- 
 
   // TabButton (shared)
   const TabButton = ({
@@ -258,15 +256,20 @@ export function ApproachClient({ data }: ApproachClientProps) {
                       backgroundImage: "url('/grain.webp')",
                       backgroundRepeat: "repeat",
                     }}
-                  />
-
-                  {data?.whatICaptureTab?.categories?.map((category, index) => (
-                    <div
+                  />                  {data?.whatICaptureTab?.categories?.map((category, index) => {
+                    // Determine which portfolio tab to link to based on category title
+                    const categoryTitle = category.title?.toLowerCase() || '';
+                    const isWeddingCategory = categoryTitle.includes('wedding');
+                    const portfolioTab = isWeddingCategory ? 'weddings' : 'lifestyle';
+                    
+                    return (
+                    <Link
                       key={category.title || index}
-                      className=" relative z-40 lg:text-left w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] max-w-[350px] xl:max-w-[380px]"
+                      href={`/portfolio?tab=${portfolioTab}`}
+                      className="relative z-40 lg:text-left w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] max-w-[350px] xl:max-w-[380px] group cursor-pointer block"
                     >
                       <motion.h3
-                        className="font-instrument-serif font-medium text-beige-two pb-4 lg:pb-6 uppercase text-center"
+                        className="font-instrument-serif font-medium text-beige-two pb-4 lg:pb-6 uppercase text-center group-hover:text-beige-one transition-colors duration-300"
                         style={{ fontSize: fontSizes.approachCategoryTitle }}
                         initial={{
                           opacity: 0,
@@ -286,9 +289,9 @@ export function ApproachClient({ data }: ApproachClientProps) {
                         }}
                       >
                         {category.title}
-                      </motion.h3>
-                      <div className="aspect-[4/5] relative overflow-hidden p-3 bg-beige-two border border-black z-40">
-                        <div className="w-full h-full relative z-40">
+                      </motion.h3>{" "}
+                      <div className="aspect-[4/5] relative bg-beige-two border border-black z-40 p-3 group-hover:border-beige-one transition-colors duration-300">
+                        <div className="w-full h-full relative overflow-hidden z-40">
                           <motion.div
                             className="w-full h-full relative z-40"
                             variants={animationConfig.imageRevealVariants}
@@ -312,12 +315,12 @@ export function ApproachClient({ data }: ApproachClientProps) {
                               />
                             ) : (
                               <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300" />
-                            )}
-                          </motion.div>
+                            )}                          </motion.div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    </Link>
+                  );
+                  })}
                 </div>
               </div>
             </>
@@ -448,7 +451,6 @@ export function ApproachClient({ data }: ApproachClientProps) {
                   >
                     {data?.myApproachTab?.bottomQuote ||
                       '"Every photo is a piece of your story, told with light and love."'}
-                    
                   </p>
                 </div>
               </div>
