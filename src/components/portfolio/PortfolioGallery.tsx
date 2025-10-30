@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, cubicBezier } from "motion/react";
 import { cn } from "@/lib/utils";
@@ -10,7 +10,7 @@ interface PortfolioGalleryProps {
   data?: PortfolioGalleryData;
 }
 
-const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ data }) => {
+const PortfolioGalleryContent: React.FC<PortfolioGalleryProps> = ({ data }) => {
   const searchParams = useSearchParams();
   const tabParam = searchParams.get('tab');
   
@@ -212,7 +212,20 @@ const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ data }) => {
           )}
         </AnimatePresence>
       </div>
-    </section>
+    </section>  );
+};
+
+const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ data }) => {
+  return (
+    <Suspense fallback={
+      <section className="relative min-h-screen bg-beige-one pt-19 md:pt-25 flex items-center justify-center">
+        <div className="animate-pulse text-brown-one font-inconsolata text-lg">
+          Loading gallery...
+        </div>
+      </section>
+    }>
+      <PortfolioGalleryContent data={data} />
+    </Suspense>
   );
 };
 
