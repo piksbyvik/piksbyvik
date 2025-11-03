@@ -109,7 +109,7 @@ const AboutRightFit: React.FC<AboutRightFitProps> = ({ data }) => {
         <div className="lg:w-1/2 relative min-h-[400px] lg:min-h-full">
           <ImageWithFallback
             src={getImageUrl(data?.sectionImage)}
-            alt="Couple walking in field at sunset"
+            alt="couple in a music studio holding albums"
             fill
             className="object-cover object-[50%_80%]"
             

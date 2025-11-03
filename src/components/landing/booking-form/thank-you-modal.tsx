@@ -242,8 +242,7 @@ const ThankYouModal: React.FC<ThankYouModalProps> = ({
             <motion.div
               className="w-full lg:w-3/5 relative order-2 lg:order-1"
               variants={imageVariants}
-            >
-              <div className="relative h-64 lg:h-full lg:min-h-[500px] overflow-hidden">
+            >              <div className="relative h-64 lg:h-full lg:min-h-[500px] overflow-hidden">
                 <motion.div className="w-full h-full absolute inset-y-0">
                   <Image
                     src="/thankyou-modal.avif"

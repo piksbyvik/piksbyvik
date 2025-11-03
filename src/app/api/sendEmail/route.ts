@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { google } from 'googleapis';
 
 interface RequestBody {
   fullName: string;
@@ -36,9 +37,7 @@ export async function POST(request: NextRequest) {
         { error: 'Invalid email format' },
         { status: 400 }
       );
-    }
-
-    // Check environment variables
+    }    // Check environment variables
     if (!process.env.EMAILJS_SERVICE_ID || !process.env.EMAILJS_TEMPLATE_ID || 
         !process.env.EMAILJS_PUBLIC_KEY || !process.env.EMAILJS_PRIVATE_KEY) {
       console.error('API Route - Missing EmailJS environment variables');
@@ -53,6 +52,21 @@ export async function POST(request: NextRequest) {
       .filter(([_, selected]) => selected)
       .map(([interest, _]) => interest)
       .join(", ");
+
+    // Log to Google Sheets first (backup in case email fails)
+    try {
+      await logToGoogleSheets({
+        fullName,
+        email,
+        eventDate: eventDate || "Not specified",
+        eventLocation,
+        interests: selectedInterests || "None specified",
+        vision: vision || "No additional details provided",
+      });
+    } catch (sheetError) {
+      console.error('Failed to log to Google Sheets:', sheetError);
+      // Continue with email sending even if sheets logging fails
+    }
 
     const templateParams = {
       to_name: "Vik",
@@ -135,4 +149,55 @@ export async function GET() {
     { error: 'Method Not Allowed' },
     { status: 405 }
   );
+}
+
+// Helper function to log to Google Sheets
+async function logToGoogleSheets(data: {
+  fullName: string;
+  email: string;
+  eventDate: string;
+  eventLocation: string;
+  interests: string;
+  vision: string;
+}) {
+  const auth = new google.auth.GoogleAuth({
+    credentials: {
+      client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+      private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+    },
+    scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+  });
+
+  const sheets = google.sheets({ version: 'v4', auth });
+  const spreadsheetId = process.env.GOOGLE_SHEET_ID;
+
+  const timestamp = new Date().toLocaleString('en-US', {
+    timeZone: 'America/New_York',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  });
+
+  const row = [
+    timestamp,
+    data.fullName,
+    data.email,
+    data.eventDate,
+    data.eventLocation,
+    data.interests,
+    data.vision,
+    'New', // Status column
+  ];
+
+  await sheets.spreadsheets.values.append({
+    spreadsheetId,
+    range: 'Sheet1!A:H', // Adjust if your sheet has a different name
+    valueInputOption: 'RAW',
+    requestBody: {
+      values: [row],
+    },
+  });
 }

@@ -30,7 +30,7 @@ const AboutHero: React.FC<AboutHeroProps> = ({ data }) => {
   {/* Background Image */}
   <div className="absolute inset-0 z-0">
     <Image
-      src={data?.backgroundImage ? urlFor(data.backgroundImage.asset).url() : "/about-hero-bg.jpg"}
+      src={data?.backgroundImage ? urlFor(data.backgroundImage.asset).url() : "/about-hero-bg.webp"}
       alt="About hero background"
       fill
       className="object-cover"

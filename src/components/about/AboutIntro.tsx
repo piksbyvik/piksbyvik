@@ -70,7 +70,7 @@ const AboutIntro: React.FC<AboutIntroProps> = ({ data }) => {
             />
           ) : (
             <Image
-              src="/about-intro-bg.jpg"
+              src="/about-intro-bg.avif"
               alt="Victoria portrait"
               fill
               className="opacity-30 object-cover"
