@@ -9,10 +9,7 @@ const nextConfig: NextConfig = {
         pathname: "/**",
       },
     ],
-    // Disable ALL Next.js image optimization - Sanity CDN handles everything
-    // This prevents Vercel cache write limits from being hit
-    unoptimized: true, // No Vercel optimization = no cache writes
-     // Cache for 1 year
+    
   },
   webpack: (config: any, { isServer }: { isServer: boolean }) => {
     if (process.env.ANALYZE === "true" && !isServer) {
